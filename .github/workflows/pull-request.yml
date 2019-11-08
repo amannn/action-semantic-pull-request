@@ -1,7 +1,9 @@
 name: 'Pull request'
-on: 
-  pull_request
-    types: [changes[title]]
+on:
+  pull_request:
+    types:
+      - changes
+        - title
 
 jobs:
   main:
