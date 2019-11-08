@@ -2,8 +2,8 @@ name: 'Pull request'
 on:
   pull_request:
     types:
-      - changes
-        - title
+      - opened
+      - edited
 
 jobs:
   main:
