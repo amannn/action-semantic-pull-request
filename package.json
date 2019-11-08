@@ -1,0 +1,24 @@
+{
+  "name": "action-semantic-pull-request",
+  "version": "0.0.1",
+  "description": "Ensure your PR title matches the Conventional Commits spec.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amannn/action-semantic-pull-request.git"
+  },
+  "keywords": [
+    "github-action",
+    "conventional-commits"
+  ],
+  "author": "Jan Amann <jan@amann.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/amannn/action-semantic-pull-request/issues"
+  },
+  "homepage": "https://github.com/amannn/action-semantic-pull-request#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^1.1.0"
+  }
+}
