@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.1.1](https://github.com/amannn/action-semantic-pull-request/compare/v1.1.0...v1.1.1) (2019-11-08)
+
+
+### Bug Fixes
+
+* Add release rules. ([82baf23](https://github.com/amannn/action-semantic-pull-request/commit/82baf23cacced0f9de53e24c7023d0c078303407))
+
 ## [1.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v1.0.1...v1.1.0) (2019-11-08)
 
 
