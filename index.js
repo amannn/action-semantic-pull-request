@@ -1,8 +1,13 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const parser = require('conventional-commits-parser');
+const validatePrTitle = require('./src/validatePrTitle');
 
-// console.log(JSON.stringify(github.context.payload.pull_request));
-// function parser (raw, options, regex) {
+async function run() {
+  try {
+    await validatePrTitle(github.context.payload.pull_request.title);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
 
-core.setFailed(JSON.stringify(github.context.payload.pull_request));
+run();

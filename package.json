@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "Ensure your PR title matches the Conventional Commits spec.",
   "main": "index.js",
+  "scripts": {
+    "test": "jest src"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/amannn/action-semantic-pull-request.git"
@@ -19,14 +22,20 @@
   "homepage": "https://github.com/amannn/action-semantic-pull-request#readme",
   "dependencies": {
     "@actions/core": "^1.2.0",
-    "@actions/github": "^1.1.0"
+    "@actions/github": "^1.1.0",
+    "conventional-commit-types": "^2.3.0",
+    "conventional-commits-parser": "^3.0.7"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^3.0.5",
-    "@semantic-release/commit-analyzer": "^6.3.3",
-    "@semantic-release/git": "^7.0.18",
-    "@semantic-release/release-notes-generator": "^7.3.2",
-    "conventional-changelog-conventionalcommits": "^4.2.1",
-    "semantic-release": "^15.13.30"
+    "@semantic-release/changelog": "3.0.5",
+    "@semantic-release/commit-analyzer": "6.3.3",
+    "@semantic-release/git": "7.0.18",
+    "@semantic-release/release-notes-generator": "7.3.2",
+    "conventional-changelog-conventionalcommits": "4.2.1",
+    "jest": "24.9.0",
+    "semantic-release": "15.13.30"
+  },
+  "engines": {
+    "node": "^12.0.0"
   }
 }
