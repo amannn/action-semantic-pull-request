@@ -20,5 +20,13 @@
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/github": "^1.1.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^3.0.5",
+    "@semantic-release/commit-analyzer": "^6.3.3",
+    "@semantic-release/git": "^7.0.18",
+    "@semantic-release/release-notes-generator": "^7.3.2",
+    "conventional-changelog-conventionalcommits": "^4.2.1",
+    "semantic-release": "^15.13.30"
   }
 }
