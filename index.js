@@ -15,7 +15,7 @@ async function run() {
     core.info(JSON.stringify(pullRequest));
 
     // TODO: This isn't up to date. use rest api?
-    await validatePrTitle(pullRequest.title);
+    await validatePrTitle(contextPullRequest.title);
   } catch (error) {
     core.setFailed(error.message);
   }
