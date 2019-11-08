@@ -5,8 +5,12 @@ const validatePrTitle = require('./src/validatePrTitle');
 async function run() {
   try {
     const client = new github.GitHub(process.env.GITHUB_TOKEN);
+    const contextPullRequest = github.context.payload.pull_request;
     const {data: pullRequest} = client.pulls.get({
-      url: github.context.payload.pull_request.url
+      owner: contextPullRequest.base.user.login,
+      repo: contextPullRequest.base.repo.name,
+      pull_number: contextPullRequest.number
+      // url: contextPullRequest.url
     });
     throw new Error(JSON.stringify(pullRequest));
 
