@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v1.0.1...v1.1.0) (2019-11-08)
+
+
+### Features
+
+* Implement validation. ([34328a3](https://github.com/amannn/action-semantic-pull-request/commit/34328a36f12c71ad96bc88ccae5e1c63a8bf8edd))
+
+
+### Bug Fixes
+
+* Use correct commands in release script. ([5cb4455](https://github.com/amannn/action-semantic-pull-request/commit/5cb44553114c40346982e8df4cf377e455e556a0))
+
 ### [1.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v1.0.0...v1.0.1) (2019-11-08)
 
 
