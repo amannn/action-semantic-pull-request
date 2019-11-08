@@ -8,7 +8,11 @@ This is helpful when you're using [semantic-release](https://github.com/semantic
 
 ```yml
 name: "Lint PR"
-on: [pull_request]
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
 
 jobs:
   main:
