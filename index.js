@@ -12,7 +12,7 @@ async function run() {
       pull_number: contextPullRequest.number
       // url: contextPullRequest.url
     });
-    throw new Error(JSON.stringify(pullRequest));
+    core.info(JSON.stringify(pullRequest));
 
     // TODO: This isn't up to date. use rest api?
     await validatePrTitle(pullRequest.title);
