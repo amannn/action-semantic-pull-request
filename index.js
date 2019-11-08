@@ -6,7 +6,7 @@ async function run() {
   try {
     const client = new github.GitHub(process.env.GITHUB_TOKEN);
     const contextPullRequest = github.context.payload.pull_request;
-    const {data: pullRequest} = client.pulls.get({
+    const {data: pullRequest} = await client.pulls.get({
       owner: contextPullRequest.base.user.login,
       repo: contextPullRequest.base.repo.name,
       pull_number: contextPullRequest.number
