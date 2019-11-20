@@ -13,13 +13,16 @@ async function run() {
       );
     }
 
+    const owner = contextPullRequest.base.user.login;
+    const repo = contextPullRequest.base.repo.name;
+
     // The pull request info on the context isn't up to date. When
     // the user updates the title and re-runs the workflow, it would
     // be outdated. Therefore fetch the pull request via the REST API
     // to ensure we use the current title.
     const {data: pullRequest} = await client.pulls.get({
-      owner: contextPullRequest.base.user.login,
-      repo: contextPullRequest.base.repo.name,
+      owner,
+      repo,
       pull_number: contextPullRequest.number
     });
 
@@ -31,6 +34,8 @@ async function run() {
     const response = await client.request(
       'POST /repos/:owner/:repo/statuses/:sha',
       {
+        owner,
+        repo,
         sha: pullRequest.head.sha,
         state: newStatus,
         target_url: 'https://github.com/amannn/action-semantic-pull-request',
