@@ -22,7 +22,7 @@ async function run() {
     const newStatus = isWip ? 'pending' : 'success';
 
     // https://developer.github.com/v3/repos/statuses/#create-a-status
-    request(
+    client.request(
       'POST /repos/:owner/:repo/statuses/:sha',
       github.context.repo({
         sha: pullRequest.head.sha,
