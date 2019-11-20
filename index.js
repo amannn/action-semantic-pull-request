@@ -11,6 +11,7 @@ async function run() {
     // be outdated. Therefore fetch the pull request via the REST API
     // to ensure we use the current title.
     const contextPullRequest = github.context.payload.pull_request;
+    core.info(contextPullRequest);
     const {data: pullRequest} = await client.pulls.get({
       owner: contextPullRequest.base.user.login,
       repo: contextPullRequest.base.repo.name,
