@@ -1,5 +1,10 @@
 name: 'Pull request'
 on:
+  # Running on push is necessary as a commit resets
+  # all checks and so they need to run again.
+  push:
+    branches:
+      - '*'
   pull_request:
     types:
       - opened
