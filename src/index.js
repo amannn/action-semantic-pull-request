@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const validatePrTitle = require('./src/validatePrTitle');
+const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
