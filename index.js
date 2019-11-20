@@ -40,7 +40,7 @@ async function run() {
         state: newStatus,
         target_url: 'https://github.com/amannn/action-semantic-pull-request',
         description: isWip
-          ? 'This pull request is marked with "[WIP]" in the title.'
+          ? 'This pull request is marked with "[WIP]".'
           : 'Ready for review.',
         context: 'Work in progress'
       }
