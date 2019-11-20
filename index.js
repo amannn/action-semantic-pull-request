@@ -40,9 +40,9 @@ async function run() {
         state: newStatus,
         target_url: 'https://github.com/amannn/action-semantic-pull-request',
         description: isWip
-          ? 'This pull request is marked with "[WIP]".'
-          : 'Ready for review.',
-        context: 'Work in progress'
+          ? 'This PR is marked with "[WIP]".'
+          : 'Ready for review & merge.',
+        context: 'action-semantic-pull-request'
       }
     );
 
