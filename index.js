@@ -6,7 +6,7 @@ async function run() {
   try {
     const client = new github.GitHub(process.env.GITHUB_TOKEN);
 
-    core.info(github.context.payload);
+    core.info(JSON.stringify(github.context.payload, null, 2));
 
     // The pull request info on the context isn't up to date. When
     // the user updates the title and re-runs the workflow, it would
