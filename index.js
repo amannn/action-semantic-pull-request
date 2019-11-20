@@ -39,11 +39,12 @@ async function run() {
         sha: pullRequest.head.sha,
         state: newStatus,
         target_url: 'https://github.com/amannn/action-semantic-pull-request',
-        description: isWip ? 'Work in progress' : 'Ready for review',
-        context: 'action-semantic-pull-request'
+        description: isWip
+          ? 'This pull request is marked with "[WIP]" in the title.'
+          : 'Ready for review.',
+        context: 'Work in progress'
       }
     );
-    core.info(response);
 
     if (!isWip) {
       await validatePrTitle(pullRequest.title);
