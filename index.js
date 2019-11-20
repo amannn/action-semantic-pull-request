@@ -28,14 +28,17 @@ async function run() {
     const newStatus = isWip ? 'pending' : 'success';
 
     // https://developer.github.com/v3/repos/statuses/#create-a-status
-    const response = await client.request('POST /repos/:owner/:repo/statuses/:sha', {
-      sha: pullRequest.head.sha,
-      state: newStatus,
-      target_url: 'https://github.com/amannn/action-semantic-pull-request',
-      description: isWip ? 'Work in progress' : 'Ready for review',
-      context: 'action-semantic-pull-request'
-    });
-    core.info(response))
+    const response = await client.request(
+      'POST /repos/:owner/:repo/statuses/:sha',
+      {
+        sha: pullRequest.head.sha,
+        state: newStatus,
+        target_url: 'https://github.com/amannn/action-semantic-pull-request',
+        description: isWip ? 'Work in progress' : 'Ready for review',
+        context: 'action-semantic-pull-request'
+      }
+    );
+    core.info(response);
 
     if (!isWip) {
       await validatePrTitle(pullRequest.title);
