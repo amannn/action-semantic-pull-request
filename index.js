@@ -8,12 +8,17 @@ async function run() {
 
     core.info(JSON.stringify(github.context.payload, null, 2));
 
+    const contextPullRequest = github.context.payload.pull_request;
+    if (!contextPullRequest) {
+      throw new Error(
+        "This action can only be invoked in `pull_request` events. Otherwise the pull request can't be inferred."
+      );
+    }
+
     // The pull request info on the context isn't up to date. When
     // the user updates the title and re-runs the workflow, it would
     // be outdated. Therefore fetch the pull request via the REST API
     // to ensure we use the current title.
-    const contextPullRequest = github.context.payload.pull_request;
-    core.info(contextPullRequest);
     const {data: pullRequest} = await client.pulls.get({
       owner: contextPullRequest.base.user.login,
       repo: contextPullRequest.base.repo.name,

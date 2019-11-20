@@ -1,14 +1,10 @@
 name: 'Pull request'
 on:
-  # Running on push is necessary as a commit resets
-  # all checks and so they need to run again.
-  push:
-    branches-ignore:
-      - master
   pull_request:
     types:
       - opened
       - edited
+      - synchronize
 
 jobs:
   main:
