@@ -13,6 +13,7 @@ on:
     types:
       - opened
       - edited
+      - synchronize
 
 jobs:
   main:
@@ -22,3 +23,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+Examples for valid PR titles:
+- fix: Correct typo.
+- feat: Add support for Node 12.
+- refactor!: Drop support for Node 6.
+
+Note that since PR titles only have a single line, you have to use the `!` syntax for breaking changes.
+
+See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
+
+Additionally, the special `[WIP] ` prefix is supported, to indicate that a pull request is work in progress and isn't ready to be merged. In this case the PR title isn't validated and the pull request checks remain pending.
