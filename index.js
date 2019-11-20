@@ -17,7 +17,25 @@ async function run() {
       pull_number: contextPullRequest.number
     });
 
-    await validatePrTitle(pullRequest.title);
+    // Pull requests that start with "[WIP] " are excluded from the check.
+    const isWip = /^\[WIP\]\s/.test(pullRequest.title);
+    const newStatus = isWip ? 'pending' : 'success';
+
+    // https://developer.github.com/v3/repos/statuses/#create-a-status
+    request(
+      'POST /repos/:owner/:repo/statuses/:sha',
+      github.context.repo({
+        sha: pullRequest.head.sha,
+        state: newStatus,
+        target_url: 'https://github.com/amannn/action-semantic-pull-request',
+        description: isWip ? 'Work in progress' : 'Ready for review',
+        context: 'action-semantic-pull-request'
+      })
+    );
+
+    if (!isWip) {
+      await validatePrTitle(pullRequest.title);
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
