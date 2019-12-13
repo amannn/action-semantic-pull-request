@@ -46,3 +46,12 @@ test('dotted paths', function (t) {
 
 	t.end();
 });
+
+test('accessors', { skip: !Object.getOwnPropertyDescriptor || typeof Map !== 'function' }, function (t) {
+	var actual = Object.getOwnPropertyDescriptor(Map.prototype, 'size');
+	t.ok(actual, 'Map.prototype.size has a descriptor');
+	t.equal(typeof actual.get, 'function', 'Map.prototype.size has a getter function');
+	t.equal(GetIntrinsic('%Map.prototype.size%'), actual.get, '%Map.prototype.size% yields the getter for it');
+
+	t.end();
+});

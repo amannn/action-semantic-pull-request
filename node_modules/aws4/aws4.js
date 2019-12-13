@@ -220,12 +220,22 @@ RequestSigner.prototype.canonicalString = function() {
   }
 
   if (query) {
-    queryStr = encodeRfc3986(querystring.stringify(Object.keys(query).sort().reduce(function(obj, key) {
+    var reducedQuery = Object.keys(query).reduce(function(obj, key) {
       if (!key) return obj
       obj[key] = !Array.isArray(query[key]) ? query[key] :
         (firstValOnly ? query[key][0] : query[key].slice().sort())
       return obj
-    }, {})))
+    }, {})
+    var encodedQueryPieces = []
+    Object.keys(reducedQuery).forEach(function(key) {
+      var encodedPrefix = encodeURIComponent(key) + '='
+      if (!Array.isArray(reducedQuery[key])) {
+        encodedQueryPieces.push(encodeRfc3986(encodedPrefix + encodeURIComponent(reducedQuery[key])))
+      } else {
+        reducedQuery[key].forEach(function(val) { encodedQueryPieces.push(encodeRfc3986(encodedPrefix + encodeURIComponent(val))) })
+      }
+    })
+    queryStr = encodedQueryPieces.sort().join('&')
   }
   if (pathStr !== '/') {
     if (normalizePath) pathStr = pathStr.replace(/\/{2,}/g, '/')
@@ -233,7 +243,7 @@ RequestSigner.prototype.canonicalString = function() {
       if (normalizePath && piece === '..') {
         path.pop()
       } else if (!normalizePath || piece !== '.') {
-        if (decodePath) piece = decodeURIComponent(piece)
+        if (decodePath) piece = decodeURIComponent(piece).replace(/\+/g, ' ')
         path.push(encodeRfc3986(encodeURIComponent(piece)))
       }
       return path
@@ -289,22 +299,21 @@ RequestSigner.prototype.defaultCredentials = function() {
 }
 
 RequestSigner.prototype.parsePath = function() {
-  var path = this.request.path || '/',
-      queryIx = path.indexOf('?'),
+  var path = this.request.path || '/'
+
+  // S3 doesn't always encode characters > 127 correctly and
+  // all services don't encode characters > 255 correctly
+  // So if there are non-reserved chars (and it's not already all % encoded), just encode them all
+  if (/[^0-9A-Za-z;,/?:@&=+$\-_.!~*'()#%]/.test(path)) {
+    path = encodeURI(decodeURI(path))
+  }
+
+  var queryIx = path.indexOf('?'),
       query = null
 
   if (queryIx >= 0) {
     query = querystring.parse(path.slice(queryIx + 1))
     path = path.slice(0, queryIx)
-  }
-
-  // S3 doesn't always encode characters > 127 correctly and
-  // all services don't encode characters > 255 correctly
-  // So if there are non-reserved chars (and it's not already all % encoded), just encode them all
-  if (/[^0-9A-Za-z!'()*\-._~%/]/.test(path)) {
-    path = path.split('/').map(function(piece) {
-      return encodeURIComponent(decodeURIComponent(piece))
-    }).join('/')
   }
 
   this.parsedPath = {

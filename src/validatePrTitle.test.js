@@ -5,8 +5,7 @@ it('detects valid PR titles', async () => {
     'fix: Fix bug',
     'fix!: Fix bug',
     'feat: Add feature',
-    'feat!: Add feature',
-    'refactor: Internal cleanup'
+    'feat!: Add feature'
   ];
 
   for (let index = 0; index < inputs.length; index++) {

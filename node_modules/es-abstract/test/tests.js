@@ -724,9 +724,8 @@ var es2015 = function ES2015(ES, ops, expectedMissing, skips) {
 		t.equal(ES.IsPropertyDescriptor(v.genericDescriptor()), true, 'generic descriptor is a Property Descriptor');
 
 		t['throws'](
-			function () {
-				ES.IsPropertyDescriptor(v.bothDescriptor());
-			}, TypeError,
+			function () { ES.IsPropertyDescriptor(v.bothDescriptor()); },
+			TypeError,
 			'a Property Descriptor can not be both a Data and an Accessor Descriptor'
 		);
 

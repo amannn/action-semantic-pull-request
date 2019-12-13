@@ -19,6 +19,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm run docs
+        env:
+          # workaround "Failed to replace env in config: ${NPM_TOKEN}" error
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - uses: maxheld83/ghpages@master
         env:
           BUILD_DIR: docs/
