@@ -9,6 +9,8 @@ var debug = require('object-inspect');
 
 var v = require('./helpers/values');
 
+require('./helpers/runManifestTest')(test, ES, 5);
+
 test('ToPrimitive', function (t) {
 	t.test('primitives', function (st) {
 		var testPrimitive = function (primitive) {

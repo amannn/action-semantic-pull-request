@@ -20,7 +20,7 @@ module.exports = async function run() {
     // the user updates the title and re-runs the workflow, it would
     // be outdated. Therefore fetch the pull request via the REST API
     // to ensure we use the current title.
-    const {data: pullRequest} = await client.pulls.get({
+    const { data: pullRequest } = await client.pulls.get({
       owner,
       repo,
       pull_number: contextPullRequest.number
@@ -28,24 +28,25 @@ module.exports = async function run() {
 
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = /^\[WIP\]\s/.test(pullRequest.title);
+
+    // When setting the status to "pending", the checks don't
+    // complete. We can utilize this to avoid failing the CI
+    // run which would lead to unnecessary notifications.
     const newStatus = isWip ? 'pending' : 'success';
 
-    // When setting the status to "pending", the checks don't complete.
     // https://developer.github.com/v3/repos/statuses/#create-a-status
-    const response = await client.request(
-      'POST /repos/:owner/:repo/statuses/:sha',
-      {
-        owner,
-        repo,
-        sha: pullRequest.head.sha,
-        state: newStatus,
-        target_url: 'https://github.com/amannn/action-semantic-pull-request',
-        description: isWip
-          ? 'This PR is marked with "[WIP]".'
-          : 'Ready for review & merge.',
-        context: 'action-semantic-pull-request'
-      }
-    );
+    await client.request('POST /repos/:owner/:repo/statuses/:sha', {
+      owner,
+      repo,
+      sha: pullRequest.head.sha,
+      state: newStatus,
+      target_url:
+        'https://github.com/tools-aoeur/action-semantic-pull-request',
+      description: isWip
+        ? 'This PR is marked with "[WIP]".'
+        : 'Ready for review & merge.',
+      context: 'action-semantic-pull-request'
+    });
 
     if (!isWip) {
       await validatePrTitle(pullRequest.title);

@@ -4,7 +4,7 @@ title: scripts
 description: How npm handles the "scripts" field
 ---
 
-# scripts
+# scripts(7)
 
 ## How npm handles the "scripts" field
 
@@ -13,7 +13,7 @@ description: How npm handles the "scripts" field
 npm supports the "scripts" property of the package.json file, for the
 following scripts:
 
-* **prepublish**:
+* **prepublish** (_as of npm@5, `prepublish` is deprecated. Use `prepare` for build steps and `prepublishOnly` for upload-only._):
   Run BEFORE the package is packed and published, as well as on local `npm
   install` without any arguments. (See below)
 * **prepare**:
@@ -265,7 +265,7 @@ above.
   only will prevent some optional features, then it's better to just
   print a warning and exit successfully.
 * Try not to use scripts to do what npm can do for you.  Read through
-  [`package.json`](/docs/configuring-npm/package-json) to see all the things that you can specify and enable
+  [`package.json`](/configuring-npm/package-json) to see all the things that you can specify and enable
   by simply describing your package appropriately.  In general, this
   will lead to a more robust and consistent state.
 * Inspect the env to determine where to put things.  For instance, if

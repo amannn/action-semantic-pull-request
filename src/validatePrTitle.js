@@ -1,22 +1,20 @@
-const parser = require('conventional-commits-parser').sync;
-const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
-const conventionalCommitTypes = require('conventional-commit-types');
+const allowedTypes = ['fix', 'feat'];
 
 module.exports = async function validatePrTitle(prTitle) {
-  const {parserOpts} = await conventionalCommitsConfig();
-  const result = parser(prTitle, parserOpts);
+  const result = prTitle.match(/(\w+)!?:/);
 
-  if (!result.type) {
+  if (!result) {
     throw new Error(
       `No release type found in pull request title "${prTitle}".` +
-        '\n\nAdd a prefix like "fix: ", "feat: " or "feat!: " to indicate what kind of release this pull request corresponds to. The title should match the commit mesage format as specified by https://www.conventionalcommits.org/.'
+        '\n\nAdd a prefix like "fix: ", "feat: " or "feat!: " to indicate what kind of release this pull request corresponds to. If your pull request is work-in-progress, you can add "[WIP]" as a prefix.'
     );
   }
 
-  const allowedTypes = Object.keys(conventionalCommitTypes.types);
-  if (!allowedTypes.includes(result.type)) {
+  const [, type] = result;
+
+  if (!allowedTypes.includes(type)) {
     throw new Error(
-      `Unknown release type "${result.type}" found in pull request title "${prTitle}".` +
+      `Unknown release type "${type}" found in pull request title "${prTitle}".` +
         `\n\nPlease use one of these recognized types: ${allowedTypes.join(
           ', '
         )}.`

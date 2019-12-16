@@ -8,7 +8,7 @@ const pathKey = (options = {}) => {
 		return 'PATH';
 	}
 
-	return Object.keys(environment).find(key => key.toUpperCase() === 'PATH') || 'Path';
+	return Object.keys(environment).reverse().find(key => key.toUpperCase() === 'PATH') || 'Path';
 };
 
 module.exports = pathKey;
