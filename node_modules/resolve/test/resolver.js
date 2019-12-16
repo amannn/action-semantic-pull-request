@@ -402,8 +402,8 @@ test('browser field in package.json', function (t) {
             basedir: dir,
             packageFilter: function packageFilter(pkg) {
                 if (pkg.browser) {
-                    pkg.main = pkg.browser;
-                    delete pkg.browser;
+                    pkg.main = pkg.browser; // eslint-disable-line no-param-reassign
+                    delete pkg.browser; // eslint-disable-line no-param-reassign
                 }
                 return pkg;
             }

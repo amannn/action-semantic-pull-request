@@ -91,11 +91,9 @@ function place_binary(from,to,opts,callback) {
         if (err) return callback(err);
         if (!req) return callback(new Error("empty req"));
         var badDownload = false;
-        var extractCount = 0;
         var hasResponse = false;
-        var tar = require('tar');
 
-        function afterTarball(err) {
+        function afterExtract(err, extractCount) {
             if (err) return callback(err);
             if (badDownload) return callback(new Error("bad download"));
             if (extractCount === 0) {
@@ -103,11 +101,6 @@ function place_binary(from,to,opts,callback) {
             }
             log.info('tarball', 'done parsing tarball');
             callback();
-        }
-
-        function filter_func(entry) {
-            log.info('install','unpacking ' + entry.path);
-            extractCount++;
         }
 
         // for request compatibility
@@ -151,14 +144,46 @@ function place_binary(from,to,opts,callback) {
                 return callback(err);
             }
             // start unzipping and untaring
-            req.pipe(tar.extract({
-              cwd: to,
-              strip: 1,
-              onentry: filter_func
-            }).on('close', afterTarball).on('error', callback));
+            req.pipe(extract(to, afterExtract));
         });
     });
 }
+
+function extract_from_local(from, to, callback) {
+    if (!fs.existsSync(from)) {
+        return callback(new Error('Cannot find file ' + from));
+    }
+    log.info('Found local file to extract from ' + from);
+    function afterExtract(err, extractCount) {
+        if (err) return callback(err);
+        if (extractCount === 0) {
+            return callback(new Error('There was a fatal problem while extracting the tarball'));
+        }
+        log.info('tarball', 'done parsing tarball');
+        callback();
+    }
+    fs.createReadStream(from).pipe(extract(to, afterExtract));
+}
+
+function extract(to, callback) {
+    var extractCount = 0;
+    function filter_func(entry) {
+        log.info('install','unpacking ' + entry.path);
+        extractCount++;
+    }
+
+    function afterTarball(err) {
+        callback(err, extractCount);
+    }
+
+    var tar = require('tar');
+    return tar.extract({
+        cwd: to,
+        strip: 1,
+        onentry: filter_func
+    }).on('close', afterTarball).on('error', callback);
+}
+
 
 function do_build(gyp,argv,callback) {
   var args = ['rebuild'].concat(argv);
@@ -235,7 +260,12 @@ function install(gyp, argv, callback) {
                     if (err) {
                         after_place(err);
                     } else {
-                        place_binary(from,to,opts,after_place);
+                        var fileName = from.startsWith('file://') && from.replace(/^file:\/\//, '');
+                        if (fileName) {
+                            extract_from_local(fileName, to, after_place);
+                        } else {
+                            place_binary(from,to,opts,after_place);
+                        }
                     }
                 });
             }

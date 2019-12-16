@@ -1,8 +1,6 @@
 "use strict";
 
 var fs = require('fs');
-var rm = require('rimraf');
-var log = require('npmlog');
 
 module.exports = exports;
 
@@ -115,6 +113,7 @@ module.exports.expand_commands = function(package_json, opts, commands) {
 };
 
 module.exports.get_napi_build_versions = function(package_json, opts, warnings) { // opts may be undefined
+	var log = require('npmlog');
 	var napi_build_versions = [];
 	var supported_napi_version = module.exports.get_napi_version(opts ? opts.target : undefined);
 	// remove duplicates, verify each napi version can actaully be built
@@ -167,6 +166,7 @@ module.exports.get_napi_build_version_from_command_args = function(command_args)
 
 module.exports.swap_build_dir_out = function(napi_build_version) {
 	if (napi_build_version) {
+		var rm = require('rimraf');
 		rm.sync(module.exports.get_build_dir(napi_build_version));
 		fs.renameSync('build', module.exports.get_build_dir(napi_build_version));
 	}
@@ -174,6 +174,7 @@ module.exports.swap_build_dir_out = function(napi_build_version) {
 
 module.exports.swap_build_dir_in = function(napi_build_version) {
 	if (napi_build_version) {
+		var rm = require('rimraf');
 		rm.sync('build');
 		fs.renameSync(module.exports.get_build_dir(napi_build_version), 'build');
 	}
