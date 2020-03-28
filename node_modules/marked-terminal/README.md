@@ -114,6 +114,8 @@ var defaultOptions = {
 
   // The size of tabs in number of spaces or as tab characters
   tab: 3 // examples: 4, 2, \t, \t\t
+
+  image: function (href, title, text) {} // function for overriding the default image handling.
 };
 ```
 

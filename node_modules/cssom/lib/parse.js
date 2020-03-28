@@ -240,7 +240,6 @@ CSSOM.parse = function parse(token) {
 				state = "before-selector";
 			} else if (state === "fontFaceRule-begin") {
 				if (parentRule) {
-					ancestorRules.push(parentRule);
 					fontFaceRule.parentRule = parentRule;
 				}
 				fontFaceRule.parentStyleSheet = styleSheet;

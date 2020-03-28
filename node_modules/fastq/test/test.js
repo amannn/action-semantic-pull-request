@@ -79,7 +79,6 @@ test('multiple executions, one after another', function (t) {
   }
 
   function worker (arg, cb) {
-    console.log('received', arg)
     t.equal(arg, toExec[count], 'arg matches')
     count++
     setImmediate(cb, null, arg)
@@ -144,6 +143,7 @@ test('pause && resume', function (t) {
   t.ok(queue.paused, 'it should be paused')
 
   queue.resume()
+  queue.resume() // second resume is a no-op
 
   t.notOk(queue.paused, 'it should not be paused')
 
@@ -151,6 +151,35 @@ test('pause && resume', function (t) {
     t.equal(arg, 42)
     worked = true
     cb(null, true)
+  }
+})
+
+test('pause in flight && resume', function (t) {
+  t.plan(9)
+
+  var queue = buildQueue(worker, 1)
+  var expected = [42, 24]
+
+  t.notOk(queue.paused, 'it should not be paused')
+
+  queue.push(42, function (err, result) {
+    t.error(err, 'no error')
+    t.equal(result, true, 'result matches')
+    t.ok(queue.paused, 'it should be paused')
+    process.nextTick(function () { queue.resume() })
+  })
+
+  queue.push(24, function (err, result) {
+    t.error(err, 'no error')
+    t.equal(result, true, 'result matches')
+    t.notOk(queue.paused, 'it should not be paused')
+  })
+
+  queue.pause()
+
+  function worker (arg, cb) {
+    t.equal(arg, expected.shift())
+    process.nextTick(function () { cb(null, true) })
   }
 })
 

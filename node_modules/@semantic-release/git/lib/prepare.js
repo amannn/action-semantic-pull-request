@@ -1,8 +1,10 @@
-const {template} = require('lodash');
+const {isPlainObject, isArray, template, castArray, uniq} = require('lodash');
+const micromatch = require('micromatch');
+const dirGlob = require('dir-glob');
+const pReduce = require('p-reduce');
 const debug = require('debug')('semantic-release:git');
 const resolveConfig = require('./resolve-config');
-const globAssets = require('./glob-assets.js');
-const {filterModifiedFiles, add, commit, push} = require('./git');
+const {getModifiedFiles, add, commit, push} = require('./git');
 
 /**
  * Prepare a release commit including configurable files.
@@ -20,32 +22,51 @@ module.exports = async (pluginConfig, context) => {
   const {
     env,
     cwd,
-    options: {branch, repositoryUrl},
+    branch,
+    options: {repositoryUrl},
     lastRelease,
     nextRelease,
     logger,
   } = context;
   const {message, assets} = resolveConfig(pluginConfig, logger);
 
-  if (assets && assets.length > 0) {
-    const globbedAssets = await globAssets(context, assets);
-    debug('globed assets: %o', globbedAssets);
+  const modifiedFiles = await getModifiedFiles({env, cwd});
 
-    const filesToCommit = await filterModifiedFiles(globbedAssets, {cwd, env});
+  const filesToCommit = uniq(
+    await pReduce(
+      assets.map(asset => (!isArray(asset) && isPlainObject(asset) ? asset.path : asset)),
+      async (result, asset) => {
+        const glob = castArray(asset);
+        let nonegate;
+        // Skip solo negated pattern (avoid to include every non js file with `!**/*.js`)
+        if (glob.length <= 1 && glob[0].startsWith('!')) {
+          nonegate = true;
+          debug(
+            'skipping the negated glob %o as its alone in its group and would retrieve a large amount of files ',
+            glob[0]
+          );
+        }
 
-    if (filesToCommit.length > 0) {
-      logger.log('Found %d file(s) to commit', filesToCommit.length);
-      await add(filesToCommit, {env, cwd});
-      debug('commited files: %o', filesToCommit);
-      await commit(
-        message
-          ? template(message)({branch, lastRelease, nextRelease})
-          : `chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}`,
-        {env, cwd}
-      );
-    }
+        return [
+          ...result,
+          ...micromatch(modifiedFiles, await dirGlob(glob, {cwd}), {dot: true, nonegate, cwd, expand: true}),
+        ];
+      },
+      []
+    )
+  );
 
-    await push(repositoryUrl, branch, {env, cwd});
+  if (filesToCommit.length > 0) {
+    logger.log('Found %d file(s) to commit', filesToCommit.length);
+    await add(filesToCommit, {env, cwd});
+    debug('commited files: %o', filesToCommit);
+    await commit(
+      message
+        ? template(message)({branch: branch.name, lastRelease, nextRelease})
+        : `chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}`,
+      {env, cwd}
+    );
+    await push(repositoryUrl, branch.name, {env, cwd});
     logger.log('Prepared Git release: %s', nextRelease.gitTag);
   }
 };

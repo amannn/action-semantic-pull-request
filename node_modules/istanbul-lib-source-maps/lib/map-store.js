@@ -7,10 +7,9 @@
 const path = require('path');
 const fs = require('fs');
 const debug = require('debug')('istanbuljs');
-const SMC = require('source-map').SourceMapConsumer;
+const { SourceMapConsumer } = require('source-map');
 const pathutils = require('./pathutils');
-const sourceStore = require('./source-store');
-const transformer = require('./transformer');
+const { SourceMapTransformer } = require('./transformer');
 
 /**
  * Tracks source maps for registered files
@@ -21,19 +20,25 @@ class MapStore {
      * @param {Boolean} opts.verbose [opts.verbose=false] verbose mode
      * @param {String} opts.baseDir [opts.baseDir=null] alternate base directory
      *  to resolve sourcemap files
-     * @param {String} opts.sourceStore [opts.sourceStore='memory'] - store that tracks
-     *  embedded sources found in source maps, one of 'memory' or 'file'
-     * @param {String} opts.tmpdir [opts.tmpdir=undefined] - temporary directory
-     *   to use for storing files.
+     * @param {Class} opts.SourceStore [opts.SourceStore=Map] class to use for
+     * SourceStore.  Must support `get`, `set` and `clear` methods.
+     * @param {Array} opts.sourceStoreOpts [opts.sourceStoreOpts=[]] arguments
+     * to use in the SourceStore constructor.
      * @constructor
      */
-    constructor(opts = {}) {
-        this.baseDir = opts.baseDir || null;
-        this.verbose = opts.verbose || false;
-        this.sourceStore = sourceStore.create(opts.sourceStore, {
-            tmpdir: opts.tmpdir
-        });
+    constructor(opts) {
+        opts = {
+            baseDir: null,
+            verbose: false,
+            SourceStore: Map,
+            sourceStoreOpts: [],
+            ...opts
+        };
+        this.baseDir = opts.baseDir;
+        this.verbose = opts.verbose;
+        this.sourceStore = new opts.SourceStore(...opts.sourceStoreOpts);
         this.data = Object.create(null);
+        this.sourceFinder = this.sourceFinder.bind(this);
     }
 
     /**
@@ -91,63 +96,101 @@ class MapStore {
     }
 
     /**
+     * Retrieve a source map object from this store.
+     * @param filePath - the file path for which the source map is valid
+     * @returns {Object} a parsed source map object
+     */
+    getSourceMapSync(filePath) {
+        try {
+            if (!this.data[filePath]) {
+                return;
+            }
+
+            const d = this.data[filePath];
+            if (d.type === 'file') {
+                return JSON.parse(fs.readFileSync(d.data, 'utf8'));
+            }
+
+            if (d.type === 'encoded') {
+                return JSON.parse(Buffer.from(d.data, 'base64').toString());
+            }
+
+            /* The caller might delete properties */
+            return {
+                ...d.data
+            };
+        } catch (error) {
+            debug('Error returning source map for ' + filePath);
+            debug(error.stack);
+
+            return;
+        }
+    }
+
+    /**
+     * Add inputSourceMap property to coverage data
+     * @param coverageData - the __coverage__ object
+     * @returns {Object} a parsed source map object
+     */
+    addInputSourceMapsSync(coverageData) {
+        Object.entries(coverageData).forEach(([filePath, data]) => {
+            if (data.inputSourceMap) {
+                return;
+            }
+
+            const sourceMap = this.getSourceMapSync(filePath);
+            if (sourceMap) {
+                data.inputSourceMap = sourceMap;
+                /* This huge property is not needed. */
+                delete data.inputSourceMap.sourcesContent;
+            }
+        });
+    }
+
+    sourceFinder(filePath) {
+        const content = this.sourceStore.get(filePath);
+        if (content !== undefined) {
+            return content;
+        }
+
+        if (path.isAbsolute(filePath)) {
+            return fs.readFileSync(filePath, 'utf8');
+        }
+
+        return fs.readFileSync(
+            pathutils.asAbsolute(filePath, this.baseDir),
+            'utf8'
+        );
+    }
+
+    /**
      * Transforms the coverage map provided into one that refers to original
      * sources when valid mappings have been registered with this store.
      * @param {CoverageMap} coverageMap - the coverage map to transform
-     * @returns {Object} an object with 2 properties. `map` for the transformed
-     * coverage map and `sourceFinder` which is a function to return the source
-     * text for a file.
+     * @returns {Promise<CoverageMap>} the transformed coverage map
      */
-    transformCoverage(coverageMap) {
-        const sourceFinder = filePath => {
-            const content = this.sourceStore.getSource(filePath);
-            if (content !== null) {
-                return content;
-            }
-
-            if (path.isAbsolute(filePath)) {
-                return fs.readFileSync(filePath, 'utf8');
-            }
-
-            return fs.readFileSync(
-                pathutils.asAbsolute(filePath, this.baseDir)
+    async transformCoverage(coverageMap) {
+        const hasInputSourceMaps = coverageMap
+            .files()
+            .some(
+                file => coverageMap.fileCoverageFor(file).data.inputSourceMap
             );
-        };
 
-        coverageMap.files().forEach(file => {
-            const coverage = coverageMap.fileCoverageFor(file);
-            if (coverage.data.inputSourceMap && !this.data[file]) {
-                this.registerMap(file, coverage.data.inputSourceMap);
-            }
-        });
-
-        if (Object.keys(this.data).length === 0) {
-            return {
-                map: coverageMap,
-                sourceFinder
-            };
+        if (!hasInputSourceMaps && Object.keys(this.data).length === 0) {
+            return coverageMap;
         }
 
-        const mappedCoverage = transformer
-            .create(filePath => {
+        const transformer = new SourceMapTransformer(
+            async (filePath, coverage) => {
                 try {
-                    if (!this.data[filePath]) {
+                    const obj =
+                        coverage.data.inputSourceMap ||
+                        this.getSourceMapSync(filePath);
+                    if (!obj) {
                         return null;
                     }
 
-                    const d = this.data[filePath];
-                    let obj;
-                    if (d.type === 'file') {
-                        obj = JSON.parse(fs.readFileSync(d.data, 'utf8'));
-                    } else if (d.type === 'encoded') {
-                        obj = JSON.parse(
-                            Buffer.from(d.data, 'base64').toString()
-                        );
-                    } else {
-                        obj = d.data;
-                    }
-
-                    const smc = new SMC(obj);
+                    const smc = new SourceMapConsumer(obj);
                     smc.sources.forEach(s => {
                         const content = smc.sourceContentFor(s);
                         if (content) {
@@ -155,10 +198,7 @@ class MapStore {
                                 s,
                                 filePath
                             );
-                            this.sourceStore.registerSource(
-                                sourceFilePath,
-                                content
-                            );
+                            this.sourceStore.set(sourceFilePath, content);
                         }
                     });
 
@@ -169,20 +209,17 @@ class MapStore {
 
                     return null;
                 }
-            })
-            .transform(coverageMap);
+            }
+        );
 
-        return {
-            map: mappedCoverage,
-            sourceFinder
-        };
+        return await transformer.transform(coverageMap);
     }
 
     /**
      * Disposes temporary resources allocated by this map store
      */
     dispose() {
-        this.sourceStore.dispose();
+        this.sourceStore.clear();
     }
 }
 

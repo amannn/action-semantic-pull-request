@@ -3,6 +3,8 @@ const nodeType = require("../node-type.js");
 const FocusEvent = require("../generated/FocusEvent.js");
 const idlUtils = require("../generated/utils.js");
 const { isDisabled } = require("./form-controls.js");
+const { firstChildWithLocalName } = require("./traversal");
+const { createAnEvent } = require("./events");
 const { HTML_NS } = require("./namespaces");
 
 const focusableFormElements = new Set(["input", "select", "textarea", "button"]);
@@ -20,7 +22,7 @@ exports.isFocusableAreaElement = elImpl => {
     return true;
   }
 
-  if (!Number.isNaN(parseInt(elImpl.getAttribute("tabindex")))) {
+  if (!Number.isNaN(parseInt(elImpl.getAttributeNS(null, "tabindex")))) {
     return true;
   }
 
@@ -29,7 +31,13 @@ exports.isFocusableAreaElement = elImpl => {
       return true;
     }
 
-    if (elImpl._localName === "a" && elImpl.hasAttribute("href")) {
+    if (elImpl._localName === "a" && elImpl.hasAttributeNS(null, "href")) {
+      return true;
+    }
+
+    if (elImpl._localName === "summary" && elImpl.parentNode &&
+        elImpl.parentNode._localName === "details" &&
+        elImpl === firstChildWithLocalName(elImpl.parentNode, "summary")) {
       return true;
     }
 
@@ -53,26 +61,16 @@ exports.fireFocusEventWithTargetAdjustment = (name, target, relatedTarget) => {
     return;
   }
 
-  const event = FocusEvent.createImpl(
-    [
-      name,
-      {
-        bubbles: false,
-        cancelable: false,
-        relatedTarget,
-        view: target._ownerDocument._defaultView,
-        detail: 0
-      }
-    ],
-    {
-      isTrusted: true
-    }
-  );
+  const event = createAnEvent(name, FocusEvent, {
+    composed: true,
+    relatedTarget,
+    view: target._ownerDocument._defaultView,
+    detail: 0
+  });
 
   if (target._defaultView) {
     target = idlUtils.implForWrapper(target._defaultView);
   }
 
-  // _dispatch allows setting isTrusted
   target._dispatch(event);
 };

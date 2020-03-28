@@ -19,12 +19,13 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: tools-aoeur/action-semantic-pull-request@v1.0.0
+      - uses: tools-aoeur/action-semantic-pull-request@v1.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 Examples for valid PR titles:
+
 - fix: Correct typo.
 - feat: Add support for Node 12.
 

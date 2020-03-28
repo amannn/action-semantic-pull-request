@@ -12,13 +12,13 @@ exports.implementation = class URLImpl {
     if (base !== undefined) {
       parsedBase = usm.basicURLParse(base);
       if (parsedBase === null) {
-        throw new TypeError("Invalid base URL");
+        throw new TypeError(`Invalid base URL: ${base}`);
       }
     }
 
     const parsedURL = usm.basicURLParse(url, { baseURL: parsedBase });
     if (parsedURL === null) {
-      throw new TypeError("Invalid URL");
+      throw new TypeError(`Invalid URL: ${url}`);
     }
 
     const query = parsedURL.query !== null ? parsedURL.query : "";
@@ -38,7 +38,7 @@ exports.implementation = class URLImpl {
   set href(v) {
     const parsedURL = usm.basicURLParse(v);
     if (parsedURL === null) {
-      throw new TypeError("Invalid URL");
+      throw new TypeError(`Invalid URL: ${v}`);
     }
 
     this._url = parsedURL;

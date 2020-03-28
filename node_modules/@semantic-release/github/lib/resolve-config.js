@@ -25,5 +25,9 @@ module.exports = (
   failComment,
   labels: isNil(labels) ? ['semantic-release'] : labels === false ? false : castArray(labels),
   assignees: assignees ? castArray(assignees) : assignees,
-  releasedLabels: isNil(releasedLabels) ? ['released'] : releasedLabels === false ? false : castArray(releasedLabels),
+  releasedLabels: isNil(releasedLabels)
+    ? [`released<%= nextRelease.channel ? \` on @\${nextRelease.channel}\` : "" %>`]
+    : releasedLabels === false
+    ? false
+    : castArray(releasedLabels),
 });

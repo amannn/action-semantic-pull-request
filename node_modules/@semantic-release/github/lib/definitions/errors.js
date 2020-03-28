@@ -3,7 +3,8 @@ const {isString} = require('lodash');
 const pkg = require('../../package.json');
 
 const [homepage] = pkg.homepage.split('#');
-const stringify = obj => (isString(obj) ? obj : inspect(obj, {breakLength: Infinity, depth: 2, maxArrayLength: 5}));
+const stringify = object =>
+  isString(object) ? object : inspect(object, {breakLength: Infinity, depth: 2, maxArrayLength: 5});
 const linkify = file => `${homepage}/blob/master/${file}`;
 
 module.exports = {
@@ -72,7 +73,7 @@ By default the \`repositoryUrl\` option is retrieved from the \`repository\` pro
 Your configuration for the \`proxy\` option is \`${stringify(proxy)}\`.`,
   }),
   EMISSINGREPO: ({owner, repo}) => ({
-    message: `The repository ${owner}/${repo} doesn't exist.`,
+    message: `The repository ${owner}/${repo} doesn’t exist.`,
     details: `The **semantic-release** \`repositoryUrl\` option must refer to your GitHub repository. The repository must be accessible with the [GitHub API](https://developer.github.com/v3).
 
 By default the \`repositoryUrl\` option is retrieved from the \`repository\` property of your \`package.json\` or the [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes) of the repository cloned by your CI environment.
@@ -82,7 +83,7 @@ If you are using [GitHub Enterprise](https://enterprise.github.com) please make 
     )}).`,
   }),
   EGHNOPERMISSION: ({owner, repo}) => ({
-    message: `The GitHub token doesn't allow to push on the repository ${owner}/${repo}.`,
+    message: `The GitHub token doesn’t allow to push on the repository ${owner}/${repo}.`,
     details: `The user associated with the [GitHub token](${linkify(
       'README.md#github-authentication'
     )}) configured in the \`GH_TOKEN\` or \`GITHUB_TOKEN\` environment variable must allows to push to the repository ${owner}/${repo}.

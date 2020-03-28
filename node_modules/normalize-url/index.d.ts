@@ -188,29 +188,22 @@ declare namespace normalizeUrl {
 	}
 }
 
-declare const normalizeUrl: {
-	/**
-	[Normalize](https://en.wikipedia.org/wiki/URL_normalization) a URL.
+/**
+[Normalize](https://en.wikipedia.org/wiki/URL_normalization) a URL.
 
-	@param url - URL to normalize, including [data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
+@param url - URL to normalize, including [data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs).
 
-	@example
-	```
-	import normalizeUrl = require('normalize-url');
+@example
+```
+import normalizeUrl = require('normalize-url');
 
-	normalizeUrl('sindresorhus.com');
-	//=> 'http://sindresorhus.com'
+normalizeUrl('sindresorhus.com');
+//=> 'http://sindresorhus.com'
 
-	normalizeUrl('HTTP://xn--xample-hva.com:80/?b=bar&a=foo');
-	//=> 'http://êxample.com/?a=foo&b=bar'
-	```
-	*/
-	(url: string, options?: normalizeUrl.Options): string;
-
-	// TODO: Remove this for the next major release, refactor the whole definition to:
-	// declare function normalizeUrl(url: string, options?: normalizeUrl.Options): string;
-	// export = normalizeUrl;
-	default: typeof normalizeUrl;
-};
+normalizeUrl('HTTP://xn--xample-hva.com:80/?b=bar&a=foo');
+//=> 'http://êxample.com/?a=foo&b=bar'
+```
+*/
+declare function normalizeUrl(url: string, options?: normalizeUrl.Options): string;
 
 export = normalizeUrl;

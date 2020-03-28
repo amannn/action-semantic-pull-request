@@ -51,11 +51,12 @@ class HTMLStyleElementImpl extends HTMLElementImpl {
       removeStylesheet(this.sheet, this);
     }
 
-    if (!this._attached) {
+    // Browsing-context connected, per https://github.com/whatwg/html/issues/4547
+    if (!this.isConnected || !this._ownerDocument._defaultView) {
       return;
     }
 
-    const type = this.getAttribute("type");
+    const type = this.getAttributeNS(null, "type");
     if (type !== null && type !== "" && !asciiCaseInsensitiveMatch(type, "text/css")) {
       return;
     }

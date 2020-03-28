@@ -45,6 +45,16 @@ function t() {
   return data;
 }
 
+function _helperModuleTransforms() {
+  const data = require("@babel/helper-module-transforms");
+
+  _helperModuleTransforms = function () {
+    return data;
+  };
+
+  return data;
+}
+
 function _semver() {
   const data = _interopRequireDefault(require("semver"));
 
@@ -139,36 +149,7 @@ class File {
   }
 
   getModuleName() {
-    const {
-      filename,
-      filenameRelative = filename,
-      moduleId,
-      moduleIds = !!moduleId,
-      getModuleId,
-      sourceRoot: sourceRootTmp,
-      moduleRoot = sourceRootTmp,
-      sourceRoot = moduleRoot
-    } = this.opts;
-    if (!moduleIds) return null;
-
-    if (moduleId != null && !getModuleId) {
-      return moduleId;
-    }
-
-    let moduleName = moduleRoot != null ? moduleRoot + "/" : "";
-
-    if (filenameRelative) {
-      const sourceRootReplacer = sourceRoot != null ? new RegExp("^" + sourceRoot + "/?") : "";
-      moduleName += filenameRelative.replace(sourceRootReplacer, "").replace(/\.(\w*?)$/, "");
-    }
-
-    moduleName = moduleName.replace(/\\/g, "/");
-
-    if (getModuleId) {
-      return getModuleId(moduleName) || moduleName;
-    } else {
-      return moduleName;
-    }
+    return (0, _helperModuleTransforms().getModuleName)(this.opts, this.opts);
   }
 
   addImport() {
@@ -200,7 +181,7 @@ class File {
       if (res) return res;
     }
 
-    helpers().ensure(name);
+    helpers().ensure(name, File);
     const uid = this.declarations[name] = this.scope.generateUidIdentifier(name);
     const dependencies = {};
 

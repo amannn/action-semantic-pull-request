@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file.
 
+## [4.1.0] - 2020-01-17
+
+### Changes
+
+- Add support for legacy auth token on the registry url (Gustav Blomér)
+
 ## [4.0.0] - 2019-06-17
 
 ### BREAKING

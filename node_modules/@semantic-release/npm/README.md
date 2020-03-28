@@ -8,12 +8,14 @@
 
 [![npm latest version](https://img.shields.io/npm/v/@semantic-release/npm/latest.svg)](https://www.npmjs.com/package/@semantic-release/npm)
 [![npm next version](https://img.shields.io/npm/v/@semantic-release/npm/next.svg)](https://www.npmjs.com/package/@semantic-release/npm)
+[![npm beta version](https://img.shields.io/npm/v/@semantic-release/npm/beta.svg)](https://www.npmjs.com/package/@semantic-release/npm)
 
-| Step               | Description                                                                                                                                   |
-|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| `verifyConditions` | Verify the presence of the `NPM_TOKEN` environment variable, create or update the `.npmrc` file with the token and verify the token is valid. |
-| `prepare`          | Update the `package.json` version and [create](https://docs.npmjs.com/cli/pack) the npm package tarball.                                      |
-| `publish`          | [Publish the npm package](https://docs.npmjs.com/cli/publish) to the registry.                                                                |
+| Step               | Description                                                                                                                                   |                                                                     |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `verifyConditions` | Verify the presence of the `NPM_TOKEN` environment variable, create or update the `.npmrc` file with the token and verify the token is valid. |                                                                     |
+| `prepare`          | Update the `package.json` version and [create](https://docs.npmjs.com/cli/pack) the npm package tarball.                                      |                                                                     |
+| `addChannel`       |                                                                                                                                               | [Add a release to a dist-tag](https://docs.npmjs.com/cli/dist-tag). |
+| `publish`          | [Publish the npm package](https://docs.npmjs.com/cli/publish) to the registry.                                                                |                                                                     |
 
 ## Install
 

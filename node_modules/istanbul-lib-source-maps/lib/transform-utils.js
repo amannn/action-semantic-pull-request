@@ -9,12 +9,13 @@ function getUniqueKey(pathname) {
 }
 
 function getOutput(cache) {
-    return Object.keys(cache).reduce((output, key) => {
-        const item = cache[key];
-        return Object.assign(output, {
-            [item.file]: item.mappedCoverage
-        });
-    }, {});
+    return Object.values(cache).reduce(
+        (output, { file, mappedCoverage }) => ({
+            ...output,
+            [file]: mappedCoverage
+        }),
+        {}
+    );
 }
 
 module.exports = { getUniqueKey, getOutput };

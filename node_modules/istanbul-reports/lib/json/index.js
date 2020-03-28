@@ -3,37 +3,42 @@
  Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
  */
 'use strict';
+const { ReportBase } = require('istanbul-lib-report');
 
-function JsonReport(opts) {
-    this.file = opts.file || 'coverage-final.json';
-    this.first = true;
-}
+class JsonReport extends ReportBase {
+    constructor(opts) {
+        super();
 
-JsonReport.prototype.onStart = function(root, context) {
-    this.contentWriter = context.writer.writeFile(this.file);
-    this.contentWriter.write('{');
-};
-
-JsonReport.prototype.onDetail = function(node) {
-    const fc = node.getFileCoverage();
-    const key = fc.path;
-    const cw = this.contentWriter;
-
-    if (this.first) {
-        this.first = false;
-    } else {
-        cw.write(',');
+        this.file = opts.file || 'coverage-final.json';
+        this.first = true;
     }
-    cw.write(JSON.stringify(key));
-    cw.write(': ');
-    cw.write(JSON.stringify(fc));
-    cw.println('');
-};
 
-JsonReport.prototype.onEnd = function() {
-    const cw = this.contentWriter;
-    cw.println('}');
-    cw.close();
-};
+    onStart(root, context) {
+        this.contentWriter = context.writer.writeFile(this.file);
+        this.contentWriter.write('{');
+    }
+
+    onDetail(node) {
+        const fc = node.getFileCoverage();
+        const key = fc.path;
+        const cw = this.contentWriter;
+
+        if (this.first) {
+            this.first = false;
+        } else {
+            cw.write(',');
+        }
+        cw.write(JSON.stringify(key));
+        cw.write(': ');
+        cw.write(JSON.stringify(fc));
+        cw.println('');
+    }
+
+    onEnd() {
+        const cw = this.contentWriter;
+        cw.println('}');
+        cw.close();
+    }
+}
 
 module.exports = JsonReport;

@@ -1,13 +1,13 @@
 'use strict';
 
 const fs = require('fs');
-const promisify = require('util.promisify');
+const util = require('util');
 
-const promisiedFsRealpath = promisify(fs.realpath);
+const promisiedFsRealpath = util.promisify(fs.realpath);
 
 function realpath(filepath) {
   if (typeof fs.realpath.native === 'function') {
-    return promisify(fs.realpath.native)(filepath);
+    return util.promisify(fs.realpath.native)(filepath);
   }
   const fsBinding = process.binding('fs');
 

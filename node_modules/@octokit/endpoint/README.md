@@ -61,10 +61,10 @@ Example for [List organization repositories](https://developer.github.com/v3/rep
 ```js
 const requestOptions = endpoint("GET /orgs/:org/repos", {
   headers: {
-    authorization: "token 0000000000000000000000000000000000000001"
+    authorization: "token 0000000000000000000000000000000000000001",
   },
   org: "octokit",
-  type: "private"
+  type: "private",
 });
 ```
 
@@ -283,10 +283,10 @@ const myEndpoint = require("@octokit/endpoint").defaults({
   baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
     "user-agent": "myApp/1.2.3",
-    authorization: `token 0000000000000000000000000000000000000001`
+    authorization: `token 0000000000000000000000000000000000000001`,
   },
   org: "my-project",
-  per_page: 100
+  per_page: 100,
 });
 
 request(myEndpoint(`GET /orgs/:org/repos`));
@@ -298,14 +298,14 @@ You can call `.defaults()` again on the returned method, the defaults will casca
 const myProjectEndpoint = endpoint.defaults({
   baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
-    "user-agent": "myApp/1.2.3"
+    "user-agent": "myApp/1.2.3",
   },
-  org: "my-project"
+  org: "my-project",
 });
 const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
   headers: {
-    authorization: `token 0000000000000000000000000000000000000001`
-  }
+    authorization: `token 0000000000000000000000000000000000000001`,
+  },
 });
 ```
 
@@ -320,7 +320,7 @@ The current default options.
 ```js
 endpoint.DEFAULTS.baseUrl; // https://api.github.com
 const myEndpoint = endpoint.defaults({
-  baseUrl: "https://github-enterprise.acme-inc.com/api/v3"
+  baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
 });
 myEndpoint.DEFAULTS.baseUrl; // https://github-enterprise.acme-inc.com/api/v3
 ```
@@ -333,16 +333,16 @@ Get the defaulted endpoint options, but without parsing them into request option
 const myProjectEndpoint = endpoint.defaults({
   baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
-    "user-agent": "myApp/1.2.3"
+    "user-agent": "myApp/1.2.3",
   },
-  org: "my-project"
+  org: "my-project",
 });
 myProjectEndpoint.merge("GET /orgs/:org/repos", {
   headers: {
-    authorization: `token 0000000000000000000000000000000000000001`
+    authorization: `token 0000000000000000000000000000000000000001`,
   },
   org: "my-secret-project",
-  type: "private"
+  type: "private",
 });
 
 // {
@@ -377,8 +377,8 @@ const options = endpoint("POST /markdown/raw", {
   data: "Hello world github/linguist#1 **cool**, and #1!",
   headers: {
     accept: "text/html;charset=utf-8",
-    "content-type": "text/plain"
-  }
+    "content-type": "text/plain",
+  },
 });
 
 // options is
@@ -409,9 +409,9 @@ endpoint(
     headers: {
       "content-type": "text/plain",
       "content-length": 14,
-      authorization: `token 0000000000000000000000000000000000000001`
+      authorization: `token 0000000000000000000000000000000000000001`,
     },
-    data: "Hello, world!"
+    data: "Hello, world!",
   }
 );
 ```

@@ -22,6 +22,10 @@ function encodeRfc3986(urlEncodedString) {
   })
 }
 
+function encodeRfc3986Full(str) {
+  return encodeRfc3986(encodeURIComponent(str))
+}
+
 // request: { path | body, [host], [method], [headers], [service], [region] }
 // credentials: { accessKeyId, secretAccessKey, [sessionToken] }
 function RequestSigner(request, credentials) {
@@ -222,20 +226,20 @@ RequestSigner.prototype.canonicalString = function() {
   if (query) {
     var reducedQuery = Object.keys(query).reduce(function(obj, key) {
       if (!key) return obj
-      obj[key] = !Array.isArray(query[key]) ? query[key] :
-        (firstValOnly ? query[key][0] : query[key].slice().sort())
+      obj[encodeRfc3986Full(key)] = !Array.isArray(query[key]) ? query[key] :
+        (firstValOnly ? query[key][0] : query[key])
       return obj
     }, {})
     var encodedQueryPieces = []
-    Object.keys(reducedQuery).forEach(function(key) {
-      var encodedPrefix = encodeURIComponent(key) + '='
+    Object.keys(reducedQuery).sort().forEach(function(key) {
       if (!Array.isArray(reducedQuery[key])) {
-        encodedQueryPieces.push(encodeRfc3986(encodedPrefix + encodeURIComponent(reducedQuery[key])))
+        encodedQueryPieces.push(key + '=' + encodeRfc3986Full(reducedQuery[key]))
       } else {
-        reducedQuery[key].forEach(function(val) { encodedQueryPieces.push(encodeRfc3986(encodedPrefix + encodeURIComponent(val))) })
+        reducedQuery[key].map(encodeRfc3986Full).sort()
+          .forEach(function(val) { encodedQueryPieces.push(key + '=' + val) })
       }
     })
-    queryStr = encodedQueryPieces.sort().join('&')
+    queryStr = encodedQueryPieces.join('&')
   }
   if (pathStr !== '/') {
     if (normalizePath) pathStr = pathStr.replace(/\/{2,}/g, '/')
@@ -244,7 +248,7 @@ RequestSigner.prototype.canonicalString = function() {
         path.pop()
       } else if (!normalizePath || piece !== '.') {
         if (decodePath) piece = decodeURIComponent(piece).replace(/\+/g, ' ')
-        path.push(encodeRfc3986(encodeURIComponent(piece)))
+        path.push(encodeRfc3986Full(piece))
       }
       return path
     }, []).join('/')

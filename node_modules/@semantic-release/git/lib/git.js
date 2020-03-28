@@ -2,20 +2,17 @@ const execa = require('execa');
 const debug = require('debug')('semantic-release:git');
 
 /**
- * Filter files modified on the local repository.
+ * Retrieve the list of files modified on the local repository.
  *
- * @param {Array<String>} files List of file paths to filter.
  * @param {Object} [execaOpts] Options to pass to `execa`.
  *
  * @return {Array<String>} Array of modified files path.
  */
-async function filterModifiedFiles(files, execaOpts) {
-  return files.length > 0
-    ? (await execa('git', ['ls-files', '-m', '-o', ...files], execaOpts)).stdout
-        .split('\n')
-        .map(file => file.trim())
-        .filter(file => Boolean(file))
-    : [];
+async function getModifiedFiles(execaOpts) {
+  return (await execa('git', ['ls-files', '-m', '-o'], execaOpts)).stdout
+    .split('\n')
+    .map(file => file.trim())
+    .filter(file => Boolean(file));
 }
 
 /**
@@ -65,4 +62,4 @@ async function gitHead(execaOpts) {
   return (await execa('git', ['rev-parse', 'HEAD'], execaOpts)).stdout;
 }
 
-module.exports = {filterModifiedFiles, add, gitHead, commit, push};
+module.exports = {getModifiedFiles, add, gitHead, commit, push};

@@ -246,7 +246,7 @@ class AutocompletePrompt extends Prompt {
         startIndex = _entriesToDisplay.startIndex,
         endIndex = _entriesToDisplay.endIndex;
 
-    this.outputText = [color.bold(style.symbol(this.done, this.aborted)), color.bold(this.msg), style.delimiter(this.completing), this.done && this.suggestions[this.select] ? this.suggestions[this.select].title : this.rendered = this.transform.render(this.input)].join(' ');
+    this.outputText = [style.symbol(this.done, this.aborted), color.bold(this.msg), style.delimiter(this.completing), this.done && this.suggestions[this.select] ? this.suggestions[this.select].title : this.rendered = this.transform.render(this.input)].join(' ');
 
     if (!this.done) {
       const suggestions = this.suggestions.slice(startIndex, endIndex).map((item, i) => this.renderOption(item, this.select === i + startIndex, i === 0 && startIndex > 0, i + startIndex === endIndex - 1 && endIndex < this.choices.length)).join('\n');

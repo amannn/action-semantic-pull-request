@@ -1,4 +1,4 @@
-const ISSUE_ID = require('./definitions/sr-issue-id');
+const {ISSUE_ID} = require('./definitions/constants');
 
 module.exports = async (github, title, owner, repo) => {
   const {

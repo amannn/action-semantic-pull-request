@@ -77,6 +77,8 @@ module.exports = function (PromiseArgument) {
   }
 };
 
+module.exports.default = module.exports;
+
 /* istanbul ignore next */
 if (typeof Promise === 'function') {
   module.exports.Promise = Promise;

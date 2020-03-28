@@ -80,6 +80,12 @@ options are:
     * getNodeModulesDirs - a thunk (no-argument function) that returns the paths using standard `node_modules` resolution
     * opts - the resolution options
 
+* `opts.packageIterator(request, start, opts)` - return the list of candidate paths where the packages sources may be found (probably don't use this)
+    * request - the import specifier being resolved
+    * start - lookup path
+    * getPackageCandidates - a thunk (no-argument function) that returns the paths using standard `node_modules` resolution
+    * opts - the resolution options
+
 * opts.moduleDirectory - directory (or directories) in which to recursively look for modules. default: `"node_modules"`
 
 * opts.preserveSymlinks - if true, doesn't resolve `basedir` to real path before resolving.
@@ -146,6 +152,18 @@ options are:
   * returns - a relative path that will be joined from the package.json location
 
 * opts.paths - require.paths array to use if nothing is found on the normal `node_modules` recursive walk (probably don't use this)
+
+  For advanced users, `paths` can also be a `opts.paths(request, start, opts)` function
+    * request - the import specifier being resolved
+    * start - lookup path
+    * getNodeModulesDirs - a thunk (no-argument function) that returns the paths using standard `node_modules` resolution
+    * opts - the resolution options
+
+* `opts.packageIterator(request, start, opts)` - return the list of candidate paths where the packages sources may be found (probably don't use this)
+    * request - the import specifier being resolved
+    * start - lookup path
+    * getPackageCandidates - a thunk (no-argument function) that returns the paths using standard `node_modules` resolution
+    * opts - the resolution options
 
 * opts.moduleDirectory - directory (or directories) in which to recursively look for modules. default: `"node_modules"`
 

@@ -39,6 +39,9 @@ Obeys the `--no-hyperlinks`, `--hyperlink=always`, and `--hyperlink=never` CLI f
 
 Can be overridden by the user with the flags `--hyperlinks=always` and `--no-hyperlinks`. For situations where using those flags are not possible, add the environment variable `FORCE_HYPERLINK=1` to forcefully enable hyperlinks or `FORCE_HYPERLINK=0` to forcefully disable. The use of `FORCE_HYPERLINK` overrides all other hyperlink support checks.
 
+## Related
+
+  * [`hyperlinker`](https://github.com/jamestalmage/hyperlinker): Write hyperlinks for the Terminal.
 
 ## License
 

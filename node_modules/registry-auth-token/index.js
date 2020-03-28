@@ -5,6 +5,7 @@ var decodeBase64 = base64.decodeBase64
 var encodeBase64 = base64.encodeBase64
 
 var tokenKey = ':_authToken'
+var legacyTokenKey = ':_auth'
 var userKey = ':username'
 var passwordKey = ':_password'
 
@@ -80,6 +81,11 @@ function getAuthInfoForUrl (regUrl, npmrc) {
     return basicAuth
   }
 
+  var basicAuthWithToken = getLegacyAuthToken(npmrc[regUrl + legacyTokenKey] || npmrc[regUrl + '/' + legacyTokenKey])
+  if (basicAuthWithToken) {
+    return basicAuthWithToken
+  }
+
   return undefined
 }
 
@@ -120,4 +126,15 @@ function getTokenForUsernameAndPassword (username, password) {
     password: pass,
     username: username
   }
+}
+
+function getLegacyAuthToken (tok) {
+  if (!tok) {
+    return undefined
+  }
+
+  // check if legacy auth token is set as environment variable
+  var token = replaceEnvironmentVariable(tok)
+
+  return { token: token, type: 'Basic' }
 }

@@ -1,25 +1,4 @@
-declare const figures: {
-	/**
-	Replace unicode symbols depending on the OS.
-
-	@param string - String where the Unicode symbols will be replaced with fallback symbols depending on the OS.
-	@returns The input with replaced fallback Unicode symbols on Windows.
-
-	@example
-	```
-	import figures = require('figures');
-
-	console.log(figures('✔︎ check'));
-	// On real OSes:  ✔︎ check
-	// On Windows:    √ check
-
-	console.log(figures.tick);
-	// On real OSes:  ✔︎
-	// On Windows:    √
-	```
-	*/
-	(string: string): string;
-
+declare const figureSet: {
 	readonly tick: string;
 	readonly cross: string;
 	readonly star: string;
@@ -77,6 +56,41 @@ declare const figures: {
 	readonly fiveSixths: string;
 	readonly fiveEighths: string;
 	readonly sevenEighth: string;
-};
+}
+
+type FigureSet = typeof figureSet
+
+declare const figures: {
+	/**
+	Replace Unicode symbols depending on the OS.
+
+	@param string - String where the Unicode symbols will be replaced with fallback symbols depending on the OS.
+	@returns The input with replaced fallback Unicode symbols on Windows.
+
+	@example
+	```
+	import figures = require('figures');
+
+	console.log(figures('✔︎ check'));
+	// On non-Windows OSes:  ✔︎ check
+	// On Windows:           √ check
+
+	console.log(figures.tick);
+	// On non-Windows OSes:  ✔︎
+	// On Windows:           √
+	```
+	*/
+	(string: string): string;
+
+	/**
+	Symbols to use when not running on Windows.
+	*/
+	readonly main: FigureSet;
+
+	/**
+	Symbols to use when running on Windows.
+	*/
+	readonly windows: FigureSet;
+} & FigureSet;
 
 export = figures;
