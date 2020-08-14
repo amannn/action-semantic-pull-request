@@ -105,6 +105,8 @@ If you want to debug a test you should use `gulp test-without-coverage` to run a
 
 ## Change History
 
+- 1.1.4 (2020-07-21)
+    - Security fix: bumped `lodash` to `^4.17.19` following [this advisory](https://www.npmjs.com/advisories/1523).
 - 1.1.3 (2019-11-03)
     - Security fix: bumped `lodash` to `^4.17.15`. See [vulnerabilty reports](https://snyk.io/vuln/search?q=lodash&type=npm).
       *(Thanks to @daniel-nagy for pull request [#20](https://github.com/request/promise-core/pull/20) and thanks to @quetzaluz for reporting this in issue [#21](https://github.com/request/promise-core/issues/21).)*

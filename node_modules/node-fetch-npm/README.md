@@ -1,3 +1,16 @@
+# Note: pending imminent deprecation
+
+**This module will be deprecated once npm v7 is released.  Please do not rely
+on it more than absolutely necessary.**
+
+The fetch implementation used by npm v7 is
+[minipass-fetch](http://npm.im/minipass-fetch).  You may also be interested
+in [make-fetch-happen](http://npm.im/make-fetch-happen) (which adds
+caching) and [npm-registry-fetch](http://npm.im/npm-registry-fetch) (which
+contains business logic for interacting with the npm registry
+specifically).
+
+-----
 
 node-fetch-npm
 ==============

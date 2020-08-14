@@ -21,17 +21,17 @@
   },
   "homepage": "https://github.com/amannn/action-semantic-pull-request#readme",
   "dependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.4",
     "@actions/github": "^1.1.0",
     "conventional-commit-types": "^2.3.0",
-    "conventional-commits-parser": "^3.0.7"
+    "conventional-commits-parser": "^3.1.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "3.0.5",
     "@semantic-release/commit-analyzer": "6.3.3",
     "@semantic-release/git": "7.0.18",
     "@semantic-release/release-notes-generator": "7.3.2",
-    "conventional-changelog-conventionalcommits": "4.2.1",
+    "conventional-changelog-conventionalcommits": "4.4.0",
     "jest": "24.9.0",
     "semantic-release": "15.13.30"
   },

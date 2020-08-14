@@ -1,4 +1,4 @@
 'use strict';
-module.exports = x => x.replace(/^[\r\n]+/, '').replace(/[\r\n]+$/, '');
-module.exports.start = x => x.replace(/^[\r\n]+/, '');
-module.exports.end = x => x.replace(/[\r\n]+$/, '');
+module.exports = string => string.replace(/^[\r\n]+/, '').replace(/[\r\n]+$/, '');
+module.exports.start = string => string.replace(/^[\r\n]+/, '');
+module.exports.end = string => string.replace(/[\r\n]+$/, '');

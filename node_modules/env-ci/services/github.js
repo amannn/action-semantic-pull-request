@@ -1,6 +1,6 @@
 // https://help.github.com/en/articles/virtual-environments-for-github-actions#environment-variables
 
-const parseBranch = branch => (/^(?:refs\/heads\/)?([^/]+)$/i.exec(branch) || [])[1];
+const parseBranch = branch => (/^(?:refs\/heads\/)?(.+)$/i.exec(branch) || [])[1];
 
 const getPrEvent = ({env}) => {
 	try {

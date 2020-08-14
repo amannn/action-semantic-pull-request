@@ -25,6 +25,7 @@ function fastqueue (context, worker, concurrency) {
     resume: resume,
     idle: idle,
     length: length,
+    getQueue: getQueue,
     unshift: unshift,
     empty: noop,
     kill: kill,
@@ -51,6 +52,18 @@ function fastqueue (context, worker, concurrency) {
     }
 
     return counter
+  }
+
+  function getQueue () {
+    var current = queueHead
+    var tasks = []
+
+    while (current) {
+      tasks.push(current.value)
+      current = current.next
+    }
+
+    return tasks
   }
 
   function resume () {

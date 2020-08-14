@@ -3,12 +3,17 @@ var npm = require('../npm.js')
 var util = require('util')
 var nameValidator = require('validate-npm-package-name')
 var npmlog = require('npmlog')
+var replaceInfo = require('./replace-info.js')
 
 module.exports = errorMessage
 
 function errorMessage (er) {
   var short = []
   var detail = []
+
+  er.message = replaceInfo(er.message)
+  er.stack = replaceInfo(er.stack)
+
   switch (er.code) {
     case 'ENOAUDIT':
       short.push(['audit', er.message])
@@ -35,9 +40,9 @@ function errorMessage (er) {
     case 'EACCES':
     case 'EPERM':
       const isCachePath = typeof er.path === 'string' &&
-        er.path.startsWith(npm.config.get('cache'))
+        npm.config && er.path.startsWith(npm.config.get('cache'))
       const isCacheDest = typeof er.dest === 'string' &&
-        er.dest.startsWith(npm.config.get('cache'))
+        npm.config && er.dest.startsWith(npm.config.get('cache'))
 
       const isWindows = process.platform === 'win32'
 
@@ -280,8 +285,9 @@ function errorMessage (er) {
 
     case 'EEXIST':
       short.push(['', er.message])
-      short.push(['', 'File exists: ' + er.path])
-      detail.push(['', 'Move it away, and try again.'])
+      short.push(['', 'File exists: ' + (er.dest || er.path)])
+      detail.push(['', 'Remove the existing file and try again, or run npm'])
+      detail.push(['', 'with --force to overwrite files recklessly.'])
       break
 
     case 'ENEEDAUTH':

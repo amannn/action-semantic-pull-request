@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [2.0.3](https://github.com/npm/node-fetch-npm/compare/v2.0.2...v2.0.3) (2020-03-12)
+
+
+### Bug Fixes
+
+* Add license to comment lifted from request ([9a2fadb](https://github.com/npm/node-fetch-npm/commit/9a2fadbb7ae3fc1ab80b5674f7822d3791634482))
 
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/npm/node-fetch-npm/compare/v2.0.1...v2.0.2) (2017-08-15)

@@ -23,7 +23,7 @@
  * 
  */
 /**
- * bluebird build version 3.7.1
+ * bluebird build version 3.7.2
  * Features enabled: core, race, call_get, generators, map, nodeify, promisify, props, reduce, settle, some, using, timers, filter, any, each
 */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.Promise=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof _dereq_=="function"&&_dereq_;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof _dereq_=="function"&&_dereq_;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -672,37 +672,10 @@ var deferUnhandledRejectionCheck;
         promises.length = 0;
     }
 
-    if (typeof document === "object" && document.createElement) {
-        deferUnhandledRejectionCheck = (function() {
-            var iframeSetTimeout;
-
-            function checkIframe() {
-                if (document.body) {
-                    var iframe = document.createElement("iframe");
-                    document.body.appendChild(iframe);
-                    if (iframe.contentWindow &&
-                        iframe.contentWindow.setTimeout) {
-                        iframeSetTimeout = iframe.contentWindow.setTimeout;
-                    }
-                    document.body.removeChild(iframe);
-                }
-            }
-            checkIframe();
-            return function(promise) {
-                promises.push(promise);
-                if (iframeSetTimeout) {
-                    iframeSetTimeout(unhandledRejectionCheck, 1);
-                } else {
-                    checkIframe();
-                }
-            };
-        })();
-    } else {
-        deferUnhandledRejectionCheck = function(promise) {
-            promises.push(promise);
-            setTimeout(unhandledRejectionCheck, 1);
-        };
-    }
+    deferUnhandledRejectionCheck = function(promise) {
+        promises.push(promise);
+        setTimeout(unhandledRejectionCheck, 1);
+    };
 
     es5.defineProperty(Promise, "_unhandledRejectionCheck", {
         value: unhandledRejectionCheck
@@ -3623,7 +3596,7 @@ _dereq_("./synchronous_inspection")(Promise);
 _dereq_("./join")(
     Promise, PromiseArray, tryConvertToPromise, INTERNAL, async);
 Promise.Promise = Promise;
-Promise.version = "3.7.1";
+Promise.version = "3.7.2";
 _dereq_('./call_get.js')(Promise);
 _dereq_('./generators.js')(Promise, apiRejection, INTERNAL, tryConvertToPromise, Proxyable, debug);
 _dereq_('./map.js')(Promise, PromiseArray, apiRejection, tryConvertToPromise, INTERNAL, debug);
