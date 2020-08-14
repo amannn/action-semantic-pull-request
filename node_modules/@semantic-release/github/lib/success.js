@@ -55,7 +55,10 @@ module.exports = async (pluginConfig, context) => {
         ) || shas.includes((await github.pullRequests.get({owner, repo, pull_number: number})).data.merge_commit_sha)
     );
 
-    debug('found pull requests: %O', prs.map(pr => pr.number));
+    debug(
+      'found pull requests: %O',
+      prs.map(pr => pr.number)
+    );
 
     // Parse the release commits message and PRs body to find resolved issues/PRs via comment keyworkds
     const issues = [...prs.map(pr => pr.body), ...commits.map(commit => commit.message)].reduce((issues, message) => {

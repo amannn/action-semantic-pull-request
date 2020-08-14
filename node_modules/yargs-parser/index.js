@@ -421,7 +421,7 @@ function parse (args, opts) {
     setKey(argv, splitKey, value)
 
     // handle populating aliases of the full key
-    if (flags.aliases[key]) {
+    if (flags.aliases[key] && flags.aliases[key].forEach) {
       flags.aliases[key].forEach(function (x) {
         x = x.split('.')
         setKey(argv, x, value)
@@ -659,6 +659,10 @@ function parse (args, opts) {
     if (!configuration['dot-notation']) keys = [keys.join('.')]
 
     keys.slice(0, -1).forEach(function (key, index) {
+      // TODO(bcoe): in the next major version of yargs, switch to
+      // Object.create(null) for dot notation:
+      key = sanitizeKey(key)
+
       if (typeof o === 'object' && o[key] === undefined) {
         o[key] = {}
       }
@@ -678,11 +682,13 @@ function parse (args, opts) {
       }
     })
 
-    var key = keys[keys.length - 1]
+    // TODO(bcoe): in the next major version of yargs, switch to
+    // Object.create(null) for dot notation:
+    const key = sanitizeKey(keys[keys.length - 1])
 
-    var isTypeArray = checkAllAliases(keys.join('.'), flags.arrays)
-    var isValueArray = Array.isArray(value)
-    var duplicate = configuration['duplicate-arguments-array']
+    const isTypeArray = checkAllAliases(keys.join('.'), flags.arrays)
+    const isValueArray = Array.isArray(value)
+    let duplicate = configuration['duplicate-arguments-array']
 
     // nargs has higher priority than duplicate
     if (!duplicate && checkAllAliases(key, flags.nargs)) {
@@ -898,6 +904,13 @@ function Parser (args, opts) {
 // meta information, aliases, etc.
 Parser.detailed = function (args, opts) {
   return parse(args.slice(), opts)
+}
+
+// TODO(bcoe): in the next major version of yargs, switch to
+// Object.create(null) for dot notation:
+function sanitizeKey (key) {
+  if (key === '__proto__') return '___proto___'
+  return key
 }
 
 module.exports = Parser

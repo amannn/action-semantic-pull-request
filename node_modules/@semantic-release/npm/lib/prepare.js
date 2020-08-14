@@ -11,28 +11,16 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
     cwd: basePath,
     env,
   });
-  versionResult.stdout.pipe(
-    stdout,
-    {end: false}
-  );
-  versionResult.stderr.pipe(
-    stderr,
-    {end: false}
-  );
+  versionResult.stdout.pipe(stdout, {end: false});
+  versionResult.stderr.pipe(stderr, {end: false});
 
   await versionResult;
 
   if (tarballDir) {
     logger.log('Creating npm package version %s', version);
     const packResult = execa('npm', ['pack', basePath, '--userconfig', npmrc], {cwd, env});
-    packResult.stdout.pipe(
-      stdout,
-      {end: false}
-    );
-    packResult.stderr.pipe(
-      stderr,
-      {end: false}
-    );
+    packResult.stdout.pipe(stdout, {end: false});
+    packResult.stderr.pipe(stderr, {end: false});
 
     const tarball = (await packResult).stdout.split('\n').pop();
     const tarballSource = path.resolve(cwd, tarball);

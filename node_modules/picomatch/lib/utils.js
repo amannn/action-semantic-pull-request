@@ -40,7 +40,7 @@ exports.escapeLast = (input, char, lastIdx) => {
   const idx = input.lastIndexOf(char, lastIdx);
   if (idx === -1) return input;
   if (input[idx - 1] === '\\') return exports.escapeLast(input, char, idx - 1);
-  return input.slice(0, idx) + '\\' + input.slice(idx);
+  return `${input.slice(0, idx)}\\${input.slice(idx)}`;
 };
 
 exports.removePrefix = (input, state = {}) => {

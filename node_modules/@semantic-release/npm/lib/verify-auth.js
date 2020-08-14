@@ -19,14 +19,8 @@ module.exports = async (npmrc, pkg, context) => {
   if (normalizeUrl(registry) === normalizeUrl(DEFAULT_NPM_REGISTRY)) {
     try {
       const whoamiResult = execa('npm', ['whoami', '--userconfig', npmrc, '--registry', registry], {cwd, env});
-      whoamiResult.stdout.pipe(
-        stdout,
-        {end: false}
-      );
-      whoamiResult.stderr.pipe(
-        stderr,
-        {end: false}
-      );
+      whoamiResult.stdout.pipe(stdout, {end: false});
+      whoamiResult.stderr.pipe(stderr, {end: false});
       await whoamiResult;
     } catch (_) {
       throw new AggregateError([getError('EINVALIDNPMTOKEN', {registry})]);
