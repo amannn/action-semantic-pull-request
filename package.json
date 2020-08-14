@@ -24,7 +24,7 @@
     "@actions/core": "^1.2.0",
     "@actions/github": "^1.1.0",
     "conventional-commit-types": "^2.3.0",
-    "conventional-commits-parser": "^3.0.7"
+    "conventional-commits-parser": "^3.1.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "3.0.5",
