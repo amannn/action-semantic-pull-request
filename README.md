@@ -4,6 +4,8 @@ This is a [Github Action](https://github.com/features/actions) that ensures that
 
 This is helpful when you're using [semantic-release](https://github.com/semantic-release/semantic-release) with the Conventional Commits preset. When using the "Squash and merge" strategy, Github will suggest to use the PR title as the commit message. With this action you can validate that the PR title will lead to a correct commit message.
 
+Note that if you have a fork-based workflow you will want to use [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/) in place of `pull_request` so the API token is valid for status reporting.
+
 ## Example
 
 ```yml
