@@ -9,7 +9,7 @@ This is helpful when you're using [semantic-release](https://github.com/semantic
 ```yml
 name: "Lint PR"
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - edited
@@ -34,3 +34,5 @@ Note that since PR titles only have a single line, you have to use the `!` synta
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
 Additionally, the special `[WIP] ` prefix is supported, to indicate that a pull request is work in progress and isn't ready to be merged. In this case the PR title isn't validated and the pull request checks remain pending.
+
+Note the usage of [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/) in place of `pull_request` as the event trigger is necessary for a fork-based workflow so the API token is valid for status reporting.
