@@ -9,7 +9,7 @@ module.exports = async function run() {
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
       throw new Error(
-        "This action can only be invoked in `pull_request` events. Otherwise the pull request can't be inferred."
+        "This action can only be invoked in `pull_request_target` or `pull_request` events. Otherwise the pull request can't be inferred."
       );
     }
 
@@ -29,8 +29,6 @@ module.exports = async function run() {
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = /^\[WIP\]\s/.test(pullRequest.title);
 
-    console.log(1);
-
     let validationError;
     if (!isWip) {
       try {
@@ -41,10 +39,6 @@ module.exports = async function run() {
     }
 
     const newStatus = isWip || validationError != null ? 'pending' : 'success';
-
-    console.log(2);
-    console.log(validationError);
-    console.log(3);
 
     // When setting the status to "pending", the checks don't
     // complete. This can be used for WIP PRs in repositories
