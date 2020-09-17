@@ -28,11 +28,17 @@ module.exports = async function run() {
 
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = /^\[WIP\]\s/.test(pullRequest.title);
-    const newStatus = isWip ? 'pending' : 'success';
 
+    let validationError;
     if (!isWip) {
-      await validatePrTitle(pullRequest.title);
+      try {
+        await validatePrTitle(pullRequest.title);
+      } catch (error) {
+        validationError = error;
+      }
     }
+
+    const newStatus = isWip || validationError != null ? 'pending' : 'success';
 
     // When setting the status to "pending", the checks don't complete.
     // https://developer.github.com/v3/repos/statuses/#create-a-status
@@ -44,9 +50,15 @@ module.exports = async function run() {
       target_url: 'https://github.com/amannn/action-semantic-pull-request',
       description: isWip
         ? 'This PR is marked with "[WIP]".'
+        : validationError
+        ? validationError.message
         : 'Ready for review & merge.',
       context: 'action-semantic-pull-request'
     });
+
+    if (!isWip && validationError) {
+      throw validationError;
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
