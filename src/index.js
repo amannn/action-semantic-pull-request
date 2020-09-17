@@ -46,7 +46,9 @@ module.exports = async function run() {
     console.log(validationError);
     console.log(3);
 
-    // When setting the status to "pending", the checks don't complete.
+    // When setting the status to "pending", the checks don't
+    // complete. This can be used for WIP PRs in repositories
+    // which don't support draft pull requests.
     // https://developer.github.com/v3/repos/statuses/#create-a-status
     await client.request('POST /repos/:owner/:repo/statuses/:sha', {
       owner,
@@ -57,7 +59,7 @@ module.exports = async function run() {
       description: isWip
         ? 'This PR is marked with "[WIP]".'
         : validationError
-        ? validationError.message
+        ? 'PR title validation failed'
         : 'Ready for review & merge.',
       context: 'action-semantic-pull-request'
     });
