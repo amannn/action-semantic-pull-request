@@ -40,6 +40,8 @@ module.exports = async function run() {
 
     const newStatus = isWip || validationError != null ? 'pending' : 'success';
 
+    console.log(validationError);
+
     // When setting the status to "pending", the checks don't complete.
     // https://developer.github.com/v3/repos/statuses/#create-a-status
     await client.request('POST /repos/:owner/:repo/statuses/:sha', {
