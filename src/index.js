@@ -29,6 +29,8 @@ module.exports = async function run() {
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = /^\[WIP\]\s/.test(pullRequest.title);
 
+    console.log(1);
+
     let validationError;
     if (!isWip) {
       try {
@@ -40,7 +42,9 @@ module.exports = async function run() {
 
     const newStatus = isWip || validationError != null ? 'pending' : 'success';
 
+    console.log(2);
     console.log(validationError);
+    console.log(3);
 
     // When setting the status to "pending", the checks don't complete.
     // https://developer.github.com/v3/repos/statuses/#create-a-status
