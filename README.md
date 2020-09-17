@@ -19,7 +19,7 @@ See [Conventional Commits](https://www.conventionalcommits.org/) for more exampl
 
 Github has support for [draft pull requests](https://github.blog/2019-02-14-introducing-draft-pull-requests/), which will disable the merge button until the PR is marked as ready for merge.
 
-However, [this feature might be disabled for your repository](https://github.community/t/draft-pull-requests-not-available/1753/7). In this case you can use the special `[WIP] ` prefix to indicate that a pull request is work in progress and isn't ready to be merged. In this case the PR title isn't validated and the pull request checks remain pending.
+However, [this feature might be disabled for your repository](https://github.community/t/draft-pull-requests-not-available/1753/7). In this case you can use the special `[WIP] ` prefix to indicate that a pull request is work in progress and isn't ready to be merged. This will avoid the validation of the PR title and the pull request checks remain pending.
 
 ## Example config
 
