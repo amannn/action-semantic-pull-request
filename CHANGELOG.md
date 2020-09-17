@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/amannn/action-semantic-pull-request/compare/v1.2.10...v2.0.0) (2020-09-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Remove support for `improvement` prefix (as per commitizen/conventional-commit-types#16).
+
+### Miscellaneous Chores
+
+* Update dependencies. ([b9bc3f1](https://github.com/amannn/action-semantic-pull-request/commit/b9bc3f12d1e30b03273a4077cb7936b091fb1ba2))
+
 ### [1.2.10](https://github.com/amannn/action-semantic-pull-request/compare/v1.2.9...v1.2.10) (2020-09-17)
 
 
