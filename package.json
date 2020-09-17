@@ -30,14 +30,14 @@
   },
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
-    "@semantic-release/commit-analyzer": "6.3.3",
-    "@semantic-release/git": "7.0.18",
+    "@semantic-release/commit-analyzer": "8.0.1",
+    "@semantic-release/git": "9.0.0",
     "@semantic-release/github": "7.1.1",
     "@semantic-release/release-notes-generator": "9.0.1",
     "eslint": "7.9.0",
     "eslint-config-molindo": "5.0.1",
     "jest": "24.9.0",
-    "semantic-release": "15.14.0"
+    "semantic-release": "17.1.1"
   },
   "engines": {
     "node": "^12.0.0"
