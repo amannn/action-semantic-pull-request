@@ -1,5 +1,3 @@
-'use strict';
-
 const escapeRegExp = require('lodash.escaperegexp');
 const capitalize = require('lodash.capitalize');
 const isString = require('lodash.isstring');
@@ -8,6 +6,8 @@ const uniqBy = require('lodash.uniqby');
 const hostConfig = require('./lib/hosts-config');
 
 const {hasOwnProperty} = Object.prototype;
+
+/* eslint prefer-named-capture-group: "off" */
 
 const FENCE_BLOCK_REGEXP = /^(([ \t]*`{3,4})([^\n]*)([\s\S]+?)(^[ \t]*\2))/gm;
 const CODE_BLOCK_REGEXP = /(`(?![\\]))((?:.(?!\1(?![\\])))*.?)\1/g;

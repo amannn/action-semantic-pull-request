@@ -20,6 +20,12 @@
     }],
     "@semantic-release/release-notes-generator",
     ["@semantic-release/changelog", {"changelogTitle": "# Changelog"}],
+    ["@semantic-release/github", {
+      "successComment": false,
+      "failComment": false,
+      "failTitle": false,
+      "releasedLabels": false
+    }],
     ["@semantic-release/git", {"message": "Release ${nextRelease.version}"}]
   ]
 }
