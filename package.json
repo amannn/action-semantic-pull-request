@@ -23,7 +23,7 @@
   "homepage": "https://github.com/amannn/action-semantic-pull-request#readme",
   "dependencies": {
     "@actions/core": "^1.2.4",
-    "@actions/github": "^1.1.0",
+    "@actions/github": "^4.0.0",
     "conventional-changelog-conventionalcommits": "4.4.0",
     "conventional-commit-types": "^3.0.0",
     "conventional-commits-parser": "^3.1.0"
