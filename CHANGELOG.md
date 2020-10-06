@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/tools-aoeur/action-semantic-pull-request/compare/v1.3.0...v2.0.0) (2020-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* align code with upstream repository (#4)
+
+### Features
+
+* align code with upstream repository ([#4](https://github.com/tools-aoeur/action-semantic-pull-request/issues/4)) ([575f2f3](https://github.com/tools-aoeur/action-semantic-pull-request/commit/575f2f3f6698397e6f8ada29e98a36a2cedfeb16))
+
 ### [2.0.0](https://github.com/tools-aoeur/action-semantic-pull-request/compare/v1.3.0...v2.0.0) (2020-10-06)
 
 Code alignment with upstream repository
