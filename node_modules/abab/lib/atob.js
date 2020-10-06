@@ -84,24 +84,14 @@ function atob(data) {
  * A lookup table for atob(), which converts an ASCII character to the
  * corresponding six-bit number.
  */
+
+const keystr =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
 function atobLookup(chr) {
-  if (/[A-Z]/.test(chr)) {
-    return chr.charCodeAt(0) - "A".charCodeAt(0);
-  }
-  if (/[a-z]/.test(chr)) {
-    return chr.charCodeAt(0) - "a".charCodeAt(0) + 26;
-  }
-  if (/[0-9]/.test(chr)) {
-    return chr.charCodeAt(0) - "0".charCodeAt(0) + 52;
-  }
-  if (chr === "+") {
-    return 62;
-  }
-  if (chr === "/") {
-    return 63;
-  }
-  // Throw exception; should not be hit in tests
-  return undefined;
+  const index = keystr.indexOf(chr);
+  // Throw exception if character is not in the lookup string; should not be hit in tests
+  return index < 0 ? undefined : index;
 }
 
 module.exports = atob;

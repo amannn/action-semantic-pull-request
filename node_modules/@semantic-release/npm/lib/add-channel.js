@@ -36,9 +36,9 @@ module.exports = async (npmrc, {npmPublish}, pkg, context) => {
   }
 
   logger.log(
-    `Skip adding to npm channel as ${
-      npmPublish === false ? 'npmPublish' : "package.json's private property"
-    } is ${npmPublish !== false}`
+    `Skip adding to npm channel as ${npmPublish === false ? 'npmPublish' : "package.json's private property"} is ${
+      npmPublish !== false
+    }`
   );
 
   return false;

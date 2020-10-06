@@ -1,7 +1,7 @@
 const pkg = require('../../package.json');
 
 const [homepage] = pkg.homepage.split('#');
-const linkify = file => `${homepage}/blob/master/${file}`;
+const linkify = (file) => `${homepage}/blob/master/${file}`;
 
 module.exports = {
   EINVALIDNPMPUBLISH: ({npmPublish}) => ({

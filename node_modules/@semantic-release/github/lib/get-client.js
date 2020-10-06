@@ -11,7 +11,7 @@ const {RETRY_CONF, RATE_LIMITS, GLOBAL_RATE_LIMIT} = require('./definitions/rate
 /**
  * Http error status for which to not retry.
  */
-const SKIP_RETRY_CODES = [400, 401, 403];
+const SKIP_RETRY_CODES = new Set([400, 401, 403]);
 
 /**
  * Create or retrieve the throttler function for a given rate limit group.
@@ -50,7 +50,7 @@ module.exports = ({githubToken, githubUrl, githubApiPathPrefix, proxy}) => {
       try {
         return await getThrottler(limitKey, globalThrottler).wrap(request)(options);
       } catch (error) {
-        if (SKIP_RETRY_CODES.includes(error.status)) {
+        if (SKIP_RETRY_CODES.has(error.status)) {
           throw new pRetry.AbortError(error);
         }
 

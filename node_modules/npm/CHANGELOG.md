@@ -1,3 +1,94 @@
+## 6.14.8 (2020-08-17)
+
+### BUG FIXES
+* [`9262e8c88`](https://github.com/npm/cli/commit/9262e8c88f2f828206423928b8e21eea67f4801a)
+  [#1575](https://github.com/npm/cli/pull/1575)
+  npm install --dev deprecation message
+  ([@sandratatarevicova](https://github.com/sandratatarevicova))
+* [`765cfe0bc`](https://github.com/npm/cli/commit/765cfe0bc05a10b72026291ff0ca7c9ca5cb3f57)
+  [#1658](https://github.com/npm/cli/issues/1658)
+  remove unused broken require
+  ([@aduh95](https://github.com/aduh95))
+* [`4e28de79a`](https://github.com/npm/cli/commit/4e28de79a3a0aacc7603010a592beb448ceb6f5f)
+  [#1663](https://github.com/npm/cli/pull/1663)
+  Do not send user secret in the referer header
+  ([@assapir](https://github.com/assapir))
+
+### DOCUMENTATION
+* [`8abdf30c9`](https://github.com/npm/cli/commit/8abdf30c95ec90331456f3f2ed78e2703939bb74)
+  [#1572](https://github.com/npm/cli/pull/1572)
+  docs: add missing metadata in semver page
+  ([@tripu](https://github.com/tripu))
+* [`8cedcca46`](https://github.com/npm/cli/commit/8cedcca464ced5aab58be83dd5049c3df13384de)
+  [#1614](https://github.com/npm/cli/pull/1614)
+  Node-gyp supports both Python and legacy Python
+  ([@cclauss](https://github.com/cclauss))
+
+### DEPENDENCIES
+* [`a303b75fd`](https://github.com/npm/cli/commit/a303b75fd7c4b2644da02ad2ad46d80dfceec3c5)
+  `update-notifier@2.5.0`
+* [`c48600832`](https://github.com/npm/cli/commit/c48600832aff4cc349f59997e08dc4bbde15bd49)
+  `npm-registry-fetch@4.0.7`
+* [`a6e9fc4df`](https://github.com/npm/cli/commit/a6e9fc4df7092ba3eb5394193638b33c24855c36)
+  `meant@1.0.2`:
+
+## 6.14.7 (2020-07-21)
+
+### BUG FIXES
+* [`de5108836`](https://github.com/npm/cli/commit/de5108836189bddf28d4d3542f9bd5869cc5c2e9) [#784](https://github.com/npm/cli/pull/784) npm explore spawn shell correctly ([@jasisk](https://github.com/jasisk))
+* [`36e6c01d3`](https://github.com/npm/cli/commit/36e6c01d334c4db75018bc6a4a0bef726fd41ce4) git tag handling regression on shrinkwrap ([@claudiahdz](https://github.com/claudiahdz))
+* [`1961c9369`](https://github.com/npm/cli/commit/1961c9369c92bf8fe530cecba9834ca3c7f5567c) [#288](https://github.com/npm/cli/pull/288) Fix package id in shrinkwrap lifecycle step output ([@bz2](https://github.com/bz2))
+* [`87888892a`](https://github.com/npm/cli/commit/87888892a1282cc3edae968c3ae4ec279189271c) [#1009](https://github.com/npm/cli/pull/1009) gracefully handle error during npm install ([@danielleadams](https://github.com/danielleadams))
+* [`6fe2bdc25`](https://github.com/npm/cli/commit/6fe2bdc25e7961956e5c0067fa4db54ff1bd0dbd) [#1547](https://github.com/npm/cli/pull/1547) npm ls --parseable --long output ([@ruyadorno](https://github.com/ruyadorno))
+
+### DEPENDENCIES
+* [`2d78481c7`](https://github.com/npm/cli/commit/2d78481c7ec178e628ce23df940f73a05d5c6367) update mkdirp on tacks ([@claudiahdz](https://github.com/claudiahdz))
+* [`4e129d105`](https://github.com/npm/cli/commit/4e129d105eba3b12d474caa6e5ca216a98deb75a) uninstall npm-registry-couchapp ([@claudiahdz](https://github.com/claudiahdz))
+* [`8e1869e27`](https://github.com/npm/cli/commit/8e1869e278d1dd37ddefd6b4e961d1bb17fc9d09) update marked dev dep ([@claudiahdz](https://github.com/claudiahdz))
+* [`6a6151f37`](https://github.com/npm/cli/commit/6a6151f377063c6aca852c859c01910edd235ec6) `libnpx@10.2.4` ([@claudiahdz](https://github.com/claudiahdz))
+* [`dc21422eb`](https://github.com/npm/cli/commit/dc21422eb1ca1a4a19f160fad0e924566e08c496) `bin-links@1.1.8` ([@claudiahdz](https://github.com/claudiahdz))
+* [`d341f88ce`](https://github.com/npm/cli/commit/d341f88ce6feb3df1dcb37f34910fcc6c1db85f2) `gentle-fs@2.3.1` ([@claudiahdz](https://github.com/claudiahdz))
+* [`3e168d49b`](https://github.com/npm/cli/commit/3e168d49b41574809cae2ad013776a00d3f20ff4) `libcipm@4.0.8` ([@claudiahdz](https://github.com/claudiahdz))
+* [`6ae942a51`](https://github.com/npm/cli/commit/6ae942a510520b7dff11b5b78eebeff1706e38af) `npm-audit-report@1.3.3` ([@claudiahdz](https://github.com/claudiahdz))
+* [`6a35e3dee`](https://github.com/npm/cli/commit/6a35e3deec275bf2ae76603acd424a0640458047) `npm-lifecycle@3.1.5` ([@claudiahdz](https://github.com/claudiahdz))
+
+## 6.14.6 (2020-07-07)
+
+### BUG FIXES
+* [`a9857b8f6`](https://github.com/npm/cli/commit/a9857b8f6869451ff058789c4631fadfde5bbcbc) chore: remove auth info from logs ([@claudiahdz](https://github.com/claudiahdz))
+* [`b7ad77598`](https://github.com/npm/cli/commit/b7ad77598112908d60195d0fbc472b3c84275fd5) [#1416](https://github.com/npm/cli/pull/1416) fix: wrong `npm doctor` command result ([@vanishcode](https://github.com/vanishcode))
+
+### DEPENDENCIES
+* [`94eca6377`](https://github.com/npm/cli/commit/94eca637756376b949edfb697e179a1fdcc231ee) `npm-registry-fetch@4.0.5` ([@claudiahdz](https://github.com/claudiahdz))
+* [`c49b6ae28`](https://github.com/npm/cli/commit/c49b6ae28791ff7184288be16654f97168aa9705) [#1418](https://github.com/npm/cli/pull/1418) `spdx-license-ids@3.0.5` ([@kemitchell](https://github.com/kemitchell))
+
+### DOCUMENTATION
+* [`2e052984b`](https://github.com/npm/cli/commit/2e052984b08c09115ed75387fb2c961631d85d77)
+  [#1459](https://github.com/npm/cli/pull/1459)
+  chore(docs): fixed links to cli commands ([@claudiahdz](https://github.com/claudiahdz))
+* [`0ca3509ca`](https://github.com/npm/cli/commit/0ca3509ca940865392daeeabb39192f7d5af9f5e)
+  [#1283](https://github.com/npm/cli/pull/1283) Update npm-link.md ([@peterfich](https://github.com/peterfich))
+* [`3dd429e9a`](https://github.com/npm/cli/commit/3dd429e9aad760ce2ff9e522b34ebfebd85b460c)
+  [#1377](https://github.com/npm/cli/pull/1377)
+  Add note about dropped `*` filenames ([@maxwellgerber](https://github.com/maxwellgerber))
+* [`9a2e2e797`](https://github.com/npm/cli/commit/9a2e2e797e5c91e7f4f261583a1906e2c440cc2f)
+  [#1429](https://github.com/npm/cli/pull/1429) Fix typo ([@seanpoulter](https://github.com/seanpoulter))
+
+## 6.14.5 (2020-05-01)
+
+### BUG FIXES
+
+* [`33ec41f18`](https://github.com/npm/cli/commit/33ec41f18f557146607cb14a7a38c707fce6d42c) [#758](https://github.com/npm/cli/pull/758) fix: relativize file links when inflating shrinkwrap ([@jsnajdr](https://github.com/jsnajdr))
+* [`94ed456df`](https://github.com/npm/cli/commit/94ed456dfb0b122fd4192429024f034d06c3c454) [#1162](https://github.com/npm/cli/pull/1162) fix: npm init help output ([@mum-never-proud](https://github.com/mum-never-proud))
+
+### DEPENDENCIES
+
+* [`5587ac01f`](https://github.com/npm/cli/commit/5587ac01ffd0d2ea830a6bbb67bb34a611ffc409) `npm-registry-fetch@4.0.4`
+  * [`fc5d94c39`](https://github.com/npm/npm-registry-fetch/commit/fc5d94c39ca218d78df77249ab3a6bf1d9ed9db1) fix: removed default timeout
+* [`07a4d8884`](https://github.com/npm/cli/commit/07a4d8884448359bac485a49c05fd2d23d06834b) `graceful-fs@4.2.4`
+* [`8228d1f2e`](https://github.com/npm/cli/commit/8228d1f2e427ad9adee617266108acd1ee39b4a5) `mkdirp@0.5.5`
+* [`e6d208317`](https://github.com/npm/cli/commit/e6d20831740a84aea766da2a2913cf82a4d56ada) `nopt@4.0.3`
+
 ## 6.14.4 (2020-03-24)
 
 ### DEPENDENCIES

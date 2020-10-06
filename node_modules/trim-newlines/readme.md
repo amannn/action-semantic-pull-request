@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save trim-newlines
+$ npm install trim-newlines
 ```
 
 
@@ -15,22 +15,28 @@ $ npm install --save trim-newlines
 ```js
 const trimNewlines = require('trim-newlines');
 
-trimNewlines('\nunicorn\r\n');
-//=> 'unicorn'
+trimNewlines('\n🦄\r\n');
+//=> '🦄'
+
+trimNewlines.start('\n🦄\r\n');
+//=> '🦄\r\n'
+
+trimNewlines.end('\n🦄\r\n');
+//=> '\n🦄'
 ```
 
 
 ## API
 
-### trimNewlines(input)
+### trimNewlines(string)
 
 Trim from the start and end of a string.
 
-### trimNewlines.start(input)
+### trimNewlines.start(string)
 
 Trim from the start of a string.
 
-### trimNewlines.end(input)
+### trimNewlines.end(string)
 
 Trim from the end of a string.
 

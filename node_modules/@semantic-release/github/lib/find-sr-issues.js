@@ -7,5 +7,5 @@ module.exports = async (github, title, owner, repo) => {
     q: `in:title+repo:${owner}/${repo}+type:issue+state:open+${title}`,
   });
 
-  return issues.filter(issue => issue.body && issue.body.includes(ISSUE_ID));
+  return issues.filter((issue) => issue.body && issue.body.includes(ISSUE_ID));
 };

@@ -43,22 +43,14 @@ function btoa(s) {
  * Lookup table for btoa(), which converts a six-bit number into the
  * corresponding ASCII character.
  */
-function btoaLookup(idx) {
-  if (idx < 26) {
-    return String.fromCharCode(idx + "A".charCodeAt(0));
+const keystr =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+function btoaLookup(index) {
+  if (index >= 0 && index < 64) {
+    return keystr[index];
   }
-  if (idx < 52) {
-    return String.fromCharCode(idx - 26 + "a".charCodeAt(0));
-  }
-  if (idx < 62) {
-    return String.fromCharCode(idx - 52 + "0".charCodeAt(0));
-  }
-  if (idx === 62) {
-    return "+";
-  }
-  if (idx === 63) {
-    return "/";
-  }
+
   // Throw INVALID_CHARACTER_ERR exception here -- won't be hit in the tests.
   return undefined;
 }

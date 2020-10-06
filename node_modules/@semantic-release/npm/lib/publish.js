@@ -35,9 +35,9 @@ module.exports = async (npmrc, {npmPublish, pkgRoot}, pkg, context) => {
   }
 
   logger.log(
-    `Skip publishing to npm registry as ${
-      npmPublish === false ? 'npmPublish' : "package.json's private property"
-    } is ${npmPublish !== false}`
+    `Skip publishing to npm registry as ${npmPublish === false ? 'npmPublish' : "package.json's private property"} is ${
+      npmPublish !== false
+    }`
   );
 
   return false;

@@ -134,3 +134,7 @@ readme there to see what options to pass.
 
 
 See [more examples](./example/)
+
+## Related
+
+- [ink-markdown](https://github.com/cameronhunter/ink-markdown) - Markdown component for Ink

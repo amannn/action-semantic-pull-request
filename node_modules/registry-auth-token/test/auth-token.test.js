@@ -5,6 +5,7 @@ var assert = require('assert')
 var requireUncached = require('require-uncached')
 
 var npmRcPath = path.join(__dirname, '..', '.npmrc')
+var beforeEach = mocha.beforeEach
 var afterEach = mocha.afterEach
 var describe = mocha.describe
 var it = mocha.it
@@ -467,6 +468,38 @@ describe('auth-token', function () {
         })
         assert.strictEqual(decodeBase64(token.token), 'barbaz:foobaz')
         assert.strictEqual(getAuthToken('//some.registry', opts), undef)
+        done()
+      })
+    })
+  })
+
+  describe('npmrc file resolution', function () {
+    let npmRcPath
+    beforeEach(function () {
+      process.env.npm_config_userconfig = ''
+      process.env.NPM_CONFIG_USERCONFIG = ''
+    })
+
+    afterEach(function (done) {
+      process.env.npm_config_userconfig = ''
+      process.env.NPM_CONFIG_USERCONFIG = ''
+      fs.unlink(npmRcPath, function () {
+        done()
+      })
+    })
+
+    it('should use npmrc from environment npm_config_userconfig', function (done) {
+      var content = [
+        'registry=http://registry.foobar.eu/',
+        '//registry.foobar.eu/:_authToken=foobar', ''
+      ].join('\n')
+
+      npmRcPath = path.join(__dirname, '..', '.npmrc.env')
+      process.env.NPM_CONFIG_USERCONFIG = npmRcPath
+      fs.writeFile(npmRcPath, content, function (err) {
+        var getAuthToken = requireUncached('../index')
+        assert(!err, err)
+        assert.deepStrictEqual(getAuthToken(), { token: 'foobar', type: 'Bearer' })
         done()
       })
     })

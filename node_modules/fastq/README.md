@@ -77,6 +77,7 @@ function worker (arg, cb) {
 * <a href="#resume"><code>queue#<b>resume()</b></code></a>
 * <a href="#idle"><code>queue#<b>idle()</b></code></a>
 * <a href="#length"><code>queue#<b>length()</b></code></a>
+* <a href="#getQueue"><code>queue#<b>getQueue()</b></code></a>
 * <a href="#kill"><code>queue#<b>kill()</b></code></a>
 * <a href="#killAndDrain"><code>queue#<b>killAndDrain()</b></code></a>
 * <a href="#concurrency"><code>queue#<b>concurrency</b></code></a>
@@ -137,6 +138,12 @@ Returns `false` if there are tasks being processed or waiting to be processed.
 ### queue.length()
 
 Returns the number of tasks waiting to be processed (in the queue).
+
+-------------------------------------------------------
+<a name="getQueue"></a>
+### queue.getQueue()
+
+Returns all the tasks be processed (in the queue). Returns empty array when there are no tasks
 
 -------------------------------------------------------
 <a name="kill"></a>

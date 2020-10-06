@@ -1,5 +1,5 @@
 const HOME_URL = 'https://github.com/semantic-release/semantic-release';
-const linkify = releaseInfo =>
+const linkify = (releaseInfo) =>
   `${releaseInfo.url ? `[${releaseInfo.name}](${releaseInfo.url})` : `\`${releaseInfo.name}\``}`;
 
 module.exports = (issue, releaseInfos, nextRelease) =>
@@ -10,7 +10,7 @@ module.exports = (issue, releaseInfos, nextRelease) =>
       ? `\n\nThe release is available on${
           releaseInfos.length === 1
             ? ` ${linkify(releaseInfos[0])}`
-            : `:\n${releaseInfos.map(releaseInfo => `- ${linkify(releaseInfo)}`).join('\n')}`
+            : `:\n${releaseInfos.map((releaseInfo) => `- ${linkify(releaseInfo)}`).join('\n')}`
         }`
       : ''
   }

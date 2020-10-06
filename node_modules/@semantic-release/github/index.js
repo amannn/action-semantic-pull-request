@@ -14,7 +14,7 @@ async function verifyConditions(pluginConfig, context) {
   // If the GitHub publish plugin is used and has `assets`, `successComment`, `failComment`, `failTitle`, `labels` or `assignees` configured, validate it now in order to prevent any release if the configuration is wrong
   if (options.publish) {
     const publishPlugin =
-      castArray(options.publish).find(config => config.path && config.path === '@semantic-release/github') || {};
+      castArray(options.publish).find((config) => config.path && config.path === '@semantic-release/github') || {};
 
     pluginConfig.assets = defaultTo(pluginConfig.assets, publishPlugin.assets);
     pluginConfig.successComment = defaultTo(pluginConfig.successComment, publishPlugin.successComment);

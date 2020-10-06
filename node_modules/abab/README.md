@@ -39,12 +39,13 @@ const atob = require('abab/lib/atob');
 const btoa = require('abab/lib/btoa');
 ```
 
------
+## Development
 
-### Checklists
+If you're **submitting a PR** or **deploying to npm**, please use the [checklists in CONTRIBUTING.md](CONTRIBUTING.md#checklists).
 
-If you're **submitting a PR** or **deploying to npm**, please use the [checklists in CONTRIBUTING.md](https://github.com/jsdom/abab/blob/master/CONTRIBUTING.md#checklists)
+## Remembering what `atob` and `btoa` stand for
 
-### Remembering `atob` vs. `btoa`
+Base64 comes from IETF [RFC 4648](https://tools.ietf.org/html/rfc4648#section-4) (2006). 
 
-Here's a mnemonic that might be useful: if you have a plain string and want to base64 encode it, then decode it, `btoa` is what you run before (**b**efore - **b**toa), and `atob` is what you run after (**a**fter - **a**tob).
+- **`btoa`**, the encoder function, stands for **binary** to **ASCII**, meaning it converts any binary input into a subset of **ASCII** (Base64).
+- **`atob`**, the decoder function, converts **ASCII** (or Base64) to its original **binary** format. 

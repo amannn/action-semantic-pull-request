@@ -300,6 +300,33 @@ test('length', function (t) {
   }
 })
 
+test('getQueue', function (t) {
+  t.plan(10)
+
+  var queue = buildQueue(worker, 1)
+
+  t.equal(queue.getQueue().length, 0, 'nothing waiting')
+  queue.push(42, done)
+  t.equal(queue.getQueue().length, 0, 'nothing waiting')
+  queue.push(42, done)
+  t.equal(queue.getQueue().length, 1, 'one task waiting')
+  t.equal(queue.getQueue()[0], 42, 'should be equal')
+  queue.push(43, done)
+  t.equal(queue.getQueue().length, 2, 'two tasks waiting')
+  t.equal(queue.getQueue()[0], 42, 'should be equal')
+  t.equal(queue.getQueue()[1], 43, 'should be equal')
+
+  function done (err, result) {
+    t.error(err, 'no error')
+  }
+
+  function worker (arg, cb) {
+    setImmediate(function () {
+      cb(null, true)
+    })
+  }
+})
+
 test('unshift', function (t) {
   t.plan(8)
 
