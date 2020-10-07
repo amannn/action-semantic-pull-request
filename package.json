@@ -36,7 +36,7 @@
     "@semantic-release/release-notes-generator": "9.0.1",
     "eslint": "7.9.0",
     "eslint-config-molindo": "5.0.1",
-    "jest": "24.9.0",
+    "jest": "26.5.2",
     "semantic-release": "17.1.1"
   },
   "engines": {
