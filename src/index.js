@@ -29,10 +29,23 @@ module.exports = async function run() {
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = /^\[WIP\]\s/.test(pullRequest.title);
 
+    let types = [];
+
+    if (process.env.INPUT_TYPES != null) {
+      types = github.GitHub(process.env.VALID_TAGS).split(',');
+    }
+
+    if (!types || !types.length > 0) {
+      console.log('Checked types:');
+      console.log(types.join(', '));
+    } else {
+      console.log('No types');
+    }
+
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title);
+        await validatePrTitle(pullRequest.title, types);
       } catch (error) {
         validationError = error;
       }
