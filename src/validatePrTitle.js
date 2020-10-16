@@ -6,10 +6,6 @@ module.exports = async function validatePrTitle(prTitle) {
   const {parserOpts} = await conventionalCommitsConfig();
   const result = parser(prTitle, parserOpts);
 
-  if (result.type === 'ci') {
-    throw new Error('is this working?');
-  }
-
   if (!result.type) {
     throw new Error(
       `No release type found in pull request title "${prTitle}".` +
