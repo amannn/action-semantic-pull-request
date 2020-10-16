@@ -14,4 +14,4 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: yarn lint && yarn test
+      - run: yarn install && yarn lint && yarn test
