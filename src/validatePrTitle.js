@@ -1,9 +1,10 @@
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
-const conventionalCommitTypes = require('conventional-commit-types');
 const parser = require('conventional-commits-parser').sync;
+const loadConfig = require('./loadConfig');
 
 module.exports = async function validatePrTitle(prTitle) {
-  const {parserOpts} = await conventionalCommitsConfig();
+  const config = await loadConfig();
+  const { parserOpts } = await conventionalCommitsConfig();
   const result = parser(prTitle, parserOpts);
 
   if (!result.type) {
@@ -13,13 +14,11 @@ module.exports = async function validatePrTitle(prTitle) {
     );
   }
 
-  const allowedTypes = Object.keys(conventionalCommitTypes.types);
+  const allowedTypes = config.types;
   if (!allowedTypes.includes(result.type)) {
     throw new Error(
       `Unknown release type "${result.type}" found in pull request title "${prTitle}".` +
-        `\n\nPlease use one of these recognized types: ${allowedTypes.join(
-          ', '
-        )}.`
+        `\n\nPlease use one of these recognized types: ${allowedTypes.join(', ')}.`
     );
   }
 };

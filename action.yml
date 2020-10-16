@@ -7,3 +7,7 @@ runs:
 branding:
   icon: 'shield'
   color: 'green'
+inputs:
+  config:
+    description: 'File path for custom config (optional)'
+    required: false

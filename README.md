@@ -15,6 +15,18 @@ Note that since PR titles only have a single line, you have to use the `!` synta
 
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
+## Config
+
+You can provide a custom config to specify additional types. 
+
+```
+{
+  types: ['feature', 'fixes']
+}
+```
+
+**Note**: When you specify your own types, the [default types](https://github.com/commitizen/conventional-commit-types/blob/master/index.json) will no longer be used.
+
 ### Work in progress
 
 Github has support for [draft pull requests](https://github.blog/2019-02-14-introducing-draft-pull-requests/), which will disable the merge button until the PR is marked as ready for merge.
@@ -39,6 +51,8 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v1.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          config: path/to/config/file  ## optional
 ```
 
 Note the usage of [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/) as the event trigger is necessary for a fork-based workflow so the API token is valid for status reporting.
