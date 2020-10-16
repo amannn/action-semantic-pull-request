@@ -1,4 +1,4 @@
-name: 'Pull request'
+name: 'Lint PR title'
 on:
   pull_request_target:
     types:
@@ -10,6 +10,10 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
