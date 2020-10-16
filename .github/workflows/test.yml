@@ -1,0 +1,17 @@
+name: 'Pull request'
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn lint && yarn test

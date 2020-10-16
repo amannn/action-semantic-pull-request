@@ -13,5 +13,3 @@ jobs:
       - uses: amannn/action-semantic-pull-request@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v2
-      - run: yarn lint && yarn test
