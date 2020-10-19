@@ -18,4 +18,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          types: [foo, bar, baz]
+          types: foo, bar, baz, boo
