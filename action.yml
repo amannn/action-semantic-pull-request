@@ -7,3 +7,6 @@ runs:
 branding:
   icon: 'shield'
   color: 'green'
+inputs:
+  types:
+    description: "Provide custom types if you don't want the default ones from https://www.conventionalcommits.org/."

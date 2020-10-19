@@ -1,6 +1,6 @@
 name: 'Lint PR title'
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
@@ -17,3 +17,5 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: [foo, bar]
