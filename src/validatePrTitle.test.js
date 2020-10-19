@@ -26,3 +26,23 @@ it('throws for PR titles with an unknown type', async () => {
     /Unknown release type "foo" found in pull request title "foo: Bar"./
   );
 });
+
+describe('custom types', () => {
+  it('detects valid PR titles', async () => {
+    const inputs = ['foo: Foobar', 'bar: Foobar', 'baz: Foobar'];
+
+    for (let index = 0; index < inputs.length; index++) {
+      const input = inputs[index];
+      const types = ['foo', 'bar', 'baz'];
+      await validatePrTitle(input, types);
+    }
+  });
+
+  it('throws for PR titles with an unknown type with custom types', async () => {
+    await expect(
+      validatePrTitle('fix: Foobar', ['foo', 'bar'])
+    ).rejects.toThrow(
+      /Unknown release type "fix" found in pull request title "fix: Foobar"./
+    );
+  });
+});

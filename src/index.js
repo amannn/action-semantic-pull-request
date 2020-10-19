@@ -6,9 +6,10 @@ module.exports = async function run() {
   try {
     const client = new github.GitHub(process.env.GITHUB_TOKEN);
 
-    console.log(1);
-    throw new Error('Types: ' + process.env.INPUT_TYPES);
-    console.log(2);
+    let types;
+    if (process.env.INPUT_TYPES) {
+      types = process.env.INPUT_TYPES.split(',').map((type) => type.trim());
+    }
 
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
@@ -36,7 +37,7 @@ module.exports = async function run() {
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title);
+        await validatePrTitle(pullRequest.title, types);
       } catch (error) {
         validationError = error;
       }
