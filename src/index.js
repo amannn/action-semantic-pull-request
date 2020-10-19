@@ -7,7 +7,7 @@ module.exports = async function run() {
     const client = new github.GitHub(process.env.GITHUB_TOKEN);
 
     console.log(1);
-    console.log(process.env.INPUT_TYPES);
+    throw new Error('Types: ' + process.env.INPUT_TYPES);
     console.log(2);
 
     const contextPullRequest = github.context.payload.pull_request;
