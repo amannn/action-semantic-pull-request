@@ -15,8 +15,3 @@ jobs:
         with:
           node-version: 12
       - run: yarn lint && yarn test
-      - uses: ./
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          types: [foo, bar, baz]
