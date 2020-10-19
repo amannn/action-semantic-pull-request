@@ -1,6 +1,6 @@
 const validatePrTitle = require('./validatePrTitle');
 
-it('detects valid PR titles', async () => {
+it('allows valid PR titles that use the default types', async () => {
   const inputs = [
     'fix: Fix bug',
     'fix!: Fix bug',
@@ -10,8 +10,7 @@ it('detects valid PR titles', async () => {
   ];
 
   for (let index = 0; index < inputs.length; index++) {
-    const input = inputs[index];
-    await validatePrTitle(input);
+    await validatePrTitle(inputs[index]);
   }
 });
 
@@ -28,17 +27,16 @@ it('throws for PR titles with an unknown type', async () => {
 });
 
 describe('custom types', () => {
-  it('detects valid PR titles', async () => {
+  it('allows PR titles with a supported type', async () => {
     const inputs = ['foo: Foobar', 'bar: Foobar', 'baz: Foobar'];
+    const types = ['foo', 'bar', 'baz'];
 
     for (let index = 0; index < inputs.length; index++) {
-      const input = inputs[index];
-      const types = ['foo', 'bar', 'baz'];
-      await validatePrTitle(input, types);
+      await validatePrTitle(inputs[index], types);
     }
   });
 
-  it('throws for PR titles with an unknown type with custom types', async () => {
+  it('throws for PR titles with an unknown type', async () => {
     await expect(
       validatePrTitle('fix: Foobar', ['foo', 'bar'])
     ).rejects.toThrow(
