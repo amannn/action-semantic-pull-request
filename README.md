@@ -39,6 +39,10 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v1.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Optionally you can configure which types are allowed.
+        # Default: https://github.com/commitizen/conventional-commit-types
+        with:
+          types: fix, feat
 ```
 
 Note the usage of [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/) as the event trigger is necessary for a fork-based workflow so the API token is valid for status reporting.
