@@ -25,8 +25,9 @@ However, [this feature might be disabled for your repository](https://github.com
 
 ```yml
 name: "Lint PR"
+
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
