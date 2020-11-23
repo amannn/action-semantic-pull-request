@@ -2,7 +2,7 @@
 
 This is a [Github Action](https://github.com/features/actions) that ensures that your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/).
 
-This is helpful when you're using [semantic-release](https://github.com/semantic-release/semantic-release) with the Conventional Commits preset. When using the "Squash and merge" strategy, Github will suggest to use the PR title as the commit message. With this action you can validate that the PR title will lead to a correct commit message.
+This is helpful when you're using [semantic-release](https://github.com/semantic-release/semantic-release) with the Conventional Commits preset. When using the "Squash and merge" strategy, Github will suggest to use the PR title as the commit message. With this action you can validate that the PR title will lead to a correct commit message and subsequently the expected release.
 
 ## Validation
 
@@ -27,7 +27,7 @@ However, [this feature might be disabled for your repository](https://github.com
 name: "Lint PR"
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - edited
@@ -37,7 +37,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v1.2.0
+      - uses: amannn/action-semantic-pull-request@v2.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Optionally you can configure which types are allowed.
@@ -46,4 +46,9 @@ jobs:
           types: fix, feat
 ```
 
-Note the usage of [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/) as the event trigger is necessary for a fork-based workflow so the API token is valid for status reporting.
+## Event triggers
+
+There are two events that can be used as triggers for this action, each with different characteristics:
+
+1. [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
+2. `pull_request`: This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the Github token environment parameter is not available.
