@@ -4,7 +4,7 @@ const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
-    const client = new github.GitHub(process.env.GITHUB_TOKEN);
+    const client = github.getOctokit(process.env.GITHUB_TOKEN);
 
     let types;
     if (process.env.INPUT_TYPES) {
