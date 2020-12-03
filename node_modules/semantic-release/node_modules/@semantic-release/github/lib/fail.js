@@ -1,7 +1,7 @@
 const {template} = require('lodash');
 const debug = require('debug')('semantic-release:github');
 const parseGithubUrl = require('./parse-github-url');
-const ISSUE_ID = require('./definitions/sr-issue-id');
+const {ISSUE_ID} = require('./definitions/constants');
 const resolveConfig = require('./resolve-config');
 const getClient = require('./get-client');
 const findSRIssues = require('./find-sr-issues');
@@ -9,7 +9,8 @@ const getFailComment = require('./get-fail-comment');
 
 module.exports = async (pluginConfig, context) => {
   const {
-    options: {branch, repositoryUrl},
+    options: {repositoryUrl},
+    branch,
     errors,
     logger,
   } = context;

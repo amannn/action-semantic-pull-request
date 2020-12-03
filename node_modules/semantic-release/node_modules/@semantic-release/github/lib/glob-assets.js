@@ -10,7 +10,7 @@ module.exports = async ({cwd}, assets) =>
     []
       .concat(
         ...(await Promise.all(
-          assets.map(async asset => {
+          assets.map(async (asset) => {
             // Wrap single glob definition in Array
             let glob = castArray(isPlainObject(asset) ? asset.path : asset);
             // TODO Temporary workaround for https://github.com/mrmlnc/fast-glob/issues/47
@@ -40,7 +40,7 @@ module.exports = async ({cwd}, assets) =>
                 // - `path` of the matched file
                 // - `name` based on the actual file name (to avoid assets with duplicate `name`)
                 // - other properties of the original asset definition
-                return globbed.map(file => ({...asset, path: file, name: basename(file)}));
+                return globbed.map((file) => ({...asset, path: file, name: basename(file)}));
               }
 
               // If asset is an Object, output an Object definition with:
@@ -60,7 +60,7 @@ module.exports = async ({cwd}, assets) =>
           // Sort with Object first, to prioritize Object definition over Strings in dedup
         ))
       )
-      .sort(asset => (isPlainObject(asset) ? -1 : 1)),
+      .sort((asset) => (isPlainObject(asset) ? -1 : 1)),
     // Compare `path` property if Object definition, value itself if String
     (a, b) => path.resolve(cwd, isPlainObject(a) ? a.path : a) === path.resolve(cwd, isPlainObject(b) ? b.path : b)
   );

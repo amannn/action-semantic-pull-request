@@ -32,7 +32,9 @@ The plugin can be configured in the [**semantic-release** configuration file](ht
     ["@semantic-release/changelog", {
       "changelogFile": "docs/CHANGELOG.md",
     }],
-    "@semantic-release/git",
+    ["@semantic-release/git", {
+      "assets": ["docs/CHANGELOG.md"],
+    }],
   ]
 }
 ```

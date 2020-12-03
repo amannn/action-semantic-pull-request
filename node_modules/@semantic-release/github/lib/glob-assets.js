@@ -1,5 +1,4 @@
 const path = require('path');
-const {basename} = require('path');
 const {isPlainObject, castArray, uniqWith, uniq} = require('lodash');
 const dirGlob = require('dir-glob');
 const globby = require('globby');
@@ -40,7 +39,7 @@ module.exports = async ({cwd}, assets) =>
                 // - `path` of the matched file
                 // - `name` based on the actual file name (to avoid assets with duplicate `name`)
                 // - other properties of the original asset definition
-                return globbed.map((file) => ({...asset, path: file, name: basename(file)}));
+                return globbed.map((file) => ({...asset, path: file, name: path.basename(file)}));
               }
 
               // If asset is an Object, output an Object definition with:

@@ -7,10 +7,14 @@ module.exports = async (npmrc, {tarballDir, pkgRoot}, {cwd, env, stdout, stderr,
 
   logger.log('Write version %s to package.json in %s', version, basePath);
 
-  const versionResult = execa('npm', ['version', version, '--userconfig', npmrc, '--no-git-tag-version'], {
-    cwd: basePath,
-    env,
-  });
+  const versionResult = execa(
+    'npm',
+    ['version', version, '--userconfig', npmrc, '--no-git-tag-version', '--allow-same-version'],
+    {
+      cwd: basePath,
+      env,
+    }
+  );
   versionResult.stdout.pipe(stdout, {end: false});
   versionResult.stderr.pipe(stderr, {end: false});
 

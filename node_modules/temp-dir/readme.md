@@ -8,16 +8,16 @@
 ## Install
 
 ```
-$ npm install --save temp-dir
+$ npm install temp-dir
 ```
 
 
 ## Usage
 
 ```js
-const tempDir = require('temp-dir');
+const tempDirectory = require('temp-dir');
 
-console.log(tempDir);
+console.log(tempDirectory);
 //=> '/private/var/folders/3x/jf5977fn79jbglr7rk0tq4d00000gn/T'
 
 console.log(require('os').tmpdir());
