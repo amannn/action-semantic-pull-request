@@ -29,11 +29,11 @@
 Browsers
 </th><td width=100%>
 
-Load `@octokit/graphql` directly from [cdn.pika.dev](https://cdn.pika.dev)
+Load `@octokit/graphql` directly from [cdn.skypack.dev](https://cdn.skypack.dev)
 
 ```html
 <script type="module">
-  import { endpoint } from "https://cdn.pika.dev/@octokit/graphql";
+  import { endpoint } from "https://cdn.skypack.dev/@octokit/graphql";
 </script>
 ```
 

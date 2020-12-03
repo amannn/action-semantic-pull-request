@@ -5,7 +5,7 @@ module.exports = (repositoryUrl) => {
       new URL(match ? `ssh://${auth ? `${auth}@` : ''}${host}/${path}` : repositoryUrl).pathname
     );
     return {owner, repo};
-  } catch (_) {
+  } catch {
     return {};
   }
 };

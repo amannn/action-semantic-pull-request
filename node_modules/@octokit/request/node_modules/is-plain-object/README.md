@@ -16,8 +16,14 @@ Use [isobject](https://github.com/jonschlinkert/isobject) if you only want to ch
 
 ## Usage
 
+with es modules
 ```js
-import isPlainObject from 'is-plain-object';
+import { isPlainObject } from 'is-plain-object';
+```
+
+or with commonjs
+```js
+const { isPlainObject } = require('is-plain-object');
 ```
 
 **true** when created by the `Object` constructor, or Object.create(null).
