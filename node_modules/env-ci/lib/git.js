@@ -18,7 +18,7 @@ function branch(options) {
 				.stdout.replace(/^\(|\)$/g, '')
 				.split(', ')
 				.find(branch => branch.startsWith('origin/'));
-			return branch ? branch.match(/^origin\/(.+)/)[1] : undefined;
+			return branch ? branch.match(/^origin\/(?<branch>.+)/)[1] : undefined;
 		}
 
 		return headRef;

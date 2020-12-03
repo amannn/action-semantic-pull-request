@@ -8,10 +8,6 @@
       "description": "A bug fix",
       "title": "Bug Fixes"
     },
-    "improvement": {
-      "description": "An improvement to a current feature",
-      "title": "Improvements"
-    },
     "docs": {
       "description": "Documentation only changes",
       "title": "Documentation"

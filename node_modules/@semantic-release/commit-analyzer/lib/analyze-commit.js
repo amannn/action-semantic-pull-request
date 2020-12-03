@@ -1,4 +1,5 @@
-const {isMatchWith, isRegExp} = require('lodash');
+const {isMatchWith, isString} = require('lodash');
+const micromatch = require('micromatch');
 const debug = require('debug')('semantic-release:commit-analyzer');
 const RELEASE_TYPES = require('./default-release-types');
 const compareReleaseTypes = require('./compare-release-types');
@@ -22,7 +23,7 @@ module.exports = (releaseRules, commit) => {
         (!revert || commit.revert) &&
         // Otherwise match the regular rules
         isMatchWith(commit, rule, (obj, src) =>
-          /^\/.*\/$/.test(src) || isRegExp(src) ? new RegExp(/^\/(.*)\/$/.exec(src)[1]).test(obj) : undefined
+          isString(src) && isString(obj) ? micromatch.isMatch(obj, src) : undefined
         )
     )
     .every(match => {

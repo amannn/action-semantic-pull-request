@@ -1,7 +1,7 @@
 const {isString, isNil, isBoolean} = require('lodash');
 const getError = require('./get-error');
 
-const isNonEmptyString = value => isString(value) && value.trim();
+const isNonEmptyString = (value) => isString(value) && value.trim();
 
 const VALIDATORS = {
   npmPublish: isBoolean,

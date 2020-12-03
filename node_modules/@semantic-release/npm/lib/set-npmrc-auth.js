@@ -22,7 +22,7 @@ module.exports = async (
     logger.log('Reading npm config from %s', configs.join(', '));
   }
 
-  const currentConfig = configs ? (await Promise.all(configs.map(config => readFile(config)))).join('\n') : '';
+  const currentConfig = configs ? (await Promise.all(configs.map((config) => readFile(config)))).join('\n') : '';
 
   if (getAuthToken(registry, {npmrc: rcConfig})) {
     await outputFile(npmrc, currentConfig);

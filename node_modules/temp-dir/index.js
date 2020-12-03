@@ -2,12 +2,12 @@
 const fs = require('fs');
 const os = require('os');
 
-const ID = '__RESOLVED_TMP_DIR__';
+const tempDirectorySymbol = Symbol.for('__RESOLVED_TEMP_DIRECTORY__');
 
-if (!global[ID]) {
-	Object.defineProperty(global, ID, {
+if (!global[tempDirectorySymbol]) {
+	Object.defineProperty(global, tempDirectorySymbol, {
 		value: fs.realpathSync(os.tmpdir())
 	});
 }
 
-module.exports = global[ID];
+module.exports = global[tempDirectorySymbol];

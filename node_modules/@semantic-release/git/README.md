@@ -8,6 +8,7 @@
 
 [![npm latest version](https://img.shields.io/npm/v/@semantic-release/git/latest.svg)](https://www.npmjs.com/package/@semantic-release/git)
 [![npm next version](https://img.shields.io/npm/v/@semantic-release/git/next.svg)](https://www.npmjs.com/package/@semantic-release/git)
+[![npm beta version](https://img.shields.io/npm/v/@semantic-release/git/beta.svg)](https://www.npmjs.com/package/@semantic-release/git)
 
 | Step               | Description                                                                                                                        |
 |--------------------|------------------------------------------------------------------------------------------------------------------------------------|
@@ -41,6 +42,14 @@ With this example, for each release a release commit will be pushed to the remot
 - a message formatted like `chore(release): <version> [skip ci]\n\n<release notes>`
 - the `.js` and `.css` files in the `dist` directory, the files in the `docs` directory and the `package.json`
 
+### Merging between semantic-release branches
+
+This plugin will, by default, create commit messages with the keyword `[skip ci]`, so they won't trigger a new unnecessary CI build. If you are using **semantic-release** with [multiple branches](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md), when merging a branch with a head being a release commit, a CI job will be triggered on the target branch. Depending on the CI service that might create an unexpected behavior as the head of the target branch might be ignored by the build due to the `[skip ci]` keyword.
+
+To avoid any unexpected behavior we recommend to use the [`--no-ff` option](https://git-scm.com/docs/git-merge#Documentation/git-merge.txt---no-ff) when merging branches used by **semantic-release**.
+
+**Note**: This concerns only merges done between two branches configured in the [`branches` option](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/configuration.md#branches).
+
 ## Configuration
 
 ### Git authentication
@@ -69,11 +78,16 @@ When configuring branches permission on a Git hosting service (e.g. [GitHub prot
 
 The message for the release commit is generated with [Lodash template](https://lodash.com/docs#template). The following variables are available:
 
-| Parameter     | Description                                                                         |
-|---------------|-------------------------------------------------------------------------------------|
-| `branch`      | The branch from which the release is done.                                          |
-| `lastRelease` | `Object` with `version`, `gitTag` and `gitHead` of the last release.                |
-| `nextRelease` | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done. |
+| Parameter           | Description                                                                                                                             |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| `branch`            | The branch from which the release is done.                                                                                              |
+| `branch.name`       | The branch name.                                                                                                                        |
+| `branch.type`       | The [type of branch](https://github.com/semantic-release/semantic-release/blob/beta/docs/usage/workflow-configuration.md#branch-types). |
+| `branch.channel`    | The distribution channel on which to publish releases from this branch.                                                                 |
+| `branch.range`      | The range of [semantic versions](https://semver.org) to support on this branch.                                                         |
+| `branch.prerelease` | The pre-release detonation to append to [semantic versions](https://semver.org) released from this branch.                              |
+| `lastRelease`       | `Object` with `version`, `gitTag` and `gitHead` of the last release.                                                                    |
+| `nextRelease`       | `Object` with `version`, `gitTag`, `gitHead` and `notes` of the release being done.                                                     |
 
 **Note**: It is recommended to include `[skip ci]` in the commit message to not trigger a new build. Some CI service support the `[skip ci]` keyword only in the subject of the message.
 
