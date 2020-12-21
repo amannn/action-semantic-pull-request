@@ -3,12 +3,12 @@ const ConfigParser = require('./ConfigParser');
 module.exports = function parseConfig() {
   let types;
   if (process.env.INPUT_TYPES) {
-    types = ConfigParser.parseEnum(types);
+    types = ConfigParser.parseEnum(process.env.INPUT_TYPES);
   }
 
   let scopes;
   if (process.env.INPUT_SCOPES) {
-    scopes = ConfigParser.parseEnum(scopes);
+    scopes = ConfigParser.parseEnum(process.env.INPUT_SCOPES);
   }
 
   let requireScope;
