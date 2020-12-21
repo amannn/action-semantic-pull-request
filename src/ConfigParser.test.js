@@ -2,7 +2,7 @@ const ConfigParser = require('./ConfigParser');
 
 describe('parseEnum', () => {
   it('parses commas', () => {
-    expect(ConfigParser.parseEnum('one, two,three,  \nfour')).toEqual([
+    expect(ConfigParser.parseEnum('one, two,three,  \nfour  ')).toEqual([
       'one',
       'two',
       'three',
