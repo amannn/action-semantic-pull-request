@@ -8,8 +8,6 @@ module.exports = async function run() {
     const client = github.getOctokit(process.env.GITHUB_TOKEN);
     const {types, scopes, requireScope} = parseConfig();
 
-    console.log(JSON.stringify({types, scopes, requireScope}, null, 2));
-
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
       throw new Error(
