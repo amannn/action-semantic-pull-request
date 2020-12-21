@@ -10,3 +10,10 @@ branding:
 inputs:
   types:
     description: "Provide custom types if you don't want the default ones from https://www.conventionalcommits.org"
+    required: false
+  scopes:
+    description: "Configure which scopes are allowed."
+    required: false
+  requireScope:
+    description: "Configure that a scope must always be provided."
+    required: false
