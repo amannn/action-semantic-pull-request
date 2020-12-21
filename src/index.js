@@ -1,15 +1,12 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const parseConfig = require('./parseConfig');
 const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
     const client = github.getOctokit(process.env.GITHUB_TOKEN);
-
-    let types;
-    if (process.env.INPUT_TYPES) {
-      types = process.env.INPUT_TYPES.split(',').map((type) => type.trim());
-    }
+    const {types, scopes, requireScope} = parseConfig();
 
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
@@ -37,7 +34,7 @@ module.exports = async function run() {
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title, types);
+        await validatePrTitle(pullRequest.title, {types, scopes, requireScope});
       } catch (error) {
         validationError = error;
       }

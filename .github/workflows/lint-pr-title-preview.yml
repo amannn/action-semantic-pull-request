@@ -17,3 +17,11 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            fix
+            feat
+          scopes: |
+            core
+            ui
+          requireScope: true

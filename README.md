@@ -10,6 +10,7 @@ Examples for valid PR titles:
 - fix: Correct typo.
 - feat: Add support for Node 12.
 - refactor!: Drop support for Node 6.
+- feat(ui): Add `Button` component.
 
 Note that since PR titles only have a single line, you have to use the `!` syntax for breaking changes.
 
@@ -40,10 +41,19 @@ jobs:
       - uses: amannn/action-semantic-pull-request@v2.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Optionally you can configure which types are allowed.
-        # Default: https://github.com/commitizen/conventional-commit-types
+        # Optionally, you can provide options for further constraints.
         with:
-          types: fix, feat
+          # Configure which types are allowed.
+          # Default: https://github.com/commitizen/conventional-commit-types
+          types: |
+            fix
+            feat
+          # Configure which scopes are allowed.
+          scopes: |
+            core
+            ui
+          # Configure that a scope must always be provided.
+          requireScope: true
 ```
 
 ## Event triggers
