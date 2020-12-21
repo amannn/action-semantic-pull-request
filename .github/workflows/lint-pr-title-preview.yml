@@ -24,4 +24,3 @@ jobs:
           scopes: |
             core
             ui
-          requireScope: true
