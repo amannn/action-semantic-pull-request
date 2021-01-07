@@ -17,3 +17,6 @@ inputs:
   requireScope:
     description: "Configure that a scope must always be provided."
     required: false
+  subjectPattern:
+    description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
+    required: false
