@@ -14,7 +14,6 @@ module.exports = async function validatePrTitle(
   const result = parser(prTitle, parserOpts);
 
   function printAvailableTypes() {
-    console.log('1 before join', JSON.stringify({types}));
     return `Available types:\n${types
       .map((type) => {
         let bullet = ` - ${type}`;
@@ -47,7 +46,6 @@ module.exports = async function validatePrTitle(
   }
 
   if (requireScope && !result.scope) {
-    console.log('2 before join', JSON.stringify({scopes}));
     throw new Error(
       `No scope found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
         ', '
@@ -56,7 +54,6 @@ module.exports = async function validatePrTitle(
   }
 
   if (scopes && result.scope && !scopes.includes(result.scope)) {
-    console.log('3 before join', JSON.stringify({scopes}));
     throw new Error(
       `Unknown scope "${
         result.scope

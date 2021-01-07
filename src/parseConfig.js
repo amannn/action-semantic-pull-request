@@ -18,7 +18,7 @@ module.exports = function parseConfig() {
 
   let subjectPattern;
   if (process.env.INPUT_SUBJECTPATTERN) {
-    requireScope = ConfigParser.parseString(process.env.INPUT_SUBJECTPATTERN);
+    subjectPattern = ConfigParser.parseString(process.env.INPUT_SUBJECTPATTERN);
   }
 
   return {types, scopes, requireScope, subjectPattern};
