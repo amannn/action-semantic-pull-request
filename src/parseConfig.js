@@ -16,5 +16,10 @@ module.exports = function parseConfig() {
     requireScope = ConfigParser.parseBoolean(process.env.INPUT_REQUIRESCOPE);
   }
 
-  return {types, scopes, requireScope};
+  let subjectPattern;
+  if (process.env.INPUT_SUBJECTPATTERN) {
+    requireScope = ConfigParser.parseString(process.env.INPUT_SUBJECTPATTERN);
+  }
+
+  return {types, scopes, requireScope, subjectPattern};
 };

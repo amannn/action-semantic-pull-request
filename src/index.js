@@ -6,7 +6,7 @@ const validatePrTitle = require('./validatePrTitle');
 module.exports = async function run() {
   try {
     const client = github.getOctokit(process.env.GITHUB_TOKEN);
-    const {types, scopes, requireScope} = parseConfig();
+    const {types, scopes, requireScope, subjectPattern} = parseConfig();
 
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
@@ -34,7 +34,12 @@ module.exports = async function run() {
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title, {types, scopes, requireScope});
+        await validatePrTitle(pullRequest.title, {
+          types,
+          scopes,
+          requireScope,
+          subjectPattern
+        });
       } catch (error) {
         validationError = error;
       }

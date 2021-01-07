@@ -10,5 +10,9 @@ module.exports = {
 
   parseBoolean(input) {
     return JSON.parse(input.trim());
+  },
+
+  parseString(input) {
+    return input;
   }
 };

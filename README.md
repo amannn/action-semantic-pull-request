@@ -54,6 +54,9 @@ jobs:
             ui
           # Configure that a scope must always be provided.
           requireScope: true
+          # Configure additional validation for the subject based on a regex.
+          # This example forbids starting subjects with an uppercase character.
+          subjectPattern: ^(?![A-Z]).+$
 ```
 
 ## Event triggers
