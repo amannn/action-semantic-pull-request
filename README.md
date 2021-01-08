@@ -16,12 +16,6 @@ Note that since PR titles only have a single line, you have to use the `!` synta
 
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
-### Work in progress
-
-Github has support for [draft pull requests](https://github.blog/2019-02-14-introducing-draft-pull-requests/), which will disable the merge button until the PR is marked as ready for merge.
-
-However, [this feature might be disabled for your repository](https://github.community/t/draft-pull-requests-not-available/1753/7). In this case you can use the special `[WIP] ` prefix to indicate that a pull request is work in progress and isn't ready to be merged. This will avoid the validation of the PR title and the pull request checks remain pending.
-
 ## Example config
 
 ```yml
@@ -54,11 +48,17 @@ jobs:
             ui
           # Configure that a scope must always be provided.
           requireScope: true
+          # For work-in-progress PRs you can typically use draft pull requests 
+          # from Github. However, private repositories on the free plan don't have 
+          # this option and therefore this action allows you to opt-in to using the 
+          # special "[WIP]" prefix to indicate this state. This will avoid the 
+          # validation of the PR title and the pull request checks remain pending.
+          wip: true
 ```
 
 ## Event triggers
 
 There are two events that can be used as triggers for this action, each with different characteristics:
 
-1. [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
-2. `pull_request`: This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the Github token environment parameter is not available.
+1. [`pull_request_target`](https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change the configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
+2. `pull_request`: This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the Github token environment parameter is not available. This option is viable if all contributors have write access to the repository.
