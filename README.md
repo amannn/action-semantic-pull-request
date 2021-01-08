@@ -53,6 +53,7 @@ jobs:
           # this option and therefore this action allows you to opt-in to using the 
           # special "[WIP]" prefix to indicate this state. This will avoid the 
           # validation of the PR title and the pull request checks remain pending.
+          # Note that a second check will be reported if this is enabled.
           wip: true
 ```
 
