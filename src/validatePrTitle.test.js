@@ -20,6 +20,18 @@ it('throws for PR titles without a type', async () => {
   );
 });
 
+it('throws for PR titles with only a type', async () => {
+  await expect(validatePrTitle('fix:')).rejects.toThrow(
+    'No release type found in pull request title "fix:".'
+  );
+});
+
+it('throws for PR titles without a subject', async () => {
+  await expect(validatePrTitle('fix: ')).rejects.toThrow(
+    'No subject found in pull request title "fix: ".'
+  );
+});
+
 it('throws for PR titles with an unknown type', async () => {
   await expect(validatePrTitle('foo: Bar')).rejects.toThrow(
     'Unknown release type "foo" found in pull request title "foo: Bar".'
@@ -88,5 +100,37 @@ describe('custom types', () => {
     ).rejects.toThrow(
       'Unknown release type "fix" found in pull request title "fix: Foobar".'
     );
+  });
+});
+
+describe('description validation', () => {
+  it('does not validate the description by default', async () => {
+    await validatePrTitle('fix: sK!"§4123');
+  });
+
+  it('throws for invalid subjects', async () => {
+    await expect(
+      validatePrTitle('fix: Foobar', {
+        subjectPattern: '^(?![A-Z]).+$'
+      })
+    ).rejects.toThrow(
+      'The subject "Foobar" found in pull request title "fix: Foobar" doesn\'t match the configured pattern "^(?![A-Z]).+$".'
+    );
+  });
+
+  it('throws for only partial matches', async () => {
+    await expect(
+      validatePrTitle('fix: Foobar', {
+        subjectPattern: 'Foo'
+      })
+    ).rejects.toThrow(
+      'The subject "Foobar" found in pull request title "fix: Foobar" isn\'t an exact match for the configured pattern "Foo". Please provide a subject that matches the whole pattern exactly.'
+    );
+  });
+
+  it('accepts valid subjects', async () => {
+    await validatePrTitle('fix: foobar', {
+      subjectPattern: '^(?![A-Z]).+$'
+    });
   });
 });

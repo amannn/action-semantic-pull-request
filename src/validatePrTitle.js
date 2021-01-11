@@ -6,7 +6,7 @@ const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
 module.exports = async function validatePrTitle(
   prTitle,
-  {types, scopes, requireScope} = {}
+  {types, scopes, requireScope, subjectPattern} = {}
 ) {
   if (!types) types = defaultTypes;
 
@@ -33,6 +33,10 @@ module.exports = async function validatePrTitle(
     );
   }
 
+  if (!result.subject) {
+    throw new Error(`No subject found in pull request title "${prTitle}".`);
+  }
+
   if (!types.includes(result.type)) {
     throw new Error(
       `Unknown release type "${
@@ -57,5 +61,22 @@ module.exports = async function validatePrTitle(
         ', '
       )}.`
     );
+  }
+
+  if (subjectPattern) {
+    const match = result.subject.match(new RegExp(subjectPattern));
+
+    if (!match) {
+      throw new Error(
+        `The subject "${result.subject}" found in pull request title "${prTitle}" doesn't match the configured pattern "${subjectPattern}".`
+      );
+    }
+
+    const matchedPart = match[0];
+    if (matchedPart.length !== result.subject.length) {
+      throw new Error(
+        `The subject "${result.subject}" found in pull request title "${prTitle}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
+      );
+    }
   }
 };

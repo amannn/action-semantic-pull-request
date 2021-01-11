@@ -32,7 +32,7 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v2.1.0
+      - uses: amannn/action-semantic-pull-request@v3.1.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Optionally, you can provide options for further constraints.
@@ -48,6 +48,9 @@ jobs:
             ui
           # Configure that a scope must always be provided.
           requireScope: true
+          # Configure additional validation for the subject based on a regex.
+          # This example ensures the subject doesn't start with an uppercase character.
+          subjectPattern: ^(?![A-Z]).+$
           # For work-in-progress PRs you can typically use draft pull requests 
           # from Github. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 
