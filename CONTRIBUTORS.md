@@ -1,6 +1,6 @@
 # Contributors
 
-Thank you very much for considering to contribute to this project!
+Thank you very much for contributing to this project!
 
 Due to the way event triggers work with GitHub actions it's a bit harder to test your changes.
 
