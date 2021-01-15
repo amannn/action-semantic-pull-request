@@ -51,6 +51,10 @@ jobs:
           # Configure additional validation for the subject based on a regex.
           # This example ensures the subject doesn't start with an uppercase character.
           subjectPattern: ^(?![A-Z]).+$
+          # Configure custom error message that should be passed to the logs to better describe the error thrown by subject pattern validation.
+          subjectPatternError: |
+            The subject found in the pull request title didn't match the configured pattern.
+            Please ensure that the subject doesn't start with an uppercase character.
           # For work-in-progress PRs you can typically use draft pull requests 
           # from Github. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 

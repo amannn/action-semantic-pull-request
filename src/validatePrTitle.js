@@ -6,7 +6,7 @@ const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
 module.exports = async function validatePrTitle(
   prTitle,
-  {types, scopes, requireScope, subjectPattern} = {}
+  {types, scopes, requireScope, subjectPattern, subjectPatternError} = {}
 ) {
   if (!types) types = defaultTypes;
 
@@ -65,6 +65,8 @@ module.exports = async function validatePrTitle(
 
   if (subjectPattern) {
     const match = result.subject.match(new RegExp(subjectPattern));
+
+    if (subjectPatternError) throw new Error(subjectPatternError);
 
     if (!match) {
       throw new Error(
