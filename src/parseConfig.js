@@ -23,7 +23,7 @@ module.exports = function parseConfig() {
 
   let subjectPatternError;
   if (process.env.INPUT_SUBJECTPATTERNERROR) {
-    subjectPattern = ConfigParser.parseString(
+    subjectPatternError = ConfigParser.parseString(
       process.env.INPUT_SUBJECTPATTERNERROR
     );
   }
