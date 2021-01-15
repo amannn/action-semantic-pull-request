@@ -40,6 +40,10 @@ module.exports = async function run() {
 
     let validationError;
     if (!isWip) {
+      console.log(
+        'running validation with subjectPatternError',
+        subjectPatternError
+      );
       try {
         await validatePrTitle(pullRequest.title, {
           types,

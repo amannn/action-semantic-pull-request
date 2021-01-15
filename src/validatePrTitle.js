@@ -65,15 +65,15 @@ module.exports = async function validatePrTitle(
 
   if (subjectPattern) {
     const match = result.subject.match(new RegExp(subjectPattern));
-
+    console.log('subjectPatternError', subjectPatternError);
     if (subjectPatternError) throw new Error(subjectPatternError);
-
+    console.log('match should not be logged', match);
     if (!match) {
       throw new Error(
         `The subject "${result.subject}" found in pull request title "${prTitle}" doesn't match the configured pattern "${subjectPattern}".`
       );
     }
-
+    console.log('this is super strange');
     const matchedPart = match[0];
     if (matchedPart.length !== result.subject.length) {
       throw new Error(
