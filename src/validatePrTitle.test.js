@@ -118,6 +118,18 @@ describe('description validation', () => {
     ).rejects.toThrow(customError);
   });
 
+  it('throws custom error enriched with template values', async () => {
+    await expect(
+      validatePrTitle('fix: Foobar', {
+        subjectPattern: '^(?![A-Z]).+$',
+        subjectPatternError:
+          'The subject "${subject}" found in the pull request title "${title}" cannot start with an uppercase character.'
+      })
+    ).rejects.toThrow(
+      'The subject "Foobar" found in the pull request title "fix: Foobar" cannot start with an uppercase character.'
+    );
+  });
+
   it('throws for invalid subjects', async () => {
     await expect(
       validatePrTitle('fix: Foobar', {
