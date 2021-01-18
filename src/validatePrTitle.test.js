@@ -107,7 +107,8 @@ describe('description validation', () => {
   it('does not validate the description by default', async () => {
     await validatePrTitle('fix: sK!"§4123');
   });
-  it('throws custom error', async () => {
+
+  it('uses the `subjectPatternError` if available when the `subjectPattern` doesn't match', async () => {
     const customError =
       'The subject found in the pull request title cannot start with an uppercase character.';
     await expect(
@@ -118,7 +119,7 @@ describe('description validation', () => {
     ).rejects.toThrow(customError);
   });
 
-  it('throws custom error enriched with template values', async () => {
+  it('interpolates variables into `subjectPatternError`', async () => {
     await expect(
       validatePrTitle('fix: Foobar', {
         subjectPattern: '^(?![A-Z]).+$',

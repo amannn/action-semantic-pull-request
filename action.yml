@@ -21,7 +21,7 @@ inputs:
     description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
     required: false
   subjectPatternError:
-    description: "Configure custom error message that should be passed to the logs to better describe the error thrown by subject pattern validation."
+    description: "If `subjectPattern` is configured, you can use this property to override the default error message that is shown when the pattern doesn't match. The variables `subject` and `title` can be used within the message."
     required: false
   wip:
     description: "For work-in-progress PRs you can typically use draft pull requests from Github. However, private repositories on the free plan don't have this option and therefore this action allows you to opt-in to using the special '[WIP]' prefix to indicate this state. This will avoid the validation of the PR title and the pull request checks remain pending. Note that a second check will be reported if this is enabled."

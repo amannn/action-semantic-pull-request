@@ -51,13 +51,9 @@ jobs:
           # Configure additional validation for the subject based on a regex.
           # This example ensures the subject doesn't start with an uppercase character.
           subjectPattern: ^(?![A-Z]).+$
-          # Configure custom error message that should be passed to the logs to better describe the error thrown by subject pattern validation.
-          # You can pass template values to the error test
-          # - ${subject} will be replaced with the subject of the PR title
-          # - ${title} will be replaced with the PR title
-          # This example will return the following error of PR title "fix(core): Test": 
-          #     The subject "Test" found in the pull request title "fix(core): Test" didn't match the configured pattern.
-          #     Please ensure that the subject doesn't start with an uppercase character.
+          # If `subjectPattern` is configured, you can use this property to override
+          # the default error message that is shown when the pattern doesn't match.
+          # The variables `subject` and `title` can be used within the message.
           subjectPatternError: |
             The subject "${subject}" found in the pull request title "${title}" didn't match the configured pattern.
             Please ensure that the subject doesn't start with an uppercase character.
