@@ -1,7 +1,7 @@
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
 const conventionalCommitTypes = require('conventional-commit-types');
 const parser = require('conventional-commits-parser').sync;
-const subjectPatternErrorParser = require('./SubjectPatternErrorParser');
+const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
@@ -69,7 +69,10 @@ module.exports = async function validatePrTitle(
 
     if (subjectPatternError) {
       throw new Error(
-        subjectPatternErrorParser(subjectPatternError, result.subject, prTitle)
+        formatMessage(subjectPatternError, {
+          subject: result.subject,
+          title: prTitle
+        })
       );
     }
 
