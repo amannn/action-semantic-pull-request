@@ -22,8 +22,9 @@ it('replaces multiple variables', () => {
 
 it('replaces multiple instances of a variable', () => {
   expect(
-    formatMessage('99 bottles of {beverage} on the wall, 99 bottles of {beverage}.', {
-      beverage: 'beer'
-    })
+    formatMessage(
+      '99 bottles of {beverage} on the wall, 99 bottles of {beverage}.',
+      {beverage: 'beer'}
+    )
   ).toEqual('99 bottles of beer on the wall, 99 bottles of beer.');
 });
