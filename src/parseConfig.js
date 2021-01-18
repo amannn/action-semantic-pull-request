@@ -21,10 +21,24 @@ module.exports = function parseConfig() {
     subjectPattern = ConfigParser.parseString(process.env.INPUT_SUBJECTPATTERN);
   }
 
+  let subjectPatternError;
+  if (process.env.INPUT_SUBJECTPATTERNERROR) {
+    subjectPatternError = ConfigParser.parseString(
+      process.env.INPUT_SUBJECTPATTERNERROR
+    );
+  }
+
   let wip;
   if (process.env.INPUT_WIP) {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
   }
 
-  return {types, scopes, requireScope, wip, subjectPattern};
+  return {
+    types,
+    scopes,
+    requireScope,
+    wip,
+    subjectPattern,
+    subjectPatternError
+  };
 };
