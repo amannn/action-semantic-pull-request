@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src",
     "test": "jest src",
-    "build": "ncc build --minify"
+    "build": "rm -rf build && ncc build --minify"
   },
   "repository": {
     "type": "git",
