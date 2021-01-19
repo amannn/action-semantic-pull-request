@@ -39,7 +39,7 @@ jobs:
 
 ## Configuration
 
-Optionally, you can configure the action to further constrain the allowed pull request titles.
+The action works without configuration, however you can provide options for customization.
 
 ```yml
         with:
