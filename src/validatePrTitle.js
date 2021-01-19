@@ -64,27 +64,29 @@ module.exports = async function validatePrTitle(
     );
   }
 
+  function throwSubjectPatternError(message) {
+    if (subjectPatternError) {
+      message = formatMessage(subjectPatternError, {
+        subject: result.subject,
+        title: prTitle
+      });
+    }
+
+    throw new Error(message);
+  }
+
   if (subjectPattern) {
     const match = result.subject.match(new RegExp(subjectPattern));
 
-    if (subjectPatternError) {
-      throw new Error(
-        formatMessage(subjectPatternError, {
-          subject: result.subject,
-          title: prTitle
-        })
-      );
-    }
-
     if (!match) {
-      throw new Error(
+      throwSubjectPatternError(
         `The subject "${result.subject}" found in pull request title "${prTitle}" doesn't match the configured pattern "${subjectPattern}".`
       );
     }
 
     const matchedPart = match[0];
     if (matchedPart.length !== result.subject.length) {
-      throw new Error(
+      throwSubjectPatternError(
         `The subject "${result.subject}" found in pull request title "${prTitle}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
       );
     }
