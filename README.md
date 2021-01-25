@@ -61,8 +61,9 @@ The action works without configuration, however you can provide options for cust
           # the default error message that is shown when the pattern doesn't match.
           # The variables `subject` and `title` can be used within the message.
           subjectPatternError: |
-            The subject "{subject}" found in the pull request title "{title}" didn't match the configured pattern.
-            Please ensure that the subject doesn't start with an uppercase character.
+            The subject "{subject}" found in the pull request title "{title}"
+            didn't match the configured pattern. Please ensure that the subject
+            doesn't start with an uppercase character.
           # For work-in-progress PRs you can typically use draft pull requests 
           # from Github. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 
