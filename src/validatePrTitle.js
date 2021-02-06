@@ -28,6 +28,10 @@ module.exports = async function validatePrTitle(
       .join('\n')}`;
   }
 
+  function isUnknownScope(s) {
+    return scopes && !scopes.includes(s);
+  }
+
   if (!result.type) {
     throw new Error(
       `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to (see https://www.conventionalcommits.org/).\n\n${printAvailableTypes()}`
@@ -54,11 +58,13 @@ module.exports = async function validatePrTitle(
     );
   }
 
-  if (scopes && result.scope && !scopes.includes(result.scope)) {
+  const givenScopes = result.scope ? result.scope.split(',') : undefined;
+  const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
+  if (scopes && unknownScopes.length > 0) {
     throw new Error(
-      `Unknown scope "${
-        result.scope
-      }" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
+      `Unknown scope(s) "${unknownScopes.join(
+        ','
+      )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
         ', '
       )}.`
     );
