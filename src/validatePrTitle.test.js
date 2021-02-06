@@ -55,11 +55,25 @@ describe('defined scopes', () => {
     await validatePrTitle('fix(core): Bar', {scopes: ['core']});
   });
 
+  it('allows multiple matching scopes', async () => {
+    await validatePrTitle('fix(core,e2e): Bar', {
+      scopes: ['core', 'e2e', 'web']
+    });
+  });
+
+  it('throws when an unknown scope is detected within multiple scopes', async () => {
+    await expect(
+      validatePrTitle('fix(core,e2e,foo,bar): Bar', {scopes: ['foo', 'core']})
+    ).rejects.toThrow(
+      'Unknown scope(s) "e2e,bar" found in pull request title "fix(core,e2e,foo,bar): Bar". Use one of the available scopes: foo, core.'
+    );
+  });
+
   it('throws when an unknown scope is detected', async () => {
     await expect(
       validatePrTitle('fix(core): Bar', {scopes: ['foo']})
     ).rejects.toThrow(
-      'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: foo.'
+      'Unknown scope(s) "core" found in pull request title "fix(core): Bar". Use one of the available scopes: foo.'
     );
   });
 
