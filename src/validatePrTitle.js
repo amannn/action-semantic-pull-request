@@ -58,11 +58,15 @@ module.exports = async function validatePrTitle(
     );
   }
 
-  const givenScopes = result.scope ? result.scope.split(',') : undefined;
+  const givenScopes = result.scope
+    ? result.scope.split(',').map((scope) => scope.trim())
+    : undefined;
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
     throw new Error(
-      `Unknown scope(s) "${unknownScopes.join(
+      `Unknown ${
+        unknownScopes.length > 1 ? 'scopes' : 'scope'
+      } "${unknownScopes.join(
         ','
       )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
         ', '
