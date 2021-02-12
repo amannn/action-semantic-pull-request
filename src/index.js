@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const parseConfig = require('./parseConfig');
-const validatePrTitle = require('./validatePrTitle');
+const validateCommitMessage = require('./validateCommitMessage');
 
 module.exports = async function run() {
   try {
@@ -12,7 +12,8 @@ module.exports = async function run() {
       requireScope,
       wip,
       subjectPattern,
-      subjectPatternError
+      subjectPatternError,
+      validateSingleCommit
     } = parseConfig();
 
     const contextPullRequest = github.context.payload.pull_request;
@@ -41,13 +42,36 @@ module.exports = async function run() {
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title, {
+        await validateCommitMessage(pullRequest.title, {
           types,
           scopes,
           requireScope,
           subjectPattern,
           subjectPatternError
         });
+
+        if (validateSingleCommit) {
+          const {data: commits} = await client.pulls.listCommits({
+            owner,
+            repo,
+            pull_number: contextPullRequest.number,
+            per_page: 2
+          });
+
+          if (commits.length === 1) {
+            await validateCommitMessage(
+              commits[0].commit.message,
+              {
+                types,
+                scopes,
+                requireScope,
+                subjectPattern,
+                subjectPatternError
+              },
+              'single commit message'
+            );
+          }
+        }
       } catch (error) {
         validationError = error;
       }

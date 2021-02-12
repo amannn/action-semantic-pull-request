@@ -5,14 +5,15 @@ const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
-module.exports = async function validatePrTitle(
-  prTitle,
-  {types, scopes, requireScope, subjectPattern, subjectPatternError} = {}
+module.exports = async function validateCommitMessage(
+  commitMessage,
+  {types, scopes, requireScope, subjectPattern, subjectPatternError} = {},
+  messageType = 'pull request title'
 ) {
   if (!types) types = defaultTypes;
 
   const {parserOpts} = await conventionalCommitsConfig();
-  const result = parser(prTitle, parserOpts);
+  const result = parser(commitMessage, parserOpts);
 
   function printAvailableTypes() {
     return `Available types:\n${types
@@ -34,25 +35,25 @@ module.exports = async function validatePrTitle(
 
   if (!result.type) {
     throw new Error(
-      `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to (see https://www.conventionalcommits.org/).\n\n${printAvailableTypes()}`
+      `No release type found in ${messageType} "${commitMessage}". Add a prefix to indicate what kind of release this pull request corresponds to (see https://www.conventionalcommits.org/).\n\n${printAvailableTypes()}`
     );
   }
 
   if (!result.subject) {
-    throw new Error(`No subject found in pull request title "${prTitle}".`);
+    throw new Error(`No subject found in ${messageType} "${commitMessage}".`);
   }
 
   if (!types.includes(result.type)) {
     throw new Error(
       `Unknown release type "${
         result.type
-      }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`
+      }" found in ${messageType} "${commitMessage}". \n\n${printAvailableTypes()}`
     );
   }
 
   if (requireScope && !result.scope) {
     throw new Error(
-      `No scope found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
+      `No scope found in ${messageType} "${commitMessage}". Use one of the available scopes: ${scopes.join(
         ', '
       )}.`
     );
@@ -68,7 +69,7 @@ module.exports = async function validatePrTitle(
         unknownScopes.length > 1 ? 'scopes' : 'scope'
       } "${unknownScopes.join(
         ','
-      )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
+      )}" found in ${messageType} "${commitMessage}". Use one of the available scopes: ${scopes.join(
         ', '
       )}.`
     );
@@ -78,7 +79,7 @@ module.exports = async function validatePrTitle(
     if (subjectPatternError) {
       message = formatMessage(subjectPatternError, {
         subject: result.subject,
-        title: prTitle
+        title: commitMessage
       });
     }
 
@@ -90,14 +91,14 @@ module.exports = async function validatePrTitle(
 
     if (!match) {
       throwSubjectPatternError(
-        `The subject "${result.subject}" found in pull request title "${prTitle}" doesn't match the configured pattern "${subjectPattern}".`
+        `The subject "${result.subject}" found in ${messageType} "${commitMessage}" doesn't match the configured pattern "${subjectPattern}".`
       );
     }
 
     const matchedPart = match[0];
     if (matchedPart.length !== result.subject.length) {
       throwSubjectPatternError(
-        `The subject "${result.subject}" found in pull request title "${prTitle}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
+        `The subject "${result.subject}" found in ${messageType} "${commitMessage}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
       );
     }
   }
