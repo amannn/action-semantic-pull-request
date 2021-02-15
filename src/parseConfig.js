@@ -33,12 +33,20 @@ module.exports = function parseConfig() {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
   }
 
+  let validateSingleCommit;
+  if (process.env.INPUT_VALIDATESINGLECOMMIT) {
+    validateSingleCommit = ConfigParser.parseBoolean(
+      process.env.INPUT_VALIDATESINGLECOMMIT
+    );
+  }
+
   return {
     types,
     scopes,
     requireScope,
     wip,
     subjectPattern,
-    subjectPatternError
+    subjectPatternError,
+    validateSingleCommit
   };
 };
