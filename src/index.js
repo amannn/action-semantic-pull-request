@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const parseConfig = require('./parseConfig');
-const validateCommitMessage = require('./validateCommitMessage');
+const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
@@ -42,7 +42,7 @@ module.exports = async function run() {
     let validationError;
     if (!isWip) {
       try {
-        await validateCommitMessage(pullRequest.title, {
+        await validatePrTitle(pullRequest.title, {
           types,
           scopes,
           requireScope,
@@ -59,17 +59,19 @@ module.exports = async function run() {
           });
 
           if (commits.length === 1) {
-            await validateCommitMessage(
-              commits[0].commit.message,
-              {
+            try {
+              await validatePrTitle(commits[0].commit.message, {
                 types,
                 scopes,
                 requireScope,
                 subjectPattern,
                 subjectPatternError
-              },
-              'single commit message'
-            );
+              });
+            } catch (error) {
+              throw new Error(
+                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.community/t/how-to-change-the-default-squash-merge-commit-message/1155). Amend the commit message to match the pull request title, or add another commit.`
+              );
+            }
           }
         }
       } catch (error) {

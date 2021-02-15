@@ -1,4 +1,4 @@
-const validateCommitMessage = require('./validateCommitMessage');
+const validatePrTitle = require('./validatePrTitle');
 
 it('allows valid PR titles that use the default types', async () => {
   const inputs = [
@@ -10,62 +10,60 @@ it('allows valid PR titles that use the default types', async () => {
   ];
 
   for (let index = 0; index < inputs.length; index++) {
-    await validateCommitMessage(inputs[index]);
+    await validatePrTitle(inputs[index]);
   }
 });
 
 it('throws for PR titles without a type', async () => {
-  await expect(validateCommitMessage('Fix bug')).rejects.toThrow(
+  await expect(validatePrTitle('Fix bug')).rejects.toThrow(
     'No release type found in pull request title "Fix bug".'
   );
 });
 
 it('throws for PR titles with only a type', async () => {
-  await expect(validateCommitMessage('fix:')).rejects.toThrow(
+  await expect(validatePrTitle('fix:')).rejects.toThrow(
     'No release type found in pull request title "fix:".'
   );
 });
 
 it('throws for PR titles without a subject', async () => {
-  await expect(validateCommitMessage('fix: ')).rejects.toThrow(
+  await expect(validatePrTitle('fix: ')).rejects.toThrow(
     'No subject found in pull request title "fix: ".'
   );
 });
 
 it('throws for PR titles with an unknown type', async () => {
-  await expect(validateCommitMessage('foo: Bar')).rejects.toThrow(
+  await expect(validatePrTitle('foo: Bar')).rejects.toThrow(
     'Unknown release type "foo" found in pull request title "foo: Bar".'
   );
 });
 
 describe('defined scopes', () => {
   it('allows a missing scope by default', async () => {
-    await validateCommitMessage('fix: Bar');
+    await validatePrTitle('fix: Bar');
   });
 
   it('allows all scopes by default', async () => {
-    await validateCommitMessage('fix(core): Bar');
+    await validatePrTitle('fix(core): Bar');
   });
 
   it('allows a missing scope when custom scopes are defined', async () => {
-    await validateCommitMessage('fix: Bar', {scopes: ['foo']});
+    await validatePrTitle('fix: Bar', {scopes: ['foo']});
   });
 
   it('allows a matching scope', async () => {
-    await validateCommitMessage('fix(core): Bar', {scopes: ['core']});
+    await validatePrTitle('fix(core): Bar', {scopes: ['core']});
   });
 
   it('allows multiple matching scopes', async () => {
-    await validateCommitMessage('fix(core,e2e): Bar', {
+    await validatePrTitle('fix(core,e2e): Bar', {
       scopes: ['core', 'e2e', 'web']
     });
   });
 
   it('throws when an unknown scope is detected within multiple scopes', async () => {
     await expect(
-      validateCommitMessage('fix(core,e2e,foo,bar): Bar', {
-        scopes: ['foo', 'core']
-      })
+      validatePrTitle('fix(core,e2e,foo,bar): Bar', {scopes: ['foo', 'core']})
     ).rejects.toThrow(
       'Unknown scopes "e2e,bar" found in pull request title "fix(core,e2e,foo,bar): Bar". Use one of the available scopes: foo, core.'
     );
@@ -73,7 +71,7 @@ describe('defined scopes', () => {
 
   it('throws when an unknown scope is detected', async () => {
     await expect(
-      validateCommitMessage('fix(core): Bar', {scopes: ['foo']})
+      validatePrTitle('fix(core): Bar', {scopes: ['foo']})
     ).rejects.toThrow(
       'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: foo.'
     );
@@ -81,7 +79,7 @@ describe('defined scopes', () => {
 
   describe('require scope', () => {
     it('passes when a scope is provided', async () => {
-      await validateCommitMessage('fix(core): Bar', {
+      await validatePrTitle('fix(core): Bar', {
         scopes: ['core'],
         requireScope: true
       });
@@ -89,7 +87,7 @@ describe('defined scopes', () => {
 
     it('throws when a scope is missing', async () => {
       await expect(
-        validateCommitMessage('fix: Bar', {
+        validatePrTitle('fix: Bar', {
           scopes: ['foo', 'bar'],
           requireScope: true
         })
@@ -106,13 +104,13 @@ describe('custom types', () => {
     const types = ['foo', 'bar', 'baz'];
 
     for (let index = 0; index < inputs.length; index++) {
-      await validateCommitMessage(inputs[index], {types});
+      await validatePrTitle(inputs[index], {types});
     }
   });
 
   it('throws for PR titles with an unknown type', async () => {
     await expect(
-      validateCommitMessage('fix: Foobar', {types: ['foo', 'bar']})
+      validatePrTitle('fix: Foobar', {types: ['foo', 'bar']})
     ).rejects.toThrow(
       'Unknown release type "fix" found in pull request title "fix: Foobar".'
     );
@@ -121,11 +119,11 @@ describe('custom types', () => {
 
 describe('description validation', () => {
   it('does not validate the description by default', async () => {
-    await validateCommitMessage('fix: sK!"§4123');
+    await validatePrTitle('fix: sK!"§4123');
   });
 
   it('can pass the validation when `subjectPatternError` is configured', async () => {
-    await validateCommitMessage('fix: foobar', {
+    await validatePrTitle('fix: foobar', {
       subjectPattern: '^(?![A-Z]).+$',
       subjectPatternError:
         'The subject found in the pull request title cannot start with an uppercase character.'
@@ -136,7 +134,7 @@ describe('description validation', () => {
     const customError =
       'The subject found in the pull request title cannot start with an uppercase character.';
     await expect(
-      validateCommitMessage('fix: Foobar', {
+      validatePrTitle('fix: Foobar', {
         subjectPattern: '^(?![A-Z]).+$',
         subjectPatternError: customError
       })
@@ -145,7 +143,7 @@ describe('description validation', () => {
 
   it('interpolates variables into `subjectPatternError`', async () => {
     await expect(
-      validateCommitMessage('fix: Foobar', {
+      validatePrTitle('fix: Foobar', {
         subjectPattern: '^(?![A-Z]).+$',
         subjectPatternError:
           'The subject "{subject}" found in the pull request title "{title}" cannot start with an uppercase character.'
@@ -157,7 +155,7 @@ describe('description validation', () => {
 
   it('throws for invalid subjects', async () => {
     await expect(
-      validateCommitMessage('fix: Foobar', {
+      validatePrTitle('fix: Foobar', {
         subjectPattern: '^(?![A-Z]).+$'
       })
     ).rejects.toThrow(
@@ -167,7 +165,7 @@ describe('description validation', () => {
 
   it('throws for only partial matches', async () => {
     await expect(
-      validateCommitMessage('fix: Foobar', {
+      validatePrTitle('fix: Foobar', {
         subjectPattern: 'Foo'
       })
     ).rejects.toThrow(
@@ -176,16 +174,8 @@ describe('description validation', () => {
   });
 
   it('accepts valid subjects', async () => {
-    await validateCommitMessage('fix: foobar', {
+    await validatePrTitle('fix: foobar', {
       subjectPattern: '^(?![A-Z]).+$'
     });
   });
-});
-
-it('throws an appropriate error message for single commit message errors', async () => {
-  await expect(
-    validateCommitMessage('Fix bug', undefined, 'single commit message')
-  ).rejects.toThrow(
-    'No release type found in single commit message "Fix bug".'
-  );
 });
