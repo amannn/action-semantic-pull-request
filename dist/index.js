@@ -33299,7 +33299,8 @@ module.exports = async function run() {
       requireScope,
       wip,
       subjectPattern,
-      subjectPatternError
+      subjectPatternError,
+      validateSingleCommit
     } = parseConfig();
 
     const contextPullRequest = github.context.payload.pull_request;
@@ -33335,6 +33336,31 @@ module.exports = async function run() {
           subjectPattern,
           subjectPatternError
         });
+
+        if (validateSingleCommit) {
+          const {data: commits} = await client.pulls.listCommits({
+            owner,
+            repo,
+            pull_number: contextPullRequest.number,
+            per_page: 2
+          });
+
+          if (commits.length === 1) {
+            try {
+              await validatePrTitle(commits[0].commit.message, {
+                types,
+                scopes,
+                requireScope,
+                subjectPattern,
+                subjectPatternError
+              });
+            } catch (error) {
+              throw new Error(
+                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.community/t/how-to-change-the-default-squash-merge-commit-message/1155). Amend the commit message to match the pull request title, or add another commit.`
+              );
+            }
+          }
+        }
       } catch (error) {
         validationError = error;
       }
@@ -33412,13 +33438,21 @@ module.exports = function parseConfig() {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
   }
 
+  let validateSingleCommit;
+  if (process.env.INPUT_VALIDATESINGLECOMMIT) {
+    validateSingleCommit = ConfigParser.parseBoolean(
+      process.env.INPUT_VALIDATESINGLECOMMIT
+    );
+  }
+
   return {
     types,
     scopes,
     requireScope,
     wip,
     subjectPattern,
-    subjectPatternError
+    subjectPatternError,
+    validateSingleCommit
   };
 };
 
