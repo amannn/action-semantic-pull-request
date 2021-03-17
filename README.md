@@ -32,7 +32,8 @@ jobs:
   main:
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v3.1.0
+      # Please look up the latest version from https://github.com/amannn/action-semantic-pull-request/releases
+      - uses: amannn/action-semantic-pull-request@vX.X.X
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
