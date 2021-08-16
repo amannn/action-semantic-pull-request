@@ -51,9 +51,9 @@ module.exports = async function validatePrTitle(
   }
 
   if (requireScope && !result.scope) {
-    let msg = `No scope found in pull request title "${prTitle}".`
-    if(scopes) {
-      msg += ` Use one of the available scopes: ${scopes.join(', ')}.`
+    let msg = `No scope found in pull request title "${prTitle}".`;
+    if (scopes) {
+      msg += ` Use one of the available scopes: ${scopes.join(', ')}.`;
     }
 
     throw new Error(msg);

@@ -78,7 +78,7 @@ describe('defined scopes', () => {
   });
 
   describe('require scope', () => {
-    describe('scope allowlist defined', function() {
+    describe('scope allowlist defined', () => {
       it('passes when a scope is provided', async () => {
         await validatePrTitle('fix(core): Bar', {
           scopes: ['core'],
@@ -98,7 +98,7 @@ describe('defined scopes', () => {
       });
     });
 
-    describe('scope allowlist not defined', function() {
+    describe('scope allowlist not defined', () => {
       it('passes when a scope is provided', async () => {
         await validatePrTitle('fix(core): Bar', {
           requireScope: true
