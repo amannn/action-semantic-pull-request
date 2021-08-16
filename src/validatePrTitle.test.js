@@ -78,22 +78,43 @@ describe('defined scopes', () => {
   });
 
   describe('require scope', () => {
-    it('passes when a scope is provided', async () => {
-      await validatePrTitle('fix(core): Bar', {
-        scopes: ['core'],
-        requireScope: true
+    describe('scope allowlist defined', () => {
+      it('passes when a scope is provided', async () => {
+        await validatePrTitle('fix(core): Bar', {
+          scopes: ['core'],
+          requireScope: true
+        });
+      });
+
+      it('throws when a scope is missing', async () => {
+        await expect(
+          validatePrTitle('fix: Bar', {
+            scopes: ['foo', 'bar'],
+            requireScope: true
+          })
+        ).rejects.toThrow(
+          'No scope found in pull request title "fix: Bar". Use one of the available scopes: foo, bar.'
+        );
       });
     });
 
-    it('throws when a scope is missing', async () => {
-      await expect(
-        validatePrTitle('fix: Bar', {
-          scopes: ['foo', 'bar'],
+    describe('scope allowlist not defined', () => {
+      it('passes when a scope is provided', async () => {
+        await validatePrTitle('fix(core): Bar', {
           requireScope: true
-        })
-      ).rejects.toThrow(
-        'No scope found in pull request title "fix: Bar". Use one of the available scopes: foo, bar.'
-      );
+        });
+      });
+
+      it('throws when a scope is missing', async () => {
+        await expect(
+          validatePrTitle('fix: Bar', {
+            requireScope: true
+          })
+        ).rejects.toThrow(
+          // Should make no mention of any available scope
+          /^No scope found in pull request title "fix: Bar".$/
+        );
+      });
     });
   });
 });
