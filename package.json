@@ -25,7 +25,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "conventional-changelog-conventionalcommits": "4.5.0",
+    "conventional-changelog-conventionalcommits": "4.6.1",
     "conventional-commit-types": "^3.0.0",
     "conventional-commits-parser": "^3.2.0"
   },
