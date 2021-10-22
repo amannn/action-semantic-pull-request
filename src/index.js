@@ -58,7 +58,9 @@ module.exports = async function run() {
             per_page: 2
           });
 
-          if (commits.length === 1) {
+          const nonMergeCommits = commits.filter(commit => !commit.message.startsWith("Merge branch"));
+
+          if (nonMergeCommits.length === 1) {
             try {
               await validatePrTitle(commits[0].commit.message, {
                 types,
