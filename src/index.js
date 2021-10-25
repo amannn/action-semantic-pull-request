@@ -58,7 +58,7 @@ module.exports = async function run() {
             per_page: 2
           });
 
-          const nonMergeCommits = commits.filter(commit => !commit.message.startsWith("Merge branch"));
+          const nonMergeCommits = commits.filter((commit) => !commit.message.startsWith("Merge branch"));
 
           if (nonMergeCommits.length === 1) {
             try {
