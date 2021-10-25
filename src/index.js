@@ -58,8 +58,12 @@ module.exports = async function run() {
             per_page: 2
           });
 
+          // GitHub does not count merge commits when deciding whether squash commit title should
+          // follow PR title vs use a single commit in the PR.
           const nonMergeCommits = commits.filter((commit) => !commit.message.startsWith("Merge branch"));
 
+          // If there is only 1 (non merge) commit present, GitHub will use that commit rather
+          // than use the PR title. Here we validate that the PR title is semantic.
           if (nonMergeCommits.length === 1) {
             try {
               await validatePrTitle(commits[0].commit.message, {
