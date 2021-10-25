@@ -63,7 +63,7 @@ module.exports = async function run() {
           const nonMergeCommits = commits.filter((commit) => !commit.message.startsWith("Merge branch"));
 
           // If there is only 1 (non merge) commit present, GitHub will use that commit rather
-          // than use the PR title. Here we validate that the PR title is semantic.
+          // than use the PR title. Here we validate that the single commit title is semantic.
           if (nonMergeCommits.length === 1) {
             try {
               await validatePrTitle(commits[0].commit.message, {
