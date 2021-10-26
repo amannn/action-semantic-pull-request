@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.4.3](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.2...v3.4.3) (2021-10-26)
+
+
+### Bug Fixes
+
+* Consider merge commits for single commit validation ([#127](https://github.com/amannn/action-semantic-pull-request/issues/127)) ([1b347f7](https://github.com/amannn/action-semantic-pull-request/commit/1b347f79d6518f5d0190913abf7815286f490f53)), closes [#108](https://github.com/amannn/action-semantic-pull-request/issues/108) [#108](https://github.com/amannn/action-semantic-pull-request/issues/108)
+
 ### [3.4.2](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.1...v3.4.2) (2021-08-16)
 
 
