@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.4.4](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.3...v3.4.4) (2021-10-26)
+
+
+### Reverts
+
+* Revert "fix: Consider merge commits for single commit validation (#127)" ([d40b0d4](https://github.com/amannn/action-semantic-pull-request/commit/d40b0d425a054807cc5e032a827cc5780f507630)), closes [#127](https://github.com/amannn/action-semantic-pull-request/issues/127)
+
 ### [3.4.3](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.2...v3.4.3) (2021-10-26)
 
 
