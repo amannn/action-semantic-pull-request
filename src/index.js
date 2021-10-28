@@ -52,32 +52,28 @@ module.exports = async function run() {
 
         if (validateSingleCommit) {
           const commits = [];
+          let nonMergeCommits = [];
 
-          // Pull all of the commits for the given PR from the GitHub API
-          const COMMITS_PER_PAGE = 50;
-          const MAX_PAGES = 100; // A sanity limit
-          let page = 1;
-          while (page < MAX_PAGES) {
-            const {data} = await client.pulls.listCommits({
+          for await (const response of client.paginate.iterator(
+            client.pulls.listCommits,
+            {
               owner,
               repo,
-              pull_number: contextPullRequest.number,
-              per_page: COMMITS_PER_PAGE,
-              page
-            });
+              pull_number: contextPullRequest.number
+            }
+          )) {
+            commits.push(...response.data);
 
-            commits.push(...data);
+            // GitHub does not count merge commits when deciding whether to use
+            // the PR title or a commit message for the squash commit message.
+            nonMergeCommits = commits.filter(
+              (commit) => !commit.commit.message.startsWith('Merge branch')
+            );
 
-            if (data.length < COMMITS_PER_PAGE) break;
-
-            page++;
+            // We only need two non-merge commits to know that the PR
+            // title won't be used.
+            if (nonMergeCommits.length >= 2) break;
           }
-
-          // GitHub does not count merge commits when deciding whether to use
-          // the PR title or a commit message for the squash commit message.
-          const nonMergeCommits = commits.filter(
-            (commit) => !commit.commit.message.startsWith('Merge branch')
-          );
 
           // If there is only one (non merge) commit present, GitHub will use
           // that commit rather than the PR title for the title of a squash
