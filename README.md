@@ -30,6 +30,7 @@ on:
 
 jobs:
   main:
+    name: Validate PR title
     runs-on: ubuntu-latest
     steps:
       # Please look up the latest version from
