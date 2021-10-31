@@ -1,5 +1,12 @@
 # Changelog
 
+### [3.4.6](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.5...v3.4.6) (2021-10-31)
+
+
+### Bug Fixes
+
+* Better strategy to detect merge commits ([#132](https://github.com/amannn/action-semantic-pull-request/issues/132)) ([f913d37](https://github.com/amannn/action-semantic-pull-request/commit/f913d374b7bc698a5831a12c8955d1373c439548))
+
 ### [3.4.5](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.4...v3.4.5) (2021-10-28)
 
 

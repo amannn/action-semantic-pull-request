@@ -33354,7 +33354,7 @@ module.exports = async function run() {
             // GitHub does not count merge commits when deciding whether to use
             // the PR title or a commit message for the squash commit message.
             nonMergeCommits = commits.filter(
-              (commit) => !commit.commit.message.startsWith('Merge branch')
+              (commit) => commit.parents.length < 2
             );
 
             // We only need two non-merge commits to know that the PR
