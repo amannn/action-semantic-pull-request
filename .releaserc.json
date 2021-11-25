@@ -5,11 +5,13 @@
     "@semantic-release/release-notes-generator",
     ["@semantic-release/changelog", {"changelogTitle": "# Changelog"}],
     ["@semantic-release/github", {
-      "successComment": false,
       "failComment": false,
       "failTitle": false,
       "releasedLabels": false
     }],
-    ["@semantic-release/git", {"message": "Release ${nextRelease.version}"}]
+    ["@semantic-release/git", {
+      "assets": ["dist", "CHANGELOG.md"],
+      "message": "chore: Release ${nextRelease.version} [skip ci]"
+    }]
   ]
 }
