@@ -79,6 +79,8 @@ The action works without configuration, however you can provide options for cust
           # merge commit, and it's easy to commit this by mistake. Enable this option
           # to also validate the commit message for one commit PRs.
           validateSingleCommit: true
+          # If you use Github Enterprise, you can set this to the URL of your server
+          githubBaseUrl: https://github.myorg.com/api/v3
 ```
 
 ## Event triggers
