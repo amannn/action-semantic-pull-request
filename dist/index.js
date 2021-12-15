@@ -33292,7 +33292,6 @@ const validatePrTitle = __nccwpck_require__(3661);
 
 module.exports = async function run() {
   try {
-    const client = github.getOctokit(process.env.GITHUB_TOKEN);
     const {
       types,
       scopes,
@@ -33300,8 +33299,13 @@ module.exports = async function run() {
       wip,
       subjectPattern,
       subjectPatternError,
-      validateSingleCommit
+      validateSingleCommit,
+      githubBaseUrl
     } = parseConfig();
+
+    const client = github.getOctokit(process.env.GITHUB_TOKEN, {
+      baseUrl: githubBaseUrl
+    });
 
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {
@@ -33466,6 +33470,11 @@ module.exports = function parseConfig() {
     );
   }
 
+  let githubBaseUrl;
+  if (process.env.INPUT_GITHUBBASEURL) {
+    githubBaseUrl = ConfigParser.parseString(process.env.INPUT_GITHUBBASEURL);
+  }
+
   return {
     types,
     scopes,
@@ -33473,7 +33482,8 @@ module.exports = function parseConfig() {
     wip,
     subjectPattern,
     subjectPatternError,
-    validateSingleCommit
+    validateSingleCommit,
+    githubBaseUrl
   };
 };
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.6...v3.5.0) (2021-12-15)
+
+
+### Features
+
+* Add support for Github Enterprise ([#145](https://github.com/amannn/action-semantic-pull-request/issues/145)) ([579fb11](https://github.com/amannn/action-semantic-pull-request/commit/579fb115c050f156ee6d52244a7ff41b685a89fd))
+
 ### [3.4.6](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.5...v3.4.6) (2021-10-31)
 
 
