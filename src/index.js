@@ -5,7 +5,6 @@ const validatePrTitle = require('./validatePrTitle');
 
 module.exports = async function run() {
   try {
-    const client = github.getOctokit(process.env.GITHUB_TOKEN);
     const {
       types,
       scopes,
@@ -13,8 +12,13 @@ module.exports = async function run() {
       wip,
       subjectPattern,
       subjectPatternError,
-      validateSingleCommit
+      validateSingleCommit,
+      githubBaseUrl
     } = parseConfig();
+
+    const client = github.getOctokit(process.env.GITHUB_TOKEN, {
+      baseUrl: githubBaseUrl
+    });
 
     const contextPullRequest = github.context.payload.pull_request;
     if (!contextPullRequest) {

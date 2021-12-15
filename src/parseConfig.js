@@ -40,6 +40,11 @@ module.exports = function parseConfig() {
     );
   }
 
+  let githubBaseUrl;
+  if (process.env.INPUT_GITHUBBASEURL) {
+    githubBaseUrl = ConfigParser.parseString(process.env.INPUT_GITHUBBASEURL);
+  }
+
   return {
     types,
     scopes,
@@ -47,6 +52,7 @@ module.exports = function parseConfig() {
     wip,
     subjectPattern,
     subjectPatternError,
-    validateSingleCommit
+    validateSingleCommit,
+    githubBaseUrl
   };
 };
