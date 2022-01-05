@@ -33,9 +33,7 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      # Please look up the latest version from
-      # https://github.com/amannn/action-semantic-pull-request/releases
-      - uses: amannn/action-semantic-pull-request@vX.X.X
+      - uses: amannn/action-semantic-pull-request@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
