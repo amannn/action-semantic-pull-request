@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.5.0...v3.6.0) (2022-01-05)
+
+
+### Features
+
+* Publish major version tag ([c47e831](https://github.com/amannn/action-semantic-pull-request/commit/c47e8318667a1e17cbe7132cea17eaf5d06cc403))
+
 ## [3.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.4.6...v3.5.0) (2021-12-15)
 
 
