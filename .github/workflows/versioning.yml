@@ -1,4 +1,4 @@
-name: 'Keep the versions up-to-date'
+name: 'Publish major version'
 
 on:
   release:
