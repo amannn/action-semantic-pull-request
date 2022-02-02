@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.7.0...v4.0.0) (2022-02-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* dropped support for node <=15
+
+### Features
+
+* Upgrade semantic-release@19.0.2 ([#155](https://github.com/amannn/action-semantic-pull-request/issues/155)) ([ca264e0](https://github.com/amannn/action-semantic-pull-request/commit/ca264e08ba87f01cd802533512d9787d07a5ba98))
+
 ## [3.7.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.6.0...v3.7.0) (2022-02-02)
 
 
