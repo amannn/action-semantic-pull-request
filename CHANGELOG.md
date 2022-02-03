@@ -1,5 +1,12 @@
 # Changelog
 
+### [4.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v4.0.0...v4.0.1) (2022-02-03)
+
+
+### Bug Fixes
+
+* Upgrade dependencies ([#156](https://github.com/amannn/action-semantic-pull-request/issues/156)) ([16c6cc6](https://github.com/amannn/action-semantic-pull-request/commit/16c6cc670bd7e91dbcfd9c39de6e6436d2c0fe1b))
+
 ## [4.0.0](https://github.com/amannn/action-semantic-pull-request/compare/v3.7.0...v4.0.0) (2022-02-02)
 
 
