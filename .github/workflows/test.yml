@@ -16,3 +16,19 @@ jobs:
           node-version: 16
       - run: yarn install
       - run: yarn lint && yarn test
+
+  dist:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with: 
+          fetch-depth: 0
+      - name: Check if `dist/` has been modified.
+        run: |
+          set -eux
+
+          if [ $(git diff origin/master --name-only -- 'dist/**' | wc -l) -gt 0 ]
+          then
+            echo "Please do not update 'dist/'. CI will update it automatically on merge."
+            exit 1
+          fi
