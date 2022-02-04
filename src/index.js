@@ -98,9 +98,12 @@ module.exports = async function run() {
               );
             }
 
-            const commitTitle = nonMergeCommits[0].commit.message.split('\n')[0];
+            const commitTitle =
+              nonMergeCommits[0].commit.message.split('\n')[0];
             if (commitTitle !== pullRequest.title) {
-              throw new Error(`The commit title "${commitTitle}" doesn't match the pull request title "${pullRequest.title}".`);
+              throw new Error(
+                `The commit title "${commitTitle}" doesn't match the pull request title "${pullRequest.title}".`
+              );
             }
           }
         }
