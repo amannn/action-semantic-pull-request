@@ -102,7 +102,7 @@ module.exports = async function run() {
               nonMergeCommits[0].commit.message.split('\n')[0];
             if (commitTitle !== pullRequest.title) {
               throw new Error(
-                `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${pullRequest.title}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.
+                `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${pullRequest.title}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.`
               );
             }
           }
