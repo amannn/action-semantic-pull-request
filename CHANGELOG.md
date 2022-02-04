@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.0.1...v4.1.0) (2022-02-04)
+
+
+### Features
+
+* Check if the PR title matches the commit title when single commits are validated to avoid surprises ([#158](https://github.com/amannn/action-semantic-pull-request/issues/158)) ([f1216e9](https://github.com/amannn/action-semantic-pull-request/commit/f1216e9607ae4b476a6584a899c39bbb4f62da6d))
+
 ### [4.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v4.0.0...v4.0.1) (2022-02-03)
 
 
