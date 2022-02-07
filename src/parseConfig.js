@@ -40,10 +40,10 @@ module.exports = function parseConfig() {
     );
   }
 
-  let validateSingleCommitMatchesPr;
-  if (process.env.INPUT_VALIDATESINGLECOMMITMATCHESPR) {
-    validateSingleCommitMatchesPr = ConfigParser.parseBoolean(
-      process.env.INPUT_VALIDATESINGLECOMMITMATCHESPR
+  let validateSingleCommitMatchesPrTitle;
+  if (process.env.INPUT_VALIDATESINGLECOMMITMATCHESPRTITLE) {
+    validateSingleCommitMatchesPrTitle = ConfigParser.parseBoolean(
+      process.env.INPUT_VALIDATESINGLECOMMITMATCHESPRTITLE
     );
   }
 
@@ -60,7 +60,7 @@ module.exports = function parseConfig() {
     subjectPattern,
     subjectPatternError,
     validateSingleCommit,
-    validateSingleCommitMatchesPr,
+    validateSingleCommitMatchesPrTitle,
     githubBaseUrl
   };
 };

@@ -81,7 +81,7 @@ The action works without configuration, however you can provide options for cust
           # title is not used for the merge commit. Also, since it cannot detect an error
           # as long as the commit message is semantic, it's easy to commit this by mistake.
           # Enable this option to also validate if the PR title matches the commit title.
-          validateSingleCommitMatchesPr: true
+          validateSingleCommitMatchesPrTitle: true
           # If you use Github Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
 ```

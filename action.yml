@@ -29,7 +29,7 @@ inputs:
   validateSingleCommit:
     description: "When using \"Squash and merge\" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit, and it's easy to commit this by mistake. Enable this option to also validate the commit message for one commit PRs." 
     required: false
-  validateSingleCommitMatchesPr:
+  validateSingleCommitMatchesPrTitle:
     description: "When using \"validateSingleCommit\", even if you edit the PR title, the PR title is not used for the merge commit. Also, since it cannot detect an error as long as the commit message is semantic, it's easy to commit this by mistake. Enable this option to also validate if the PR title matches the commit title."
     required: false
   githubBaseUrl:

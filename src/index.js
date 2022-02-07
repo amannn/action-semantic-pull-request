@@ -13,7 +13,7 @@ module.exports = async function run() {
       subjectPattern,
       subjectPatternError,
       validateSingleCommit,
-      validateSingleCommitMatchesPr,
+      validateSingleCommitMatchesPrTitle,
       githubBaseUrl
     } = parseConfig();
 
@@ -99,7 +99,7 @@ module.exports = async function run() {
               );
             }
 
-            if (validateSingleCommitMatchesPr) {
+            if (validateSingleCommitMatchesPrTitle) {
               const commitTitle =
                 nonMergeCommits[0].commit.message.split('\n')[0];
               if (commitTitle !== pullRequest.title) {
