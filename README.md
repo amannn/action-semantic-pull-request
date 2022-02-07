@@ -77,6 +77,11 @@ The action works without configuration, however you can provide options for cust
           # merge commit, and it's easy to commit this by mistake. Enable this option
           # to also validate the commit message for one commit PRs.
           validateSingleCommit: true
+          # When using "validateSingleCommit", even if you edit the PR title, the PR
+          # title is not used for the merge commit. Also, since it cannot detect an error
+          # as long as the commit message is semantic, it's easy to commit this by mistake.
+          # Enable this option to also validate if the PR title matches the commit title.
+          validateSingleCommitMatchesPr: true
           # If you use Github Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
 ```

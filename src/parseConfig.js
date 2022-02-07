@@ -40,6 +40,13 @@ module.exports = function parseConfig() {
     );
   }
 
+  let validateSingleCommitMatchesPr;
+  if (process.env.INPUT_VALIDATESINGLECOMMITMATCHESPR) {
+    validateSingleCommitMatchesPr = ConfigParser.parseBoolean(
+      process.env.INPUT_VALIDATESINGLECOMMITMATCHESPR
+    );
+  }
+
   let githubBaseUrl;
   if (process.env.INPUT_GITHUBBASEURL) {
     githubBaseUrl = ConfigParser.parseString(process.env.INPUT_GITHUBBASEURL);
@@ -53,6 +60,7 @@ module.exports = function parseConfig() {
     subjectPattern,
     subjectPatternError,
     validateSingleCommit,
+    validateSingleCommitMatchesPr,
     githubBaseUrl
   };
 };
