@@ -35661,6 +35661,7 @@ module.exports = async function run() {
       subjectPattern,
       subjectPatternError,
       validateSingleCommit,
+      validateSingleCommitMatchesPrTitle,
       githubBaseUrl
     } = parseConfig();
 
@@ -35746,12 +35747,14 @@ module.exports = async function run() {
               );
             }
 
-            const commitTitle =
-              nonMergeCommits[0].commit.message.split('\n')[0];
-            if (commitTitle !== pullRequest.title) {
-              throw new Error(
-                `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${pullRequest.title}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.`
-              );
+            if (validateSingleCommitMatchesPrTitle) {
+              const commitTitle =
+                nonMergeCommits[0].commit.message.split('\n')[0];
+              if (commitTitle !== pullRequest.title) {
+                throw new Error(
+                  `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${pullRequest.title}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.`
+                );
+              }
             }
           }
         }
@@ -35839,6 +35842,13 @@ module.exports = function parseConfig() {
     );
   }
 
+  let validateSingleCommitMatchesPrTitle;
+  if (process.env.INPUT_VALIDATESINGLECOMMITMATCHESPRTITLE) {
+    validateSingleCommitMatchesPrTitle = ConfigParser.parseBoolean(
+      process.env.INPUT_VALIDATESINGLECOMMITMATCHESPRTITLE
+    );
+  }
+
   let githubBaseUrl;
   if (process.env.INPUT_GITHUBBASEURL) {
     githubBaseUrl = ConfigParser.parseString(process.env.INPUT_GITHUBBASEURL);
@@ -35852,6 +35862,7 @@ module.exports = function parseConfig() {
     subjectPattern,
     subjectPatternError,
     validateSingleCommit,
+    validateSingleCommitMatchesPrTitle,
     githubBaseUrl
   };
 };

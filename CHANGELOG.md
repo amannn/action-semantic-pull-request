@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.1.0...v4.2.0) (2022-02-08)
+
+
+### Features
+
+* Add opt-in validation that PR titles match a single commit ([#160](https://github.com/amannn/action-semantic-pull-request/issues/160)) ([c05e358](https://github.com/amannn/action-semantic-pull-request/commit/c05e3587cb7878ec080300180d31d61ba1cf01ea))
+
 ## [4.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.0.1...v4.1.0) (2022-02-04)
 
 
