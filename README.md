@@ -1,8 +1,8 @@
 # action-semantic-pull-request
 
-This is a [Github Action](https://github.com/features/actions) that ensures that your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/).
+This is a [GitHub Action](https://github.com/features/actions) that ensures that your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/).
 
-This is helpful when you're using [semantic-release](https://github.com/semantic-release/semantic-release) with the Conventional Commits preset. When using the "Squash and merge" strategy, Github will suggest to use the PR title as the commit message. With this action you can validate that the PR title will lead to a correct commit message and subsequently the expected release.
+This is helpful when you're using [semantic-release](https://github.com/semantic-release/semantic-release) with the Conventional Commits preset. When using the "Squash and merge" strategy, GitHub will suggest to use the PR title as the commit message. With this action you can validate that the PR title will lead to a correct commit message and subsequently the expected release.
 
 ## Validation
 
@@ -66,7 +66,7 @@ The action works without configuration, however you can provide options for cust
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
           # For work-in-progress PRs you can typically use draft pull requests 
-          # from Github. However, private repositories on the free plan don't have 
+          # from GitHub. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 
           # special "[WIP]" prefix to indicate this state. This will avoid the 
           # validation of the PR title and the pull request checks remain pending.
@@ -80,7 +80,7 @@ The action works without configuration, however you can provide options for cust
           # Related to `validateSingleCommit` you can opt-in to validate that the PR
           # title matches a single commit to avoid confusion.
           validateSingleCommitMatchesPrTitle: true
-          # If you use Github Enterprise, you can set this to the URL of your server
+          # If you use GitHub Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
 ```
 
@@ -89,4 +89,4 @@ The action works without configuration, however you can provide options for cust
 There are two events that can be used as triggers for this action, each with different characteristics:
 
 1. [`pull_request_target`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change the configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
-2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the Github token environment parameter is not available. This option is viable if all contributors have write access to the repository.
+2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the GitHub token environment parameter is not available. This option is viable if all contributors have write access to the repository.
