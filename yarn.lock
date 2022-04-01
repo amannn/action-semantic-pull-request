@@ -847,12 +847,12 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.1.0.tgz#7f698254aadf921e48dda8c0a6b304026b8a9323"
   integrity sha512-JLo+Y592QzIE+q7Dl2pMUtt4q8SKYI5jDrZxrozEQxnGVOyYE+GWK9eLkwTaeN9DDctlaRAQ3TBmzZ1qdLE30A==
 
-"@semantic-release/changelog@5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-5.0.1.tgz#50a84b63e5d391b7debfe021421589fa2bcdafe4"
-  integrity sha512-unvqHo5jk4dvAf2nZ3aw4imrlwQ2I50eVVvq9D47Qc3R+keNqepx1vDYwkjF8guFXnOYaYcR28yrZWno1hFbiw==
+"@semantic-release/changelog@6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@semantic-release/changelog/-/changelog-6.0.1.tgz#8dd0334fd8c7d50cda747d2591e4f18f816b3c9c"
+  integrity sha512-FT+tAGdWHr0RCM3EpWegWnvXJ05LQtBkQUaQRIExONoXjVjLuOILNm4DEKNaV+GAQyJjbLRVs57ti//GypH6PA==
   dependencies:
-    "@semantic-release/error" "^2.1.0"
+    "@semantic-release/error" "^3.0.0"
     aggregate-error "^3.0.0"
     fs-extra "^9.0.0"
     lodash "^4.17.4"
