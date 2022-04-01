@@ -907,32 +907,10 @@
     micromatch "^4.0.0"
     p-reduce "^2.0.0"
 
-"@semantic-release/github@7.2.0":
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-7.2.0.tgz#925f3efd91adabfc4bbe0de24b79fe1a8a38b4e2"
-  integrity sha512-tMRnWiiWb43whRHvbDGXq4DGEbKRi56glDpXDJZit4PIiwDPX7Kx3QzmwRtDOcG+8lcpGjpdPabYZ9NBxoI2mw==
-  dependencies:
-    "@octokit/rest" "^18.0.0"
-    "@semantic-release/error" "^2.2.0"
-    aggregate-error "^3.0.0"
-    bottleneck "^2.18.1"
-    debug "^4.0.0"
-    dir-glob "^3.0.0"
-    fs-extra "^9.0.0"
-    globby "^11.0.0"
-    http-proxy-agent "^4.0.0"
-    https-proxy-agent "^5.0.0"
-    issue-parser "^6.0.0"
-    lodash "^4.17.4"
-    mime "^2.4.3"
-    p-filter "^2.0.0"
-    p-retry "^4.0.0"
-    url-join "^4.0.0"
-
-"@semantic-release/github@^8.0.0":
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-8.0.2.tgz#80114a41f6ec8ab6c0d38a436b48ff3f2223ab16"
-  integrity sha512-wIbfhOeuxlYzMTjtSAa2xgr54n7ZuPAS2gadyTWBpUt2PNAPgla7A6XxCXJnaKPgfVF0iFfSk3B+KlVKk6ByVg==
+"@semantic-release/github@8.0.4", "@semantic-release/github@^8.0.0":
+  version "8.0.4"
+  resolved "https://registry.yarnpkg.com/@semantic-release/github/-/github-8.0.4.tgz#4ea242f6ad10a0474b0fbb09462e10c43518002a"
+  integrity sha512-But4e8oqqP3anZI5tjzZssZc2J6eoUdeeE0s7LVKKwyiAXJiQDWNNvtPOpgG2DsIz4+Exuse7cEQgjGMxwtLmg==
   dependencies:
     "@octokit/rest" "^18.0.0"
     "@semantic-release/error" "^2.2.0"
@@ -3129,7 +3107,7 @@ http-cache-semantics@^4.1.0:
   resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
   integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
 
-http-proxy-agent@^4.0.0, http-proxy-agent@^4.0.1:
+http-proxy-agent@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-4.0.1.tgz#8a8c8ef7f5932ccf953c296ca8291b95aa74aa3a"
   integrity sha512-k0zdNgqWTGA6aeIRVpvfVob4fL52dTfaehylg0Y4UvSySvOq/Y+BOyPrgpUrA7HylqvU8vIZGsRuXmspskV0Tg==
@@ -4462,11 +4440,6 @@ mime-types@^2.1.12:
   integrity sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==
   dependencies:
     mime-db "1.51.0"
-
-mime@^2.4.3:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-2.6.0.tgz#a2a682a95cd4d0cb1d6257e28f83da7e35800367"
-  integrity sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==
 
 mime@^3.0.0:
   version "3.0.0"
