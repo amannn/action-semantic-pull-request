@@ -84,6 +84,8 @@ The action works without configuration, however you can provide options for cust
           githubBaseUrl: https://github.myorg.com/api/v3
           # If the PR contains one of these labels, the validation is skipped.
           # Multiple labels can be separated by newlines.
+          # If you want to rerun the validation when the labels has changed,
+          # add "labeled" and "unlabeled" conditions to your CI workflow.
           ignoreLabels: |
             bot
             ignore-semantic-pull-request
