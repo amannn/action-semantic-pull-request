@@ -120,7 +120,7 @@ module.exports = async function run() {
     if (ignoreLabels && validationError) {
       const labelNames = pullRequest.labels.map((label) => label.name);
       for (const labelName of labelNames) {
-        if (ignoreLabels.includes(label_name)) {
+        if (ignoreLabels.includes(labelName)) {
           core.info(
             `Validation was skipped because the PR label "${labelName}" was found.`
           );
