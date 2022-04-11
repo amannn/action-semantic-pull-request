@@ -119,12 +119,14 @@ module.exports = async function run() {
     // Ignore errors if specified labels are added.
     if (ignoreLabels && validationError) {
       const labelNames = pullRequest.labels.map((label) => label.name);
-      if (labelNames.some((label_name) => ignoreLabels.includes(label_name))) {
-        core.info(
-          `The validation error was ignored because one of the PR label [${labelNames}] was in [${ignoreLabels}].`
-        );
-        core.info(`The ignored error message is: ${validationError}`);
-        validationError = null;
+      for (const labelName of labelNames) {
+        if (ignoreLabels.includes(label_name)) {
+          core.info(
+            `Validation was skipped because the PR label "${labelName}" was found.`
+          );
+          validationError = null;
+          break;
+        }
       }
     }
 
