@@ -86,6 +86,7 @@ The action works without configuration, however you can provide options for cust
           # Multiple labels can be separated by newlines.
           ignoreLabels: |
             bot
+            ignore-semantic-pull-request
 ```
 
 ## Event triggers
