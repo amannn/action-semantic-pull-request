@@ -14,7 +14,8 @@ module.exports = async function run() {
       subjectPatternError,
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
-      githubBaseUrl
+      githubBaseUrl,
+      ignoreLabels
     } = parseConfig();
 
     const client = github.getOctokit(process.env.GITHUB_TOKEN, {
@@ -112,6 +113,18 @@ module.exports = async function run() {
         }
       } catch (error) {
         validationError = error;
+      }
+    }
+
+    // Ignore errors if specified labels are added.
+    if (ignoreLabels && validationError) {
+      const label_names = pullRequest.labels.map((label) => label.name);
+      if (label_names.some((label_name) => ignoreLabels.includes(label_name))) {
+        core.info(
+          `The validation error was ignored because one of the PR label [${label_names}] was in [${ignoreLabels}].`
+        );
+        core.info(`The ignored error message is: ${validationError}`);
+        validationError = null;
       }
     }
 

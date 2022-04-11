@@ -82,6 +82,8 @@ The action works without configuration, however you can provide options for cust
           validateSingleCommitMatchesPrTitle: true
           # If you use GitHub Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
+          ignoreLabels: |
+            bot
 ```
 
 ## Event triggers
