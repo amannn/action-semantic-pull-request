@@ -42,6 +42,19 @@ module.exports = async function run() {
       pull_number: contextPullRequest.number
     });
 
+    // Ignore errors if specified labels are added.
+    if (ignoreLabels) {
+      const labelNames = pullRequest.labels.map((label) => label.name);
+      for (const labelName of labelNames) {
+        if (ignoreLabels.includes(labelName)) {
+          core.info(
+            `Validation was skipped because the PR label "${labelName}" was found.`
+          );
+          return;
+        }
+      }
+    }
+
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = wip && /^\[WIP\]\s/.test(pullRequest.title);
 
@@ -113,20 +126,6 @@ module.exports = async function run() {
         }
       } catch (error) {
         validationError = error;
-      }
-    }
-
-    // Ignore errors if specified labels are added.
-    if (ignoreLabels && validationError) {
-      const labelNames = pullRequest.labels.map((label) => label.name);
-      for (const labelName of labelNames) {
-        if (ignoreLabels.includes(labelName)) {
-          core.info(
-            `Validation was skipped because the PR label "${labelName}" was found.`
-          );
-          validationError = null;
-          break;
-        }
       }
     }
 
