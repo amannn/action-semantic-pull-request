@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.2.0...v4.3.0) (2022-04-13)
+
+
+### Features
+
+* Add `ignoreLabels` option to opt-out of validation for certain PRs ([#174](https://github.com/amannn/action-semantic-pull-request/issues/174)) ([277c230](https://github.com/amannn/action-semantic-pull-request/commit/277c2303f965680aed7613eb512365c58aa92b6b))
+
 ## [4.2.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.1.0...v4.2.0) (2022-02-08)
 
 
