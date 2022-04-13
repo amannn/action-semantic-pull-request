@@ -52,6 +52,11 @@ module.exports = function parseConfig() {
     githubBaseUrl = ConfigParser.parseString(process.env.INPUT_GITHUBBASEURL);
   }
 
+  let ignoreLabels;
+  if (process.env.INPUT_IGNORELABELS) {
+    ignoreLabels = ConfigParser.parseEnum(process.env.INPUT_IGNORELABELS);
+  }
+
   return {
     types,
     scopes,
@@ -61,6 +66,7 @@ module.exports = function parseConfig() {
     subjectPatternError,
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
-    githubBaseUrl
+    githubBaseUrl,
+    ignoreLabels
   };
 };

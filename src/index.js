@@ -14,7 +14,8 @@ module.exports = async function run() {
       subjectPatternError,
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
-      githubBaseUrl
+      githubBaseUrl,
+      ignoreLabels
     } = parseConfig();
 
     const client = github.getOctokit(process.env.GITHUB_TOKEN, {
@@ -40,6 +41,19 @@ module.exports = async function run() {
       repo,
       pull_number: contextPullRequest.number
     });
+
+    // Ignore errors if specified labels are added.
+    if (ignoreLabels) {
+      const labelNames = pullRequest.labels.map((label) => label.name);
+      for (const labelName of labelNames) {
+        if (ignoreLabels.includes(labelName)) {
+          core.info(
+            `Validation was skipped because the PR label "${labelName}" was found.`
+          );
+          return;
+        }
+      }
+    }
 
     // Pull requests that start with "[WIP] " are excluded from the check.
     const isWip = wip && /^\[WIP\]\s/.test(pullRequest.title);
