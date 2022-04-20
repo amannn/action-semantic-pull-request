@@ -65,6 +65,13 @@ The action works without configuration, however you can provide options for cust
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
+          # Configure custom regex that will be passed to conventional-commits-parser.
+          # This can be used to specify different required format of the title.
+          # The correspondence is used to define what capturing group of headerPattern captures what header part.
+          # The example values are the default.
+          # For more details see: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
+          headerPatternCorrespondence: type, scope, subject
           # For work-in-progress PRs you can typically use draft pull requests 
           # from GitHub. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 
