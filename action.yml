@@ -23,6 +23,12 @@ inputs:
   subjectPatternError:
     description: "If `subjectPattern` is configured, you can use this property to override the default error message that is shown when the pattern doesn't match. The variables `subject` and `title` can be used within the message."
     required: false
+  headerPattern:
+    description: "Configure custom regex that will be passed to conventional-commits-parser. For more details see: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern"
+    required: false
+  headerPatternCorrespondence:
+    description: "If `headerPattern` is configured, you can use this property to also configure which RegEx groups match what part of the semantic commit."
+    required: false
   wip:
     description: "For work-in-progress PRs you can typically use draft pull requests from Github. However, private repositories on the free plan don't have this option and therefore this action allows you to opt-in to using the special '[WIP]' prefix to indicate this state. This will avoid the validation of the PR title and the pull request checks remain pending. Note that a second check will be reported if this is enabled."
     required: false
