@@ -12,6 +12,8 @@ module.exports = async function run() {
       wip,
       subjectPattern,
       subjectPatternError,
+      headerPattern,
+      headerPatternCorrespondence,
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
       githubBaseUrl,
@@ -66,7 +68,9 @@ module.exports = async function run() {
           scopes,
           requireScope,
           subjectPattern,
-          subjectPatternError
+          subjectPatternError,
+          headerPattern,
+          headerPatternCorrespondence
         });
 
         if (validateSingleCommit) {
@@ -105,7 +109,9 @@ module.exports = async function run() {
                 scopes,
                 requireScope,
                 subjectPattern,
-                subjectPatternError
+                subjectPatternError,
+                headerPattern,
+                headerPatternCorrespondence
               });
             } catch (error) {
               throw new Error(

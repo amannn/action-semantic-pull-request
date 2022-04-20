@@ -28,6 +28,18 @@ module.exports = function parseConfig() {
     );
   }
 
+  let headerPattern;
+  if (process.env.INPUT_HEADERPATTERN) {
+    headerPattern = ConfigParser.parseString(process.env.INPUT_HEADERPATTERN);
+  }
+
+  let headerPatternCorrespondence;
+  if (process.env.INPUT_HEADERPATTERNCORRESPONDENCE) {
+    headerPatternCorrespondence = ConfigParser.parseString(
+      process.env.INPUT_HEADERPATTERNCORRESPONDENCE
+    );
+  }
+
   let wip;
   if (process.env.INPUT_WIP) {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
@@ -64,6 +76,8 @@ module.exports = function parseConfig() {
     wip,
     subjectPattern,
     subjectPatternError,
+    headerPattern,
+    headerPatternCorrespondence,
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
     githubBaseUrl,

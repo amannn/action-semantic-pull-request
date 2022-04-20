@@ -7,11 +7,25 @@ const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
 module.exports = async function validatePrTitle(
   prTitle,
-  {types, scopes, requireScope, subjectPattern, subjectPatternError} = {}
+  {
+    types,
+    scopes,
+    requireScope,
+    subjectPattern,
+    subjectPatternError,
+    headerPattern,
+    headerPatternCorrespondence
+  } = {}
 ) {
   if (!types) types = defaultTypes;
 
   const {parserOpts} = await conventionalCommitsConfig();
+  if (headerPattern) {
+    parserOpts.headerPattern = headerPattern;
+  }
+  if (headerPatternCorrespondence) {
+    parserOpts.headerCorrespondence = headerPatternCorrespondence;
+  }
   const result = parser(prTitle, parserOpts);
 
   function printAvailableTypes() {
