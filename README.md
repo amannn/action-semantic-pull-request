@@ -65,20 +65,6 @@ The action works without configuration, however you can provide options for cust
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
-          # If you're using a format for the PR title that differs from the traditional Conventional
-          # Commits spec, you can use these options to customize the parsing of the type, scope and
-          # subject. The `headerPattern` should contain a regex where the capturing groups in parentheses
-          # correspond to the parts listed in `headerPatternCorrespondence`.
-          # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
-          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
-          headerPatternCorrespondence: type, scope, subject
-          # For work-in-progress PRs you can typically use draft pull requests 
-          # from GitHub. However, private repositories on the free plan don't have 
-          # this option and therefore this action allows you to opt-in to using the 
-          # special "[WIP]" prefix to indicate this state. This will avoid the 
-          # validation of the PR title and the pull request checks remain pending.
-          # Note that a second check will be reported if this is enabled.
-          wip: true
           # When using "Squash and merge" on a PR with only one commit, GitHub
           # will suggest using that commit message instead of the PR title for the
           # merge commit, and it's easy to commit this by mistake. Enable this option
@@ -96,6 +82,20 @@ The action works without configuration, however you can provide options for cust
           ignoreLabels: |
             bot
             ignore-semantic-pull-request
+          # If you're using a format for the PR title that differs from the traditional Conventional
+          # Commits spec, you can use these options to customize the parsing of the type, scope and
+          # subject. The `headerPattern` should contain a regex where the capturing groups in parentheses
+          # correspond to the parts listed in `headerPatternCorrespondence`.
+          # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
+          headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
+          headerPatternCorrespondence: type, scope, subject
+          # For work-in-progress PRs you can typically use draft pull requests 
+          # from GitHub. However, private repositories on the free plan don't have 
+          # this option and therefore this action allows you to opt-in to using the 
+          # special "[WIP]" prefix to indicate this state. This will avoid the 
+          # validation of the PR title and the pull request checks remain pending.
+          # Note that a second check will be reported if this is enabled.
+          wip: true
 ```
 
 ## Event triggers
