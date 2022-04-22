@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.4.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.3.0...v4.4.0) (2022-04-22)
+
+
+### Features
+
+* Add options to pass custom regex to conventional-commits-parser ([#177](https://github.com/amannn/action-semantic-pull-request/issues/177)) ([956659a](https://github.com/amannn/action-semantic-pull-request/commit/956659ae00eaa0b00fe5a58dfdf3a3db1efd1d63))
+
 ## [4.3.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.2.0...v4.3.0) (2022-04-13)
 
 

@@ -35660,6 +35660,8 @@ module.exports = async function run() {
       wip,
       subjectPattern,
       subjectPatternError,
+      headerPattern,
+      headerPatternCorrespondence,
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
       githubBaseUrl,
@@ -35714,7 +35716,9 @@ module.exports = async function run() {
           scopes,
           requireScope,
           subjectPattern,
-          subjectPatternError
+          subjectPatternError,
+          headerPattern,
+          headerPatternCorrespondence
         });
 
         if (validateSingleCommit) {
@@ -35753,7 +35757,9 @@ module.exports = async function run() {
                 scopes,
                 requireScope,
                 subjectPattern,
-                subjectPatternError
+                subjectPatternError,
+                headerPattern,
+                headerPatternCorrespondence
               });
             } catch (error) {
               throw new Error(
@@ -35844,6 +35850,18 @@ module.exports = function parseConfig() {
     );
   }
 
+  let headerPattern;
+  if (process.env.INPUT_HEADERPATTERN) {
+    headerPattern = ConfigParser.parseString(process.env.INPUT_HEADERPATTERN);
+  }
+
+  let headerPatternCorrespondence;
+  if (process.env.INPUT_HEADERPATTERNCORRESPONDENCE) {
+    headerPatternCorrespondence = ConfigParser.parseString(
+      process.env.INPUT_HEADERPATTERNCORRESPONDENCE
+    );
+  }
+
   let wip;
   if (process.env.INPUT_WIP) {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
@@ -35880,6 +35898,8 @@ module.exports = function parseConfig() {
     wip,
     subjectPattern,
     subjectPatternError,
+    headerPattern,
+    headerPatternCorrespondence,
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
     githubBaseUrl,
@@ -35902,11 +35922,25 @@ const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
 module.exports = async function validatePrTitle(
   prTitle,
-  {types, scopes, requireScope, subjectPattern, subjectPatternError} = {}
+  {
+    types,
+    scopes,
+    requireScope,
+    subjectPattern,
+    subjectPatternError,
+    headerPattern,
+    headerPatternCorrespondence
+  } = {}
 ) {
   if (!types) types = defaultTypes;
 
   const {parserOpts} = await conventionalCommitsConfig();
+  if (headerPattern) {
+    parserOpts.headerPattern = headerPattern;
+  }
+  if (headerPatternCorrespondence) {
+    parserOpts.headerCorrespondence = headerPatternCorrespondence;
+  }
   const result = parser(prTitle, parserOpts);
 
   function printAvailableTypes() {
