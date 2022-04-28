@@ -98,6 +98,68 @@ describe('defined scopes', () => {
       });
     });
 
+    describe('disallow scopes', () => {
+      it('passes when a single scope is provided, but not present in disallowScopes with one item', async () => {
+        await validatePrTitle('fix(core): Bar', {disallowScopes: ['release']});
+      });
+
+      it('passes when multiple scopes are provided, but not present in disallowScopes with one item', async () => {
+        await validatePrTitle('fix(core,e2e,bar): Bar', {
+          disallowScopes: ['release']
+        });
+      });
+
+      it('passes when a single scope is provided, but not present in disallowScopes with multiple items', async () => {
+        await validatePrTitle('fix(core): Bar', {
+          disallowScopes: ['release', 'test']
+        });
+      });
+
+      it('passes when multiple scopes are provided, but not present in disallowScopes with multiple items', async () => {
+        await validatePrTitle('fix(core,e2e,bar): Bar', {
+          disallowScopes: ['release', 'test']
+        });
+      });
+
+      it('throws when a single scope is provided and it is present in disallowScopes with one item', async () => {
+        await expect(
+          validatePrTitle('fix(release): Bar', {disallowScopes: ['release']})
+        ).rejects.toThrow('Disallowed scope(s) are found: release');
+      });
+
+      it('throws when a single scope is provided and it is present in disallowScopes with multiple item', async () => {
+        await expect(
+          validatePrTitle('fix(release): Bar', {
+            disallowScopes: ['release', 'test']
+          })
+        ).rejects.toThrow('Disallowed scope(s) are found: release');
+      });
+
+      it('throws when multiple scopes are provided and one of them is present in disallowScopes with one item ', async () => {
+        await expect(
+          validatePrTitle('fix(release,e2e): Bar', {
+            disallowScopes: ['release']
+          })
+        ).rejects.toThrow('Disallowed scope(s) are found: release');
+      });
+
+      it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items ', async () => {
+        await expect(
+          validatePrTitle('fix(release,e2e): Bar', {
+            disallowScopes: ['release', 'test']
+          })
+        ).rejects.toThrow('Disallowed scope(s) are found: release');
+      });
+
+      it('throws when multiple scopes are provided and more than one of them are present in disallowScopes', async () => {
+        await expect(
+          validatePrTitle('fix(release,test): Bar', {
+            disallowScopes: ['release', 'test']
+          })
+        ).rejects.toThrow('Disallowed scope(s) are found: release, test');
+      });
+    });
+
     describe('scope allowlist not defined', () => {
       it('passes when a scope is provided', async () => {
         await validatePrTitle('fix(core): Bar', {

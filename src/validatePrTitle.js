@@ -11,6 +11,7 @@ module.exports = async function validatePrTitle(
     types,
     scopes,
     requireScope,
+    disallowScopes,
     subjectPattern,
     subjectPatternError,
     headerPattern,
@@ -44,6 +45,10 @@ module.exports = async function validatePrTitle(
 
   function isUnknownScope(s) {
     return scopes && !scopes.includes(s);
+  }
+
+  function isDisallowedScope(s) {
+    return disallowScopes && !disallowScopes.includes(s);
   }
 
   if (!result.type) {
@@ -86,6 +91,15 @@ module.exports = async function validatePrTitle(
       )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
         ', '
       )}.`
+    );
+  }
+
+  const disallowedScopes = givenScopes
+    ? givenScopes.filter(isDisallowedScope)
+    : [];
+  if (disallowScopes && disallowedScopes.length > 0) {
+    throw new Error(
+      `Disallowed scope(s) are found: ${disallowScopes.join(', ')}`
     );
   }
 

@@ -16,6 +16,11 @@ module.exports = function parseConfig() {
     requireScope = ConfigParser.parseBoolean(process.env.INPUT_REQUIRESCOPE);
   }
 
+  let disallowScopes;
+  if (process.env.INPUT_DISALLOWSCOPES) {
+    disallowScopes = ConfigParser.parseEnum(process.env.INPUT_DISALLOWSCOPES);
+  }
+
   let subjectPattern;
   if (process.env.INPUT_SUBJECTPATTERN) {
     subjectPattern = ConfigParser.parseString(process.env.INPUT_SUBJECTPATTERN);
@@ -73,6 +78,7 @@ module.exports = function parseConfig() {
     types,
     scopes,
     requireScope,
+    disallowScopes,
     wip,
     subjectPattern,
     subjectPatternError,
