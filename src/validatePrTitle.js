@@ -48,7 +48,7 @@ module.exports = async function validatePrTitle(
   }
 
   function isDisallowedScope(s) {
-    return disallowScopes && !disallowScopes.includes(s);
+    return disallowScopes && disallowScopes.includes(s);
   }
 
   if (!result.type) {
@@ -81,6 +81,7 @@ module.exports = async function validatePrTitle(
   const givenScopes = result.scope
     ? result.scope.split(',').map((scope) => scope.trim())
     : undefined;
+
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
     throw new Error(
