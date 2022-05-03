@@ -124,7 +124,7 @@ describe('defined scopes', () => {
       it('throws when a single scope is provided and it is present in disallowScopes with one item', async () => {
         await expect(
           validatePrTitle('fix(release): Bar', {disallowScopes: ['release']})
-        ).rejects.toThrow('Disallowed scope(s) are found: release');
+        ).rejects.toThrow('Disallowed scope was found: release');
       });
 
       it('throws when a single scope is provided and it is present in disallowScopes with multiple item', async () => {
@@ -132,7 +132,7 @@ describe('defined scopes', () => {
           validatePrTitle('fix(release): Bar', {
             disallowScopes: ['release', 'test']
           })
-        ).rejects.toThrow('Disallowed scope(s) are found: release');
+        ).rejects.toThrow('Disallowed scope was found: release');
       });
 
       it('throws when multiple scopes are provided and one of them is present in disallowScopes with one item ', async () => {
@@ -140,7 +140,7 @@ describe('defined scopes', () => {
           validatePrTitle('fix(release,e2e): Bar', {
             disallowScopes: ['release']
           })
-        ).rejects.toThrow('Disallowed scope(s) are found: release');
+        ).rejects.toThrow('Disallowed scope was found: release');
       });
 
       it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items ', async () => {
@@ -148,7 +148,7 @@ describe('defined scopes', () => {
           validatePrTitle('fix(release,e2e): Bar', {
             disallowScopes: ['release', 'test']
           })
-        ).rejects.toThrow('Disallowed scope(s) are found: release');
+        ).rejects.toThrow('Disallowed scope was found: release');
       });
 
       it('throws when multiple scopes are provided and more than one of them are present in disallowScopes', async () => {
@@ -156,7 +156,7 @@ describe('defined scopes', () => {
           validatePrTitle('fix(release,test): Bar', {
             disallowScopes: ['release', 'test']
           })
-        ).rejects.toThrow('Disallowed scope(s) are found: release, test');
+        ).rejects.toThrow('Disallowed scopes were found: release, test');
       });
     });
 

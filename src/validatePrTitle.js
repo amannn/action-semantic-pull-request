@@ -100,7 +100,9 @@ module.exports = async function validatePrTitle(
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
     throw new Error(
-      `Disallowed ${disallowedScopes.length === 1 ? 'scope was' : 'scopes were'} found: ${disallowScopes.join(', ')}`
+      `Disallowed ${
+        disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
+      } found: ${disallowScopes.join(', ')}`
     );
   }
 
