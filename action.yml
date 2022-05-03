@@ -18,7 +18,7 @@ inputs:
     description: "Configure that a scope must always be provided."
     required: false
   disallowScopes:
-    description: 'Configure a list of disallowed scopes to be used on a PR.'
+    description: 'Configure which scopes are disallowed in PR titles.'
     required: false
   subjectPattern:
     description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
