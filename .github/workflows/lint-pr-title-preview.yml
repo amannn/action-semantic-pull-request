@@ -1,4 +1,4 @@
-name: 'Lint PR title preview (current branch)'
+name: "Lint PR title preview (current branch)"
 on:
   pull_request:
     types:
@@ -19,3 +19,6 @@ jobs:
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          disallowScopes: |
+            release
