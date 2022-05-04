@@ -11,6 +11,7 @@ module.exports = async function validatePrTitle(
     types,
     scopes,
     requireScope,
+    disallowScopes,
     subjectPattern,
     subjectPatternError,
     headerPattern,
@@ -46,6 +47,10 @@ module.exports = async function validatePrTitle(
     return scopes && !scopes.includes(s);
   }
 
+  function isDisallowedScope(s) {
+    return disallowScopes && disallowScopes.includes(s);
+  }
+
   if (!result.type) {
     throw new Error(
       `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`
@@ -76,6 +81,7 @@ module.exports = async function validatePrTitle(
   const givenScopes = result.scope
     ? result.scope.split(',').map((scope) => scope.trim())
     : undefined;
+
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
     throw new Error(
@@ -86,6 +92,17 @@ module.exports = async function validatePrTitle(
       )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
         ', '
       )}.`
+    );
+  }
+
+  const disallowedScopes = givenScopes
+    ? givenScopes.filter(isDisallowedScope)
+    : [];
+  if (disallowScopes && disallowedScopes.length > 0) {
+    throw new Error(
+      `Disallowed ${
+        disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
+      } found: ${disallowScopes.join(', ')}`
     );
   }
 

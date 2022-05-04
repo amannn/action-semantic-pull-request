@@ -55,6 +55,10 @@ The action works without configuration, however you can provide options for cust
             ui
           # Configure that a scope must always be provided.
           requireScope: true
+          # Configure which scopes are disallowed in PR titles. For instance,  by setting
+          # the value below, `chore(release): ...` or `ci(e2e,release): ...` will be rejected.
+          disallowScopes: |
+            release
           # Configure additional validation for the subject based on a regex.
           # This example ensures the subject doesn't start with an uppercase character.
           subjectPattern: ^(?![A-Z]).+$
