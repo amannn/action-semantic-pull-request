@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.4.0...v4.5.0) (2022-05-04)
+
+
+### Features
+
+* Add `disallowScopes` option ([#179](https://github.com/amannn/action-semantic-pull-request/issues/179)) ([6a7ed2d](https://github.com/amannn/action-semantic-pull-request/commit/6a7ed2d5046cf8a40c60494c83c962343061874a))
+
 ## [4.4.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.3.0...v4.4.0) (2022-04-22)
 
 
