@@ -39,7 +39,7 @@
     "eslint": "7.9.0",
     "eslint-config-molindo": "5.1.1",
     "jest": "27.4.7",
-    "semantic-release": "19.0.2"
+    "semantic-release": "19.0.3"
   },
   "engines": {
     "node": "^16.0.0"
