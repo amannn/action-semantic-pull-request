@@ -13,5 +13,5 @@ To do this, please follow this process:
 1. Fork the repo.
 2. Create a PR in **your own repo**.
 3. The "Lint PR title preview (current branch)" workflow will run the new version and will help you validate the change.
-4. Create a PR to this repo with the changes. In this case the preview workflow will fail, but we'll know that it works since you tested it in the fork. Please include a include a link to a workflow where you tested the current state of this pull request.
+4. Create a PR to this repo with the changes. In this case the preview workflow will fail, but we'll know that it works since you tested it in the fork. Please include a link to a workflow where you tested the current state of this pull request.
 5. Don't run `npm run build` to update the `dist` folder as it will be generated on CI during the build
