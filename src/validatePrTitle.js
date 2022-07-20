@@ -1,9 +1,12 @@
+const core = require('@actions/core');
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
 const conventionalCommitTypes = require('conventional-commit-types');
 const parser = require('conventional-commits-parser').sync;
 const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
+
+let errorMessage
 
 module.exports = async function validatePrTitle(
   prTitle,
@@ -52,30 +55,26 @@ module.exports = async function validatePrTitle(
   }
 
   if (!result.type) {
-    throw new Error(
-      `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`
-    );
+    errorMessage = `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`;
+    throw new Error(errorMessage);
   }
 
   if (!result.subject) {
-    throw new Error(`No subject found in pull request title "${prTitle}".`);
+    errorMessage = `No subject found in pull request title "${prTitle}".`;
+    throw new Error(errorMessage);
   }
 
-  if (!types.includes(result.type)) {
-    throw new Error(
-      `Unknown release type "${
-        result.type
-      }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`
-    );
+  if (!types.includes(result.type)) {    
+    errorMessage = `Unknown release type "${result.type}" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`;
+    throw new Error(errorMessage);
   }
 
   if (requireScope && !result.scope) {
-    let msg = `No scope found in pull request title "${prTitle}".`;
+    errorMessage = `No scope found in pull request title "${prTitle}".`;
     if (scopes) {
-      msg += ` Use one of the available scopes: ${scopes.join(', ')}.`;
+      errorMessage += ` Use one of the available scopes: ${scopes.join(', ')}.`;
     }
-
-    throw new Error(msg);
+    throw new Error(errorMessage);
   }
 
   const givenScopes = result.scope
@@ -84,26 +83,16 @@ module.exports = async function validatePrTitle(
 
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
-    throw new Error(
-      `Unknown ${
-        unknownScopes.length > 1 ? 'scopes' : 'scope'
-      } "${unknownScopes.join(
-        ','
-      )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
-        ', '
-      )}.`
-    );
+    errorMessage = `Unknown ${unknownScopes.length > 1 ? 'scopes' : 'scope'} "${unknownScopes.join(',')}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(', ')}.`;
+    throw new Error(errorMessage);
   }
 
   const disallowedScopes = givenScopes
     ? givenScopes.filter(isDisallowedScope)
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
-    throw new Error(
-      `Disallowed ${
-        disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
-      } found: ${disallowScopes.join(', ')}`
-    );
+    errorMessage = `Disallowed ${disallowedScopes.length === 1 ? 'scope was' : 'scopes were'} found: ${disallowScopes.join(', ')}`;
+    throw new Error(errorMessage);
   }
 
   function throwSubjectPatternError(message) {
@@ -113,6 +102,8 @@ module.exports = async function validatePrTitle(
         title: prTitle
       });
     }
+
+    errorMessage = message;
 
     throw new Error(message);
   }
@@ -133,4 +124,6 @@ module.exports = async function validatePrTitle(
       );
     }
   }
+
+  core.setOutput("error_message", errorMessage)
 };
