@@ -6,7 +6,7 @@ const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
-let errorMessage
+let errorMessage;
 
 module.exports = async function validatePrTitle(
   prTitle,
@@ -64,8 +64,10 @@ module.exports = async function validatePrTitle(
     throw new Error(errorMessage);
   }
 
-  if (!types.includes(result.type)) {    
-    errorMessage = `Unknown release type "${result.type}" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`;
+  if (!types.includes(result.type)) {
+    errorMessage = `Unknown release type "${
+      result.type
+    }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`;
     throw new Error(errorMessage);
   }
 
@@ -83,7 +85,13 @@ module.exports = async function validatePrTitle(
 
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
-    errorMessage = `Unknown ${unknownScopes.length > 1 ? 'scopes' : 'scope'} "${unknownScopes.join(',')}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(', ')}.`;
+    errorMessage = `Unknown ${
+      unknownScopes.length > 1 ? 'scopes' : 'scope'
+    } "${unknownScopes.join(
+      ','
+    )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
+      ', '
+    )}.`;
     throw new Error(errorMessage);
   }
 
@@ -91,7 +99,9 @@ module.exports = async function validatePrTitle(
     ? givenScopes.filter(isDisallowedScope)
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
-    errorMessage = `Disallowed ${disallowedScopes.length === 1 ? 'scope was' : 'scopes were'} found: ${disallowScopes.join(', ')}`;
+    errorMessage = `Disallowed ${
+      disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
+    } found: ${disallowScopes.join(', ')}`;
     throw new Error(errorMessage);
   }
 
@@ -125,5 +135,5 @@ module.exports = async function validatePrTitle(
     }
   }
 
-  core.setOutput("error_message", errorMessage)
+  core.setOutput('error_message', errorMessage);
 };
