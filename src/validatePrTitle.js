@@ -55,28 +55,29 @@ module.exports = async function validatePrTitle(
   }
 
   if (!result.type) {
-    errorMessage = `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`;
-    throw new Error(errorMessage);
+    raiseError(
+      `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`
+    );
   }
 
   if (!result.subject) {
-    errorMessage = `No subject found in pull request title "${prTitle}".`;
-    throw new Error(errorMessage);
+    raiseError(`No subject found in pull request title "${prTitle}".`);
   }
 
   if (!types.includes(result.type)) {
-    errorMessage = `Unknown release type "${
-      result.type
-    }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`;
-    throw new Error(errorMessage);
+    raiseError(
+      `Unknown release type "${
+        result.type
+      }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`
+    );
   }
 
   if (requireScope && !result.scope) {
-    errorMessage = `No scope found in pull request title "${prTitle}".`;
+    let message = `No scope found in pull request title "${prTitle}".`;
     if (scopes) {
-      errorMessage += ` Use one of the available scopes: ${scopes.join(', ')}.`;
+      message += ` Use one of the available scopes: ${scopes.join(', ')}.`;
     }
-    throw new Error(errorMessage);
+    raiseError(message);
   }
 
   const givenScopes = result.scope
@@ -85,24 +86,26 @@ module.exports = async function validatePrTitle(
 
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
-    errorMessage = `Unknown ${
-      unknownScopes.length > 1 ? 'scopes' : 'scope'
-    } "${unknownScopes.join(
-      ','
-    )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
-      ', '
-    )}.`;
-    throw new Error(errorMessage);
+    raiseError(
+      `Unknown ${
+        unknownScopes.length > 1 ? 'scopes' : 'scope'
+      } "${unknownScopes.join(
+        ','
+      )}" found in pull request title "${prTitle}". Use one of the available scopes: ${scopes.join(
+        ', '
+      )}.`
+    );
   }
 
   const disallowedScopes = givenScopes
     ? givenScopes.filter(isDisallowedScope)
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
-    errorMessage = `Disallowed ${
-      disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
-    } found: ${disallowScopes.join(', ')}`;
-    throw new Error(errorMessage);
+    raiseError(
+      `Disallowed ${
+        disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
+      } found: ${disallowScopes.join(', ')}`
+    );
   }
 
   function throwSubjectPatternError(message) {
@@ -112,10 +115,7 @@ module.exports = async function validatePrTitle(
         title: prTitle
       });
     }
-
-    errorMessage = message;
-
-    throw new Error(message);
+    raiseError(message);
   }
 
   if (subjectPattern) {
@@ -136,4 +136,10 @@ module.exports = async function validatePrTitle(
   }
 
   core.setOutput('error_message', errorMessage);
+
+  function raiseError(message) {
+    core.setOutput('errorMessage', message);
+
+    throw new Error(message);
+  }
 };
