@@ -6,8 +6,6 @@ const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
-let errorMessage;
-
 module.exports = async function validatePrTitle(
   prTitle,
   {
