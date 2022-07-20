@@ -133,8 +133,6 @@ module.exports = async function validatePrTitle(
     }
   }
 
-  core.setOutput('error_message', errorMessage);
-
   function raiseError(message) {
     core.setOutput('errorMessage', message);
 
