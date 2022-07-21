@@ -113,6 +113,53 @@ There are two events that can be used as triggers for this action, each with dif
 1. [`pull_request_target`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change the configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
 2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the GitHub token environment parameter is not available. This option is viable if all contributors have write access to the repository.
 
+## Outputs
+
+- `ERROR_MESSAGE`: The error message created by this action case the validation fails
+
+This actions outputs the error message raised in the validation, so you can use it in other steps or jobs.
+
+- First, assign an ID to the action-semantic-pull-request step.
+- On the next step, add an "if: always()" to force it to run. This is necessary because otherwise the whole workflow would just stop when action-semantic-pull-request throws the error.
+- Get the output by using an expression pointing to the action-semantic-pull-request ID.
+- Do what you want with it.
+
+In the example below, we use the [sticky-pull-request-comment](https://github.com/marketplace/actions/sticky-pull-request-comment) action to create a comment in the PR with the error message outputed by this action.
+
+```yml
+name: "Lint PR"
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v4
+        # Assign an ID to the step.
+        id: lint_pr_title
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR
+        # Since this action throws an error that naturaly stops the workflow execution, 
+        # add an "if: always()" to force it to run.
+        # In this case, to comment on the PR.
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          # Get the output using an expression, pointing to the ID you assigned.
+          message: ${{ steps.lint_pr_title.outputs.ERROR_MESSAGE }}
+```
+
+You can read more about outputs in the [GitHub Documentation](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs).
+
 ## Legacy configuration
 
 When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit and it's easy to commit this by mistake. To help out in this situation this action supports two configuration options. However, [GitHub has introduced an option to streamline this behaviour](https://github.blog/changelog/2022-05-11-default-to-pr-titles-for-squash-merge-commit-messages/), so using that instead should be preferred.
