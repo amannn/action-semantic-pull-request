@@ -115,16 +115,12 @@ There are two events that can be used as triggers for this action, each with dif
 
 ## Outputs
 
-- `error_message`: The error message created by this action case the validation fails
+In case the validation fails, this action will populate the `error_message` ouput.
 
-This actions outputs the error message raised in the validation, so you can use it in other steps or jobs.
+[An output can be used in other steps](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs), for example to comment the error message onto the pull request.
 
-- First, assign an ID to the action-semantic-pull-request step.
-- On the next step, add an "if: always()" to force it to run. This is necessary because otherwise the whole workflow would just stop when action-semantic-pull-request throws the error.
-- Get the output by using an expression pointing to the action-semantic-pull-request ID.
-- Do what you want with it.
-
-In the example below, we use the [sticky-pull-request-comment](https://github.com/marketplace/actions/sticky-pull-request-comment) action to create a comment in the PR with the error message outputed by this action.
+<details>
+<summary>Example</summary>
 
 ```yml
 name: "Lint PR"
@@ -142,23 +138,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@v4
-        # Assign an ID to the step.
         id: lint_pr_title
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Comment on PR
-        # Since this action throws an error that naturaly stops the workflow execution, 
-        # add an "if: always()" to force it to run.
-        # In this case, to comment on the PR.
+      - uses: marocchino/sticky-pull-request-comment@v2
+        # When the previous steps fails, the workflow would stop. By adding this
+        # condition you can continue the execution with the populated error message.
         if: always()
-        uses: marocchino/sticky-pull-request-comment@v2
         with:
-          # Get the output using an expression, pointing to the ID you assigned.
           message: ${{ steps.lint_pr_title.outputs.error_message }}
 ```
 
-You can read more about outputs in the [GitHub Documentation](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs).
+</details>
 
 ## Legacy configuration
 
