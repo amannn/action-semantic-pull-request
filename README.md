@@ -115,7 +115,7 @@ There are two events that can be used as triggers for this action, each with dif
 
 ## Outputs
 
-- `ERROR_MESSAGE`: The error message created by this action case the validation fails
+- `error_message`: The error message created by this action case the validation fails
 
 This actions outputs the error message raised in the validation, so you can use it in other steps or jobs.
 
@@ -155,7 +155,7 @@ jobs:
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           # Get the output using an expression, pointing to the ID you assigned.
-          message: ${{ steps.lint_pr_title.outputs.ERROR_MESSAGE }}
+          message: ${{ steps.lint_pr_title.outputs.error_message }}
 ```
 
 You can read more about outputs in the [GitHub Documentation](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs).

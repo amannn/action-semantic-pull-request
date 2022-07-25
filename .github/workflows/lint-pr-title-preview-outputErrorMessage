@@ -25,4 +25,4 @@ jobs:
         if: always()
         uses: marocchino/sticky-pull-request-comment@v2
         with:
-          message: ${{ steps.lint_pr_title.outputs.ERROR_MESSAGE }}
+          message: ${{ steps.lint_pr_title.outputs.error_message }}

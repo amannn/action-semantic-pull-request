@@ -134,7 +134,7 @@ module.exports = async function validatePrTitle(
   }
 
   function raiseError(message) {
-    core.setOutput('ERROR_MESSAGE', message);
+    core.setOutput('error_message', message);
 
     throw new Error(message);
   }
