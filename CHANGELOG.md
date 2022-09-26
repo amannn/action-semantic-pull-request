@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.5.0...v4.6.0) (2022-09-26)
+
+
+### Features
+
+* Provide error messages as `outputs.error_message` ([#194](https://github.com/amannn/action-semantic-pull-request/issues/194)) ([880a3c0](https://github.com/amannn/action-semantic-pull-request/commit/880a3c061c0dea01e977cefe26fb0e0d06b3d1a9))
+
 ## [4.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.4.0...v4.5.0) (2022-05-04)
 
 
