@@ -147,7 +147,24 @@ jobs:
         # condition you can continue the execution with the populated error message.
         if: always()
         with:
-          message: ${{ steps.lint_pr_title.outputs.error_message }}
+          header: pr-title-lint-error
+          message: |
+            Hey there and thank you for opening this pull request! 👋🏼
+            
+            We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) and it looks like your proposed title needs to be adjusted.
+
+            Details:
+            
+            ```
+            ${{ steps.lint_pr_title.outputs.error_message }}
+            ```
+
+      # Delete a previous comment when the issue has been resolved
+      - if: ${{ steps.lint_pr_title.outputs.error_message == null }}
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:   
+          header: pr-title-lint-error
+          delete: true
 ```
 
 </details>
