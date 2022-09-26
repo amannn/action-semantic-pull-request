@@ -1,3 +1,4 @@
+const core = require('@actions/core');
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
 const conventionalCommitTypes = require('conventional-commit-types');
 const parser = require('conventional-commits-parser').sync;
@@ -52,17 +53,17 @@ module.exports = async function validatePrTitle(
   }
 
   if (!result.type) {
-    throw new Error(
+    raiseError(
       `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`
     );
   }
 
   if (!result.subject) {
-    throw new Error(`No subject found in pull request title "${prTitle}".`);
+    raiseError(`No subject found in pull request title "${prTitle}".`);
   }
 
   if (!types.includes(result.type)) {
-    throw new Error(
+    raiseError(
       `Unknown release type "${
         result.type
       }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`
@@ -70,12 +71,11 @@ module.exports = async function validatePrTitle(
   }
 
   if (requireScope && !result.scope) {
-    let msg = `No scope found in pull request title "${prTitle}".`;
+    let message = `No scope found in pull request title "${prTitle}".`;
     if (scopes) {
-      msg += ` Use one of the available scopes: ${scopes.join(', ')}.`;
+      message += ` Use one of the available scopes: ${scopes.join(', ')}.`;
     }
-
-    throw new Error(msg);
+    raiseError(message);
   }
 
   const givenScopes = result.scope
@@ -84,7 +84,7 @@ module.exports = async function validatePrTitle(
 
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
-    throw new Error(
+    raiseError(
       `Unknown ${
         unknownScopes.length > 1 ? 'scopes' : 'scope'
       } "${unknownScopes.join(
@@ -99,7 +99,7 @@ module.exports = async function validatePrTitle(
     ? givenScopes.filter(isDisallowedScope)
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
-    throw new Error(
+    raiseError(
       `Disallowed ${
         disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
       } found: ${disallowScopes.join(', ')}`
@@ -113,8 +113,7 @@ module.exports = async function validatePrTitle(
         title: prTitle
       });
     }
-
-    throw new Error(message);
+    raiseError(message);
   }
 
   if (subjectPattern) {
@@ -132,5 +131,11 @@ module.exports = async function validatePrTitle(
         `The subject "${result.subject}" found in pull request title "${prTitle}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
       );
     }
+  }
+
+  function raiseError(message) {
+    core.setOutput('error_message', message);
+
+    throw new Error(message);
   }
 };
