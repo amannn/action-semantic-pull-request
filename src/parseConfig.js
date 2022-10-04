@@ -3,7 +3,7 @@ const ConfigParser = require('./ConfigParser');
 module.exports = function parseConfig() {
   let requireNewlines;
   if (process.env.INPUT_REQUIRENEWLINES) {
-    newlineScopes = ConfigParser.parseBoolean(process.env.INPUT_REQUIRENEWLINES);
+    requireNewlines = ConfigParser.parseBoolean(process.env.INPUT_REQUIRENEWLINES);
   }
 
   let types;
