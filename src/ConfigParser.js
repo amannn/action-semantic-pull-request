@@ -1,12 +1,9 @@
-const ENUM_SPLIT_REGEX = /[,\s]\s*/;
-const ENUM_SPLIT_NEWLINES_REGEX = /\n/;
+const ENUM_SPLIT_REGEX = /\n/;
 
 module.exports = {
-  parseEnum(input, onlyNewlines) {
-    let pattern = onlyNewlines ? ENUM_SPLIT_NEWLINES_REGEX : ENUM_SPLIT_REGEX;
-
+  parseEnum(input) {
     return input
-      .split(pattern)
+      .split(ENUM_SPLIT_REGEX)
       .map((part) => part.trim())
       .filter((part) => part.length > 0);
   },

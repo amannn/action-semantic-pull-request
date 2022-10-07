@@ -57,11 +57,13 @@ feat(ui): Add `Button` component.
 ```yml
         with:
           # Configure which types are allowed.
+          # Newline delimited.
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
             fix
             feat
           # Configure which scopes are allowed.
+          # Newline delimited.
           scopes: |
             core
             ui
@@ -69,6 +71,7 @@ feat(ui): Add `Button` component.
           requireScope: true
           # Configure which scopes are disallowed in PR titles. For instance by setting
           # the value below, `chore(release): ...` and `ci(e2e,release): ...` will be rejected.
+          # Newline delimited.
           disallowScopes: |
             release
           # Configure additional validation for the subject based on a regex.
@@ -84,7 +87,7 @@ feat(ui): Add `Button` component.
           # If you use GitHub Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
           # If the PR contains one of these labels, the validation is skipped.
-          # Multiple labels can be separated by newlines.
+          # Newline delimited.
           # If you want to rerun the validation when labels change, you might want
           # to use the `labeled` and `unlabeled` event triggers in your workflow.
           ignoreLabels: |

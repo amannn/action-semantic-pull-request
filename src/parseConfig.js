@@ -1,19 +1,14 @@
 const ConfigParser = require('./ConfigParser');
 
 module.exports = function parseConfig() {
-  let requireNewlines;
-  if (process.env.INPUT_REQUIRENEWLINES) {
-    requireNewlines = ConfigParser.parseBoolean(process.env.INPUT_REQUIRENEWLINES);
-  }
-
   let types;
   if (process.env.INPUT_TYPES) {
-    types = ConfigParser.parseEnum(process.env.INPUT_TYPES, requireNewlines);
+    types = ConfigParser.parseEnum(process.env.INPUT_TYPES);
   }
 
   let scopes;
   if (process.env.INPUT_SCOPES) {
-    scopes = ConfigParser.parseEnum(process.env.INPUT_SCOPES, requireNewlines);
+    scopes = ConfigParser.parseEnum(process.env.INPUT_SCOPES);
   }
 
   let requireScope;
@@ -23,7 +18,7 @@ module.exports = function parseConfig() {
 
   let disallowScopes;
   if (process.env.INPUT_DISALLOWSCOPES) {
-    disallowScopes = ConfigParser.parseEnum(process.env.INPUT_DISALLOWSCOPES, requireNewlines);
+    disallowScopes = ConfigParser.parseEnum(process.env.INPUT_DISALLOWSCOPES);
   }
 
   let subjectPattern;
@@ -76,7 +71,7 @@ module.exports = function parseConfig() {
 
   let ignoreLabels;
   if (process.env.INPUT_IGNORELABELS) {
-    ignoreLabels = ConfigParser.parseEnum(process.env.INPUT_IGNORELABELS, requireNewlines);
+    ignoreLabels = ConfigParser.parseEnum(process.env.INPUT_IGNORELABELS);
   }
 
   return {
