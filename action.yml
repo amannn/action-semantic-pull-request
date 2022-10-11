@@ -9,16 +9,16 @@ branding:
   color: 'green'
 inputs:
   types:
-    description: "Provide custom types if you don't want the default ones from https://www.conventionalcommits.org"
+    description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org."
     required: false
   scopes:
-    description: "Configure which scopes are allowed."
+    description: "Configure which scopes are allowed (newline delimited)."
     required: false
   requireScope:
     description: "Configure that a scope must always be provided."
     required: false
   disallowScopes:
-    description: 'Configure which scopes are disallowed in PR titles.'
+    description: 'Configure which scopes are disallowed in PR titles (newline delimited).'
     required: false
   subjectPattern:
     description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
@@ -36,7 +36,7 @@ inputs:
     description: "If you use Github Enterprise, you can set this to the URL of your server (e.g. https://github.myorg.com/api/v3)"
     required: false
   ignoreLabels:
-    description: "If the PR contains one of these labels, the validation is skipped. Multiple labels can be separated by newlines. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow."
+    description: "If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow."
     required: false
   headerPattern:
     description: "If you're using a format for the PR title that differs from the traditional Conventional Commits spec, you can use this to customize the parsing of the type, scope and subject. The `headerPattern` should contain a regex where the capturing groups in parentheses correspond to the parts listed in `headerPatternCorrespondence`. For more details see: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern"
