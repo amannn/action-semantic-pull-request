@@ -35605,7 +35605,7 @@ function wrappy (fn, cb) {
 /***/ 6308:
 /***/ ((module) => {
 
-const ENUM_SPLIT_REGEX = /[,\s]\s*/;
+const ENUM_SPLIT_REGEX = /\n/;
 
 module.exports = {
   parseEnum(input) {

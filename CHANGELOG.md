@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.6.0...v5.0.0) (2022-10-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Enum options need to be newline delimited (to allow whitespace within them) (#205)
+
+### Features
+
+* Enum options need to be newline delimited (to allow whitespace within them) ([#205](https://github.com/amannn/action-semantic-pull-request/issues/205)) ([c906fe1](https://github.com/amannn/action-semantic-pull-request/commit/c906fe1e5a4bcc61624931ca94da9672107bd448))
+
 ## [4.6.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.5.0...v4.6.0) (2022-09-26)
 
 
