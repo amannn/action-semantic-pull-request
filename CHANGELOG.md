@@ -1,5 +1,12 @@
 # Changelog
 
+### [5.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.0...v5.0.1) (2022-10-14)
+
+
+### Bug Fixes
+
+* Upgrade GitHub Action to use Node v16 ([#207](https://github.com/amannn/action-semantic-pull-request/issues/207)) ([6282ee3](https://github.com/amannn/action-semantic-pull-request/commit/6282ee339b067cb8eab05026f91153f873ad37fb))
+
 ## [5.0.0](https://github.com/amannn/action-semantic-pull-request/compare/v4.6.0...v5.0.0) (2022-10-11)
 
 
