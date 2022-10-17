@@ -1,5 +1,12 @@
 # Changelog
 
+### [5.0.2](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.1...v5.0.2) (2022-10-17)
+
+
+### Bug Fixes
+
+* Upgrade `@actions/core` to avoid deprecation warnings ([#208](https://github.com/amannn/action-semantic-pull-request/issues/208)) ([91f4126](https://github.com/amannn/action-semantic-pull-request/commit/91f4126c9e8625b9cadd64b02a03018fa22fc498))
+
 ### [5.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.0...v5.0.1) (2022-10-14)
 
 
