@@ -27,7 +27,7 @@ jobs:
         run: |
           set -eux
 
-          if [ $(git diff origin/master --name-only -- 'dist/**' | wc -l) -gt 0 ]
+          if [ $(git diff origin/main --name-only -- 'dist/**' | wc -l) -gt 0 ]
           then
             echo "Please do not update 'dist/'. CI will update it automatically on merge."
             exit 1
