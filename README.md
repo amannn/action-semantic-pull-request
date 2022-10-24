@@ -20,25 +20,25 @@ See [Conventional Commits](https://www.conventionalcommits.org/) for more exampl
 
 1. If your goal is to create squashed commits that will be used for automated releases, you'll want to configure your GitHub repository to [use the squash & merge strategy](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests) and tick the option "Default to PR title for squash merge commits".
 2. [Add the action](https://docs.github.com/en/actions/quickstart) with the following configuration
-```yml
-name: "Lint PR"
-
-on:
-  pull_request_target:
-    types:
-      - opened
-      - edited
-      - synchronize
-
-jobs:
-  main:
-    name: Validate PR title
-    runs-on: ubuntu-latest
-    steps:
-      - uses: amannn/action-semantic-pull-request@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
+    ```yml
+    name: "Lint PR"
+    
+    on:
+      pull_request_target:
+        types:
+          - opened
+          - edited
+          - synchronize
+    
+    jobs:
+      main:
+        name: Validate PR title
+        runs-on: ubuntu-latest
+        steps:
+          - uses: amannn/action-semantic-pull-request@v5
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    ```
 
 ## Configuration
 
