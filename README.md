@@ -140,6 +140,9 @@ on:
       - edited
       - synchronize
 
+permissions:
+  pull-requests: read
+
 jobs:
   main:
     name: Validate PR title
