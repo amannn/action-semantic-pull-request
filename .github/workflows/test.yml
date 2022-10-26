@@ -6,6 +6,9 @@ on:
       - reopened
       - synchronize
 
+permissions:
+  contents: read
+
 jobs:
   main:
     runs-on: ubuntu-latest
