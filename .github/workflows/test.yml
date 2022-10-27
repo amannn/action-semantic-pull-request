@@ -7,7 +7,7 @@ on:
       - synchronize
 
 permissions:
-  contents: read
+  contents: none
 
 jobs:
   main:
