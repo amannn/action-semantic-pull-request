@@ -37181,7 +37181,8 @@ module.exports = async function run() {
           subjectPattern,
           subjectPatternError,
           headerPattern,
-          headerPatternCorrespondence
+          headerPatternCorrespondence,
+          headerLength
         });
 
         if (validateSingleCommit) {
@@ -37223,7 +37224,8 @@ module.exports = async function run() {
                 subjectPattern,
                 subjectPatternError,
                 headerPattern,
-                headerPatternCorrespondence
+                headerPatternCorrespondence,
+                headerLength
               });
             } catch (error) {
               throw new Error(
@@ -37401,7 +37403,8 @@ module.exports = async function validatePrTitle(
     subjectPattern,
     subjectPatternError,
     headerPattern,
-    headerPatternCorrespondence
+    headerPatternCorrespondence,
+    headerLength
   } = {}
 ) {
   if (!types) types = defaultTypes;
@@ -37412,6 +37415,9 @@ module.exports = async function validatePrTitle(
   }
   if (headerPatternCorrespondence) {
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
+  }
+  if (headerLength) {
+    parserOpts.headerLength = headerLength;
   }
   const result = parser(prTitle, parserOpts);
 

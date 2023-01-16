@@ -45,6 +45,14 @@ module.exports = function parseConfig() {
     );
   }
 
+
+  let headerLength;
+  if (process.env.INPUT_HEADERLENGTH) {
+    headerLength = ConfigParser.parseInt(
+      process.env.INPUT_HEADERLENGTH
+    );
+  }
+
   let wip;
   if (process.env.INPUT_WIP) {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
@@ -84,6 +92,7 @@ module.exports = function parseConfig() {
     subjectPatternError,
     headerPattern,
     headerPatternCorrespondence,
+    headerLength,
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
     githubBaseUrl,

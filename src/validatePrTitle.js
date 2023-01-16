@@ -16,7 +16,8 @@ module.exports = async function validatePrTitle(
     subjectPattern,
     subjectPatternError,
     headerPattern,
-    headerPatternCorrespondence
+    headerPatternCorrespondence,
+    headerLength
   } = {}
 ) {
   if (!types) types = defaultTypes;
@@ -27,6 +28,9 @@ module.exports = async function validatePrTitle(
   }
   if (headerPatternCorrespondence) {
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
+  }
+  if (headerLength) {
+    parserOpts.headerLength = headerLength;
   }
   const result = parser(prTitle, parserOpts);
 
