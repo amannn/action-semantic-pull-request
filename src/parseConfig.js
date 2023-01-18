@@ -45,6 +45,13 @@ module.exports = function parseConfig() {
     );
   }
 
+  let maxHeaderLength;
+  if (process.env.INPUT_MAXHEADERLENGTH) {
+    maxHeaderLength = parseInt(
+      process.env.INPUT_maxHeaderLength
+    );
+  }
+
   let wip;
   if (process.env.INPUT_WIP) {
     wip = ConfigParser.parseBoolean(process.env.INPUT_WIP);
@@ -84,6 +91,7 @@ module.exports = function parseConfig() {
     subjectPatternError,
     headerPattern,
     headerPatternCorrespondence,
+    maxHeaderLength,
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
     githubBaseUrl,

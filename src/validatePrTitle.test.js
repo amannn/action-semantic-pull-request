@@ -261,4 +261,20 @@ describe('description validation', () => {
       subjectPattern: '^(?![A-Z]).+$'
     });
   });
+
+  it('throws for too long titles', async () => {
+    await expect(
+      validatePrTitle('fix: culpa laborum ea pariatur minim nulla eu occaecat consequat anim ad eiusmod aliqua.', {
+        maxHeaderLength: 50
+      })
+    ).rejects.toThrow(
+      'The title "fix: culpa laborum ea pariatur minim nulla eu occaecat consequat anim ad eiusmod aliqua." is too long, max length is 50.\nPlease provide a shorter title within the limit.'
+    );
+  });
+
+  it('accepts not too long titles', async () => {
+    await validatePrTitle('fix: foobar', {
+      maxHeaderLength: 50
+    });
+  });
 });

@@ -15,6 +15,7 @@ module.exports = async function run() {
       subjectPatternError,
       headerPattern,
       headerPatternCorrespondence,
+      maxHeaderLength,
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
       githubBaseUrl,
@@ -72,7 +73,8 @@ module.exports = async function run() {
           subjectPattern,
           subjectPatternError,
           headerPattern,
-          headerPatternCorrespondence
+          headerPatternCorrespondence,
+          maxHeaderLength
         });
 
         if (validateSingleCommit) {
@@ -114,7 +116,8 @@ module.exports = async function run() {
                 subjectPattern,
                 subjectPatternError,
                 headerPattern,
-                headerPatternCorrespondence
+                headerPatternCorrespondence,
+                maxHeaderLength
               });
             } catch (error) {
               throw new Error(

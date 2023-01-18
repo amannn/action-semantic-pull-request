@@ -14,5 +14,9 @@ module.exports = {
 
   parseString(input) {
     return input;
+  },
+
+  parseInt(input) {
+    return parseInt(input);
   }
 };

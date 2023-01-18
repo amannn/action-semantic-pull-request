@@ -16,7 +16,8 @@ module.exports = async function validatePrTitle(
     subjectPattern,
     subjectPatternError,
     headerPattern,
-    headerPatternCorrespondence
+    headerPatternCorrespondence,
+    maxHeaderLength
   } = {}
 ) {
   if (!types) types = defaultTypes;
@@ -50,6 +51,12 @@ module.exports = async function validatePrTitle(
 
   function isDisallowedScope(s) {
     return disallowScopes && disallowScopes.includes(s);
+  }
+
+  if (maxHeaderLength) {
+    if (prTitle.length > maxHeaderLength) {
+      raiseError(`PR title is too long. Maximum length allowed is '${maxHeaderLength}', while found  '${prTitle.length}' instead.`);
+    }
   }
 
   if (!result.type) {

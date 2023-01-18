@@ -98,6 +98,8 @@ feat(ui): Add `Button` component.
           # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
           headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
           headerPatternCorrespondence: type, scope, subject
+          # If you want to enforce a maximum PR title length
+          maxHeaderLength: 50
           # For work-in-progress PRs you can typically use draft pull requests 
           # from GitHub. However, private repositories on the free plan don't have 
           # this option and therefore this action allows you to opt-in to using the 
