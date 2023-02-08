@@ -55,9 +55,19 @@ describe('defined scopes', () => {
     await validatePrTitle('fix(core): Bar', {scopes: ['core']});
   });
 
+  it('allows a regex matching scope', async () => {
+    await validatePrTitle('fix(CORE): Bar', {scopes: ['[A-Z]+']});
+  });
+
   it('allows multiple matching scopes', async () => {
     await validatePrTitle('fix(core,e2e): Bar', {
       scopes: ['core', 'e2e', 'web']
+    });
+  });
+
+  it('allows multiple regex matching scopes', async () => {
+    await validatePrTitle('fix(CORE,WEB): Bar', {
+      scopes: ['[A-Z]+']
     });
   });
 
@@ -69,11 +79,45 @@ describe('defined scopes', () => {
     );
   });
 
+  it('throws when an unknown scope is detected within multiple scopes', async () => {
+    await expect(
+      validatePrTitle('fix(CORE,e2e,foo,bar): Bar', {
+        scopes: ['foo', '[A-Z]+']
+      })
+    ).rejects.toThrow(
+      'Unknown scopes "e2e,bar" found in pull request title "fix(CORE,e2e,foo,bar): Bar". Use one of the available scopes: foo, [A-Z]+.'
+    );
+  });
+
   it('throws when an unknown scope is detected', async () => {
     await expect(
       validatePrTitle('fix(core): Bar', {scopes: ['foo']})
     ).rejects.toThrow(
       'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: foo.'
+    );
+  });
+
+  it('throws when an unknown scope is detected for auto-wrapped regex matching', async () => {
+    await expect(
+      validatePrTitle('fix(score): Bar', {scopes: ['core']})
+    ).rejects.toThrow(
+      'Unknown scope "score" found in pull request title "fix(score): Bar". Use one of the available scopes: core.'
+    );
+  });
+
+  it('throws when an unknown scope is detected for auto-wrapped regex matching when input is already wrapped', async () => {
+    await expect(
+      validatePrTitle('fix(score): Bar', {scopes: ['^[A-Z]+$']})
+    ).rejects.toThrow(
+      'Unknown scope "score" found in pull request title "fix(score): Bar". Use one of the available scopes: ^[A-Z]+$.'
+    );
+  });
+
+  it('throws when an unknown scope is detected for regex matching', async () => {
+    await expect(
+      validatePrTitle('fix(core): Bar', {scopes: ['[A-Z]+']})
+    ).rejects.toThrow(
+      'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: [A-Z]+.'
     );
   });
 
@@ -103,21 +147,31 @@ describe('defined scopes', () => {
         await validatePrTitle('fix(core): Bar', {disallowScopes: ['release']});
       });
 
+      it('passes when a single scope is provided, but not present in disallowScopes with one regex item', async () => {
+        await validatePrTitle('fix(core): Bar', {disallowScopes: ['[A-Z]+']});
+      });
+
       it('passes when multiple scopes are provided, but not present in disallowScopes with one item', async () => {
         await validatePrTitle('fix(core,e2e,bar): Bar', {
           disallowScopes: ['release']
         });
       });
 
+      it('passes when multiple scopes are provided, but not present in disallowScopes with one regex item', async () => {
+        await validatePrTitle('fix(core,e2e,bar): Bar', {
+          disallowScopes: ['[A-Z]+']
+        });
+      });
+
       it('passes when a single scope is provided, but not present in disallowScopes with multiple items', async () => {
         await validatePrTitle('fix(core): Bar', {
-          disallowScopes: ['release', 'test']
+          disallowScopes: ['release', 'test', '[A-Z]+']
         });
       });
 
       it('passes when multiple scopes are provided, but not present in disallowScopes with multiple items', async () => {
         await validatePrTitle('fix(core,e2e,bar): Bar', {
-          disallowScopes: ['release', 'test']
+          disallowScopes: ['release', 'test', '[A-Z]+']
         });
       });
 
@@ -125,6 +179,12 @@ describe('defined scopes', () => {
         await expect(
           validatePrTitle('fix(release): Bar', {disallowScopes: ['release']})
         ).rejects.toThrow('Disallowed scope was found: release');
+      });
+
+      it('throws when a single scope is provided and it is present in disallowScopes with one regex item', async () => {
+        await expect(
+          validatePrTitle('fix(RELEASE): Bar', {disallowScopes: ['[A-Z]+']})
+        ).rejects.toThrow('Disallowed scope was found: RELEASE');
       });
 
       it('throws when a single scope is provided and it is present in disallowScopes with multiple item', async () => {
@@ -135,12 +195,28 @@ describe('defined scopes', () => {
         ).rejects.toThrow('Disallowed scope was found: release');
       });
 
+      it('throws when a single scope is provided and it is present in disallowScopes with multiple regex item', async () => {
+        await expect(
+          validatePrTitle('fix(RELEASE): Bar', {
+            disallowScopes: ['[A-Z]+', '^[A-Z].+$']
+          })
+        ).rejects.toThrow('Disallowed scope was found: RELEASE');
+      });
+
       it('throws when multiple scopes are provided and one of them is present in disallowScopes with one item ', async () => {
         await expect(
           validatePrTitle('fix(release,e2e): Bar', {
             disallowScopes: ['release']
           })
         ).rejects.toThrow('Disallowed scope was found: release');
+      });
+
+      it('throws when multiple scopes are provided and one of them is present in disallowScopes with one regex item ', async () => {
+        await expect(
+          validatePrTitle('fix(RELEASE,e2e): Bar', {
+            disallowScopes: ['[A-Z]+']
+          })
+        ).rejects.toThrow('Disallowed scope was found: RELEASE');
       });
 
       it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items ', async () => {
@@ -151,12 +227,20 @@ describe('defined scopes', () => {
         ).rejects.toThrow('Disallowed scope was found: release');
       });
 
+      it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items ', async () => {
+        await expect(
+          validatePrTitle('fix(RELEASE,e2e): Bar', {
+            disallowScopes: ['[A-Z]+', 'test']
+          })
+        ).rejects.toThrow('Disallowed scope was found: RELEASE');
+      });
+
       it('throws when multiple scopes are provided and more than one of them are present in disallowScopes', async () => {
         await expect(
-          validatePrTitle('fix(release,test): Bar', {
-            disallowScopes: ['release', 'test']
+          validatePrTitle('fix(release,test,CORE): Bar', {
+            disallowScopes: ['release', 'test', '[A-Z]+']
           })
-        ).rejects.toThrow('Disallowed scopes were found: release, test');
+        ).rejects.toThrow('Disallowed scopes were found: release, test, CORE');
       });
     });
 

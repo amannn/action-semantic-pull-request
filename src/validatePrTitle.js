@@ -45,11 +45,14 @@ module.exports = async function validatePrTitle(
   }
 
   function isUnknownScope(s) {
-    return scopes && !scopes.includes(s);
+    return scopes && !scopes.some((scope) => new RegExp(`^${scope}$`).test(s));
   }
 
   function isDisallowedScope(s) {
-    return disallowScopes && disallowScopes.includes(s);
+    return (
+      disallowScopes &&
+      disallowScopes.some((scope) => new RegExp(`^${scope}$`).test(s))
+    );
   }
 
   if (!result.type) {
@@ -102,7 +105,7 @@ module.exports = async function validatePrTitle(
     raiseError(
       `Disallowed ${
         disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
-      } found: ${disallowScopes.join(', ')}`
+      } found: ${disallowedScopes.join(', ')}`
     );
   }
 

@@ -62,16 +62,20 @@ feat(ui): Add `Button` component.
             fix
             feat
           # Configure which scopes are allowed (newline delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
             core
             ui
+            (?![A-Z])+
           # Configure that a scope must always be provided.
           requireScope: true
           # Configure which scopes (newline delimited) are disallowed in PR
           # titles. For instance by setting # the value below, `chore(release):
           # ...` and `ci(e2e,release): ...` will be rejected.
+          # These are regex patterns auto-wrapped in `^ $`.
           disallowScopes: |
             release
+            [A-Z]+
           # Configure additional validation for the subject based on a regex.
           # This example ensures the subject doesn't start with an uppercase character.
           subjectPattern: ^(?![A-Z]).+$

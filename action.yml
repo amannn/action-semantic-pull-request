@@ -12,13 +12,13 @@ inputs:
     description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org."
     required: false
   scopes:
-    description: "Configure which scopes are allowed (newline delimited)."
+    description: "Configure which scopes are allowed (newline delimited). These are regex patterns auto-wrapped in `^ $`."
     required: false
   requireScope:
     description: "Configure that a scope must always be provided."
     required: false
   disallowScopes:
-    description: 'Configure which scopes are disallowed in PR titles (newline delimited).'
+    description: 'Configure which scopes are disallowed in PR titles (newline delimited). These are regex patterns auto-wrapped in ` ^$`.'
     required: false
   subjectPattern:
     description: "Configure additional validation for the subject based on a regex. E.g. '^(?![A-Z]).+$' ensures the subject doesn't start with an uppercase character."
