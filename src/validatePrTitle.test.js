@@ -75,7 +75,7 @@ describe('defined scopes', () => {
     await expect(
       validatePrTitle('fix(core,e2e,foo,bar): Bar', {scopes: ['foo', 'core']})
     ).rejects.toThrow(
-      'Unknown scopes "e2e,bar" found in pull request title "fix(core,e2e,foo,bar): Bar". Use one of the available scopes: foo, core.'
+      'Unknown scopes "e2e,bar" found in pull request title "fix(core,e2e,foo,bar): Bar". Scope must match one of: foo, core.'
     );
   });
 
@@ -85,7 +85,7 @@ describe('defined scopes', () => {
         scopes: ['foo', '[A-Z]+']
       })
     ).rejects.toThrow(
-      'Unknown scopes "e2e,bar" found in pull request title "fix(CORE,e2e,foo,bar): Bar". Use one of the available scopes: foo, [A-Z]+.'
+      'Unknown scopes "e2e,bar" found in pull request title "fix(CORE,e2e,foo,bar): Bar". Scope must match one of: foo, [A-Z]+.'
     );
   });
 
@@ -93,7 +93,7 @@ describe('defined scopes', () => {
     await expect(
       validatePrTitle('fix(core): Bar', {scopes: ['foo']})
     ).rejects.toThrow(
-      'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: foo.'
+      'Unknown scope "core" found in pull request title "fix(core): Bar". Scope must match one of: foo.'
     );
   });
 
@@ -101,7 +101,7 @@ describe('defined scopes', () => {
     await expect(
       validatePrTitle('fix(score): Bar', {scopes: ['core']})
     ).rejects.toThrow(
-      'Unknown scope "score" found in pull request title "fix(score): Bar". Use one of the available scopes: core.'
+      'Unknown scope "score" found in pull request title "fix(score): Bar". Scope must match one of: core.'
     );
   });
 
@@ -109,7 +109,7 @@ describe('defined scopes', () => {
     await expect(
       validatePrTitle('fix(score): Bar', {scopes: ['^[A-Z]+$']})
     ).rejects.toThrow(
-      'Unknown scope "score" found in pull request title "fix(score): Bar". Use one of the available scopes: ^[A-Z]+$.'
+      'Unknown scope "score" found in pull request title "fix(score): Bar". Scope must match one of: ^[A-Z]+$.'
     );
   });
 
@@ -117,7 +117,7 @@ describe('defined scopes', () => {
     await expect(
       validatePrTitle('fix(core): Bar', {scopes: ['[A-Z]+']})
     ).rejects.toThrow(
-      'Unknown scope "core" found in pull request title "fix(core): Bar". Use one of the available scopes: [A-Z]+.'
+      'Unknown scope "core" found in pull request title "fix(core): Bar". Scope must match one of: [A-Z]+.'
     );
   });
 
@@ -137,7 +137,7 @@ describe('defined scopes', () => {
             requireScope: true
           })
         ).rejects.toThrow(
-          'No scope found in pull request title "fix: Bar". Use one of the available scopes: foo, bar.'
+          'No scope found in pull request title "fix: Bar". Scope must match one of: foo, bar.'
         );
       });
     });
