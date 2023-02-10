@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.2...v5.1.0) (2023-02-10)
+
+
+### Features
+
+* Add regex support to `scope` and `disallowScopes` configuration ([#226](https://github.com/amannn/action-semantic-pull-request/issues/226)) ([403a6f8](https://github.com/amannn/action-semantic-pull-request/commit/403a6f89242a0d0d3acde94e6141b2e0f4da8838))
+
 ### [5.0.2](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.1...v5.0.2) (2022-10-17)
 
 
