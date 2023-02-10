@@ -67,7 +67,6 @@ feat(ui): Add `Button` component.
             core
             ui
             JIRA-\d+
-            (?![A-Z])+
           # Configure that a scope must always be provided.
           requireScope: true
           # Configure which scopes (newline delimited) are disallowed in PR
