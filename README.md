@@ -66,6 +66,7 @@ feat(ui): Add `Button` component.
           scopes: |
             core
             ui
+            JIRA-\d+
             (?![A-Z])+
           # Configure that a scope must always be provided.
           requireScope: true
