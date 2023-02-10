@@ -9,4 +9,9 @@ describe('parseEnum', () => {
       'four'
     ]);
   });
+  it('parses newline-delimited lists, including regex, trimming whitespace', () => {
+    expect(
+      ConfigParser.parseEnum('one   \ntwo   \n^[A-Z]+\\n$  \r\nfour')
+    ).toEqual(['one', 'two', '^[A-Z]+\\n$', 'four']);
+  });
 });
