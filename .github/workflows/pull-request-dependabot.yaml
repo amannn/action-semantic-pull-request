@@ -1,0 +1,43 @@
+name: "PR: Dependabot auto-merge"
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot-check:
+    name: "Check dependency metadata"
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
+    steps:
+      - name: Fetch dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.3.5
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          skip-commit-verification: true
+      - name: "Enable auto-merge for minor/patch updates"
+        id: enable-automerge
+        # update-type is one of [ version-update:semver-major, version-update:semver-minor, version-update:semver-patch ]
+        if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-minor' || steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Review PR with approval"
+        if: steps.enable-automerge.outcome == 'success'
+        run: |
+          gh pr review "$PR_URL" --approve --body "This dependency update can be auto-merged since it's a minor or patch version update."
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Comment on PR"
+        if: steps.enable-automerge.outcome != 'success'
+        run: |
+          gh pr comment "$PR_URL" --body "This dependency update was not auto-merged as this is a major version update, please review manually."
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
