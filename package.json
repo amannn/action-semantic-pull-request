@@ -32,7 +32,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "5.0.1",
     "@semantic-release/commit-analyzer": "9.0.2",
-    "@semantic-release/git": "9.0.0",
+    "@semantic-release/git": "10.0.1",
     "@semantic-release/github": "7.2.0",
     "@semantic-release/release-notes-generator": "9.0.3",
     "@vercel/ncc": "^0.27.0",
