@@ -42,7 +42,7 @@ jobs:
 
 ## Configuration
 
-The action works without configuration, however you can provide options for customization.
+The action works without configuration, however you can provide options for customization. You can either use inputs to pass the configuration, or add a `.github/semantic.json` file to your repository. The action inputs will override the configuration file. Lists will be appended.
 
 The following terminology helps to understand the configuration options:
 
