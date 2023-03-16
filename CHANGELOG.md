@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.1.0...v5.2.0) (2023-03-16)
+
+
+### Features
+
+* Update dependencies by @EelcoLos ([#229](https://github.com/amannn/action-semantic-pull-request/issues/229)) ([e797448](https://github.com/amannn/action-semantic-pull-request/commit/e797448a07516738bcfdd6f26ad1d1f84c58d0cc))
+
 ## [5.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.0.2...v5.1.0) (2023-02-10)
 
 
