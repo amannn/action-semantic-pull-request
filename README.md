@@ -1,18 +1,18 @@
 # action-semantic-pull-request
 
-This is a [GitHub Action](https://github.com/features/actions) that ensures your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/).
+This is a GitHub Action that ensures your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/). The typical use case is to use this in combination with a tool like [semantic-release](https://github.com/semantic-release/semantic-release) to automate releases.
 
-The typical use case is to use this in combination with a tool like [semantic-release](https://github.com/semantic-release/semantic-release) to automate releases.
+Used by: [Apache](https://github.com/apache/pulsar) · [Vercel](https://github.com/vercel/ncc) · [Microsoft](https://github.com/microsoft/SynapseML) · [Firebase](https://github.com/firebase/flutterfire) · [AWS](https://github.com/aws-ia/terraform-aws-eks-blueprints) · [Electron](https://github.com/electron/forge) – and many more.
 
-## Validation
+## Examples
 
-Examples for valid PR titles:
-- fix: Correct typo.
-- feat: Add support for Node 12.
-- refactor!: Drop support for Node 6.
-- feat(ui): Add `Button` component.
+**Valid PR titles:**
+- fix: Correct typo
+- feat: Add support for Node.js 18
+- refactor!: Drop support for Node.js 12
+- feat(ui): Add `Button` component
 
-Note that since PR titles only have a single line, you have to use the `!` syntax for breaking changes.
+Note that since PR titles only have a single line, you have to use `!` to indicate breaking changes.
 
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
@@ -47,7 +47,7 @@ The action works without configuration, however you can provide options for cust
 The following terminology helps to understand the configuration options:
 
 ```
-feat(ui): Add `Button` component.
+feat(ui): Add `Button` component
 ^    ^    ^
 |    |    |__ Subject
 |    |_______ Scope
@@ -56,12 +56,12 @@ feat(ui): Add `Button` component.
 
 ```yml
         with:
-          # Configure which types are allowed (newline delimited).
+          # Configure which types are allowed (newline-delimited).
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
             fix
             feat
-          # Configure which scopes are allowed (newline delimited).
+          # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
             core
@@ -69,9 +69,9 @@ feat(ui): Add `Button` component.
             JIRA-\d+
           # Configure that a scope must always be provided.
           requireScope: true
-          # Configure which scopes (newline delimited) are disallowed in PR
-          # titles. For instance by setting # the value below, `chore(release):
-          # ...` and `ci(e2e,release): ...` will be rejected.
+          # Configure which scopes are disallowed in PR titles (newline-delimited).
+          # For instance by setting the value below, `chore(release): ...` (lowercase)
+          # and `ci(e2e,release): ...` (unknown scope) will be rejected.
           # These are regex patterns auto-wrapped in `^ $`.
           disallowScopes: |
             release
@@ -88,10 +88,10 @@ feat(ui): Add `Button` component.
             doesn't start with an uppercase character.
           # If you use GitHub Enterprise, you can set this to the URL of your server
           githubBaseUrl: https://github.myorg.com/api/v3
-          # If the PR contains one of these labels (newline delimited), the
-          # validation is skipped.
-          # If you want to rerun the validation when labels change, you might want
-          # to use the `labeled` and `unlabeled` event triggers in your workflow.
+          # If the PR contains one of these newline-delimited labels, the
+          # validation is skipped. If you want to rerun the validation when
+          # labels change, you might want to use the `labeled` and `unlabeled`
+          # event triggers in your workflow.
           ignoreLabels: |
             bot
             ignore-semantic-pull-request

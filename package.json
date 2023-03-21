@@ -16,7 +16,7 @@
     "github-action",
     "conventional-commits"
   ],
-  "author": "Jan Amann <jan@amann.me>",
+  "author": "Jan Amann <jan@amann.work>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/amannn/action-semantic-pull-request/issues"
