@@ -2,7 +2,7 @@
 
 This is a GitHub Action that ensures your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/). The typical use case is to use this in combination with a tool like [semantic-release](https://github.com/semantic-release/semantic-release) to automate releases.
 
-Used by: [Apache](https://github.com/apache/pulsar) · [Vercel](https://github.com/vercel/ncc) · [Microsoft](https://github.com/microsoft/SynapseML) · [Firebase](https://github.com/firebase/flutterfire) · [AWS](https://github.com/aws-ia/terraform-aws-eks-blueprints) · [Electron](https://github.com/electron/forge) – and many more.
+Used by: [Apache](https://github.com/apache/pulsar) · [Vercel](https://github.com/vercel/ncc) · [Microsoft](https://github.com/microsoft/SynapseML) · [Firebase](https://github.com/firebase/flutterfire) · [AWS](https://github.com/aws-ia/terraform-aws-eks-blueprints) · [Electron](https://github.com/electron/forge) – and [many more](https://github.com/amannn/action-semantic-pull-request/network/dependents).
 
 ## Examples
 
@@ -12,14 +12,14 @@ Used by: [Apache](https://github.com/apache/pulsar) · [Vercel](https://github.c
 - refactor!: Drop support for Node.js 12
 - feat(ui): Add `Button` component
 
-Note that since PR titles only have a single line, you have to use `!` to indicate breaking changes.
+> Note that since PR titles only have a single line, you have to use `!` to indicate breaking changes.
 
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
 ## Installation
 
 1. If your goal is to create squashed commits that will be used for automated releases, you'll want to configure your GitHub repository to [use the squash & merge strategy](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests) and tick the option "Default to PR title for squash merge commits".
-2. [Add the action](https://docs.github.com/en/actions/quickstart) with the following configuration
+2. [Add the action](https://docs.github.com/en/actions/quickstart) with the following configuration:
 ```yml
 name: "Lint PR"
 
