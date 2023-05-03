@@ -114,6 +114,21 @@ feat(ui): Add `Button` component
           wip: true
 ```
 
+### Required Permissions for [WIP] feature
+
+If you want to use the `[WIP]` feature, you need to grant the
+`pull-requests: write` permission to the GitHub Action. This is because the
+action will update the status of the PR.
+
+```yml
+name: "Lint PR"
+
+# ...
+
+permissions:
+  pull-requests: write
+```
+
 ## Event triggers
 
 There are two events that can be used as triggers for this action, each with different characteristics:
