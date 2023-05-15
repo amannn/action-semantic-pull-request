@@ -105,17 +105,17 @@ feat(ui): Add `Button` component
           # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
           headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
           headerPatternCorrespondence: type, scope, subject
-          # For work-in-progress PRs you can typically use draft pull requests 
-          # from GitHub. However, private repositories on the free plan don't have 
-          # this option and therefore this action allows you to opt-in to using the 
-          # special "[WIP]" prefix to indicate this state. This will avoid the 
-          # validation of the PR title and the pull request checks remain pending.
-          wip: true
 ```
 
-### Required Permissions for [WIP] feature
+### Work In Progress `[WIP]` Configuration
 
-If you want to use the `[WIP]` feature, you need to grant the
+For work-in-progress PRs you can typically use draft pull requests from GitHub.
+However, private repositories on the free plan don't have this option and
+therefore this action allows you to opt-in to using the special "[WIP]" prefix
+to indicate this state. This will avoid the validation of the PR title and the
+pull request checks remain pending.
+
+Attention: If you want to use the `[WIP]` feature, you need to grant the
 `pull-requests: write` permission to the GitHub Action. This is because the
 action will update the status of the PR.
 
@@ -126,6 +126,18 @@ name: "Lint PR"
 
 permissions:
   pull-requests: write
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # ... other configuration options
+          wip: true
 ```
 
 ## Event triggers
