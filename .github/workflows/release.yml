@@ -5,7 +5,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
   deployments: write
   issues: write
   pull-requests: write
