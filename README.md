@@ -1,18 +1,18 @@
 # action-semantic-pull-request
 
-This is a GitHub Action that ensures your PR title matches the [Conventional Commits spec](https://www.conventionalcommits.org/). The typical use case is to use this in combination with a tool like [semantic-release](https://github.com/semantic-release/semantic-release) to automate releases.
+This is a GitHub Action that ensures that your pull request titles match the [Conventional Commits spec](https://www.conventionalcommits.org/). Typically, this is used in combination with a tool like [semantic-release](https://github.com/semantic-release/semantic-release) to automate releases.
 
 Used by: [Apache](https://github.com/apache/pulsar) · [Vercel](https://github.com/vercel/ncc) · [Microsoft](https://github.com/microsoft/SynapseML) · [Firebase](https://github.com/firebase/flutterfire) · [AWS](https://github.com/aws-ia/terraform-aws-eks-blueprints) · [Electron](https://github.com/electron/forge) – and [many more](https://github.com/amannn/action-semantic-pull-request/network/dependents).
 
 ## Examples
 
-**Valid PR titles:**
+**Valid pull request titles:**
 - fix: Correct typo
 - feat: Add support for Node.js 18
 - refactor!: Drop support for Node.js 12
 - feat(ui): Add `Button` component
 
-> Note that since PR titles only have a single line, you have to use `!` to indicate breaking changes.
+> Note that since pull request titles only have a single line, you have to use `!` to indicate breaking changes.
 
 See [Conventional Commits](https://www.conventionalcommits.org/) for more examples.
 
@@ -42,6 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+See the [event triggers documentation](#event-triggers) below to learn more about what `pull_request_target` means.
 
 ## Configuration
 
@@ -107,22 +109,22 @@ feat(ui): Add `Button` component
           headerPatternCorrespondence: type, scope, subject
 ```
 
-### Work In Progress `[WIP]` Configuration
+### Work-in-progress pull requests
 
-For work-in-progress PRs you can typically use draft pull requests from GitHub.
-However, private repositories on the free plan don't have this option and
-therefore this action allows you to opt-in to using the special "[WIP]" prefix
-to indicate this state. This will avoid the validation of the PR title and the
-pull request checks remain pending.
+For work-in-progress PRs you can typically use [draft pull requests from GitHub](https://github.blog/2019-02-14-introducing-draft-pull-requests/). However, private repositories on the free plan don't have this option and therefore this action allows you to opt-in to using the special "[WIP]" prefix to indicate this state.
 
-Attention: If you want to use the `[WIP]` feature, you need to grant the
-`pull-requests: write` permission to the GitHub Action. This is because the
-action will update the status of the PR.
+**Example:**
+
+```
+[WIP] feat: Add support for Node.js 18
+```
+
+This will prevent the PR title from being validated, and pull request checks will remain pending.
+
+**Attention**: If you want to use the this feature, you need to grant the `pull-requests: write` permission to the GitHub Action. This is because the action will update the status of the PR to remain in a pending state while `[WIP]` is present in the PR title.
 
 ```yml
 name: "Lint PR"
-
-# ...
 
 permissions:
   pull-requests: write
@@ -136,9 +138,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          # ... other configuration options
           wip: true
 ```
+
+### Legacy configuration for validating single commits
+
+When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit. As it's easy to commit this by mistake this action supports two configuration options to provide additional validation for this case. 
+
+```yml
+          # If the PR only contains a single commit, the action will validate that
+          # it matches the configured pattern.
+          validateSingleCommit: true
+          # Related to `validateSingleCommit` you can opt-in to validate that the PR
+          # title matches a single commit to avoid confusion.
+          validateSingleCommitMatchesPrTitle: true
+```
+
+However, [GitHub has introduced an option to streamline this behaviour](https://github.blog/changelog/2022-05-11-default-to-pr-titles-for-squash-merge-commit-messages/), so using that instead should be preferred.
 
 ## Event triggers
 
@@ -206,15 +222,3 @@ jobs:
 
 </details>
 
-## Legacy configuration
-
-When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit and it's easy to commit this by mistake. To help out in this situation this action supports two configuration options. However, [GitHub has introduced an option to streamline this behaviour](https://github.blog/changelog/2022-05-11-default-to-pr-titles-for-squash-merge-commit-messages/), so using that instead should be preferred.
-
-```yml
-          # If the PR only contains a single commit, the action will validate that
-          # it matches the configured pattern.
-          validateSingleCommit: true
-          # Related to `validateSingleCommit` you can opt-in to validate that the PR
-          # title matches a single commit to avoid confusion.
-          validateSingleCommitMatchesPrTitle: true
-```
