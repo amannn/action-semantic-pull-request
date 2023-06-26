@@ -183,7 +183,7 @@ on:
       - synchronize
 
 permissions:
-  pull-requests: read
+  pull-requests: write
 
 jobs:
   main:
