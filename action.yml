@@ -2,7 +2,7 @@ name: semantic-pull-request
 author: Jan Amann <jan@amann.work>
 description: Ensure your PR title matches the Conventional Commits spec (https://www.conventionalcommits.org/).
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'shield'
