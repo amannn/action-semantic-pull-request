@@ -35,6 +35,7 @@ inputs:
   githubBaseUrl:
     description: "If you use Github Enterprise, you can set this to the URL of your server (e.g. https://github.myorg.com/api/v3)"
     required: false
+    default: '${{ github.api_url }}'
   ignoreLabels:
     description: "If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow."
     required: false
