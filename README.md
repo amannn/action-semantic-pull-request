@@ -91,7 +91,8 @@ feat(ui): Add `Button` component
             The subject "{subject}" found in the pull request title "{title}"
             didn't match the configured pattern. Please ensure that the subject
             doesn't start with an uppercase character.
-          # If you use GitHub Enterprise, you can set this to the URL of your server
+          # The GitHub base URL will be automatically set to the correct value from the GitHub context variable.
+          # If you want to override this, you can do so here (not recommended).
           githubBaseUrl: https://github.myorg.com/api/v3
           # If the PR contains one of these newline-delimited labels, the
           # validation is skipped. If you want to rerun the validation when

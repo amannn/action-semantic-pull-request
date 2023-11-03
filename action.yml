@@ -33,7 +33,7 @@ inputs:
     description: "Related to `validateSingleCommit` you can opt-in to validate that the PR title matches a single commit to avoid confusion."
     required: false
   githubBaseUrl:
-    description: "If you use Github Enterprise, you can set this to the URL of your server (e.g. https://github.myorg.com/api/v3)"
+    description: "The GitHub base URL will be automatically set to the correct value from the GitHub context variable. If you want to override this, you can do so here (not recommended)."
     required: false
     default: '${{ github.api_url }}'
   ignoreLabels:
