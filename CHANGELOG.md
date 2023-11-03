@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.4.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.3.0...v5.4.0) (2023-11-03)
+
+
+### Features
+
+* Use `github.api_url` as default for `githubBaseUrl` ([#243](https://github.com/amannn/action-semantic-pull-request/issues/243) by [@fty4](https://github.com/fty4)) ([4d5734a](https://github.com/amannn/action-semantic-pull-request/commit/4d5734a0a29e548daecc9e7bfeb9bb8b3acdee1e))
+
 ## [5.3.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.2.0...v5.3.0) (2023-09-25)
 
 
