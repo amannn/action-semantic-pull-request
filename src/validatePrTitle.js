@@ -120,7 +120,35 @@ module.exports = async function validatePrTitle(
   }
 
   if (subjectPattern) {
-    const match = result.subject.match(new RegExp(subjectPattern));
+    // eslint-disable-next-line no-inner-declarations
+
+    // Define a whitelist of allowed special characters
+    const allowedSpecialChars = [
+      '.',
+      '*',
+      '+',
+      '?',
+      '^',
+      '$',
+      '{',
+      '}',
+      '(',
+      ')',
+      '|',
+      '[',
+      ']',
+      '\\'
+    ];
+
+    // Escape all special characters that are not in the whitelist
+    const sanitizedPattern = subjectPattern.replace(
+      /([.*+?^${}()|[\]\\])/g,
+      (match) => (allowedSpecialChars.includes(match) ? match : `\\${match}`)
+    );
+
+    const regex = new RegExp(sanitizedPattern);
+
+    const match = result.subject.match(regex);
 
     if (!match) {
       throwSubjectPatternError(
