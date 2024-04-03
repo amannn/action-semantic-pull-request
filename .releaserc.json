@@ -12,7 +12,7 @@
     }],
     ["@semantic-release/git", {
       "assets": ["dist", "CHANGELOG.md"],
-      "message": "chore: Release ${nextRelease.version} [skip ci]"
+      "message": "chore: release ${nextRelease.version} [skip ci]"
     }]
   ]
 }
