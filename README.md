@@ -166,7 +166,8 @@ There are two events that can be used as triggers for this action, each with dif
 
 ## Outputs
 
-In case the validation fails, this action will populate the `error_message` ouput.
+- In any case, this action will populate the `type`, `scope` and `subject` ouputs.
+- In case the validation fails, this action will populate the `error_message` ouput.
 
 [An output can be used in other steps](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs), for example to comment the error message onto the pull request.
 
@@ -222,4 +223,3 @@ jobs:
 ```
 
 </details>
-
