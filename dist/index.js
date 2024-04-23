@@ -37154,6 +37154,9 @@ module.exports = async function validatePrTitle(
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
   }
   const result = parser(prTitle, parserOpts);
+  core.setOutput('type', result.type);
+  core.setOutput('scope', result.scope);
+  core.setOutput('subject', result.subject);
 
   function printAvailableTypes() {
     return `Available types:\n${types

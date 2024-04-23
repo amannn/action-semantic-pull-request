@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.4.0...v5.5.0) (2024-04-23)
+
+
+### Features
+
+* Add outputs for `type`, `scope` and `subject` ([#261](https://github.com/amannn/action-semantic-pull-request/issues/261) by [@bcaurel](https://github.com/bcaurel)) ([b05f5f6](https://github.com/amannn/action-semantic-pull-request/commit/b05f5f6423ef5cdfc7fdff00c4c10dd9a4f54aff))
+
 ## [5.4.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.3.0...v5.4.0) (2023-11-03)
 
 
