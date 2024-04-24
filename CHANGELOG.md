@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.5.1](https://github.com/amannn/action-semantic-pull-request/compare/v5.5.0...v5.5.1) (2024-04-24)
+
+
+### Bug Fixes
+
+* Bump ip from 2.0.0 to 2.0.1 ([#263](https://github.com/amannn/action-semantic-pull-request/issues/263) by @EelcoLos) ([5e7e9ac](https://github.com/amannn/action-semantic-pull-request/commit/5e7e9acca3ddc6a9d7b640fe1f905c4fff131f4a))
+
 ## [5.5.0](https://github.com/amannn/action-semantic-pull-request/compare/v5.4.0...v5.5.0) (2024-04-23)
 
 
