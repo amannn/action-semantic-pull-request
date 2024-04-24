@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.5.2](https://github.com/amannn/action-semantic-pull-request/compare/v5.5.1...v5.5.2) (2024-04-24)
+
+
+### Bug Fixes
+
+* Bump tar from 6.1.11 to 6.2.1 ([#262](https://github.com/amannn/action-semantic-pull-request/issues/262) by @EelcoLos) ([9a90d5a](https://github.com/amannn/action-semantic-pull-request/commit/9a90d5a5ac979326e3bb9272750cdd4f192ce24a))
+
 ## [5.5.1](https://github.com/amannn/action-semantic-pull-request/compare/v5.5.0...v5.5.1) (2024-04-24)
 
 
