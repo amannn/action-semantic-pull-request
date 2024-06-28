@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.5.3](https://github.com/amannn/action-semantic-pull-request/compare/v5.5.2...v5.5.3) (2024-06-28)
+
+
+### Bug Fixes
+
+* Bump `braces` dependency ([#269](https://github.com/amannn/action-semantic-pull-request/issues/269). by @EelcoLos) ([2d952a1](https://github.com/amannn/action-semantic-pull-request/commit/2d952a1bf90a6a7ab8f0293dc86f5fdf9acb1915))
+
 ## [5.5.2](https://github.com/amannn/action-semantic-pull-request/compare/v5.5.1...v5.5.2) (2024-04-24)
 
 
