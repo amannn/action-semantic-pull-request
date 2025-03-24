@@ -36,10 +36,8 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4.2.2
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -137,10 +135,8 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4.2.2
       - uses: amannn/action-semantic-pull-request@v5
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -198,10 +194,8 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4.2.2
       - uses: amannn/action-semantic-pull-request@v5
         id: lint_pr_title
         env:
