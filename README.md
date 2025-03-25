@@ -7,10 +7,10 @@ Used by: [Electron](https://github.com/electron/electron) · [Vite](https://gith
 ## Examples
 
 **Valid pull request titles:**
-- fix: Correct typo
-- feat: Add support for Node.js 18
-- refactor!: Drop support for Node.js 12
-- feat(ui): Add `Button` component
+- fix: correct typo
+- feat: add support for Node.js 18
+- refactor!: drop support for Node.js 12
+- feat(ui): add `Button` component
 
 > Note that since pull request titles only have a single line, you have to use `!` to indicate breaking changes.
 
@@ -117,7 +117,7 @@ For work-in-progress PRs you can typically use [draft pull requests from GitHub]
 **Example:**
 
 ```
-[WIP] feat: Add support for Node.js 18
+[WIP] feat: add support for Node.js 18
 ```
 
 This will prevent the PR title from being validated, and pull request checks will remain pending.
