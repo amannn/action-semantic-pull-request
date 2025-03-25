@@ -118,7 +118,7 @@ module.exports = async function run() {
               });
             } catch (error) {
               throw new Error(
-                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.com/community/community/discussions/16271). Amend the commit message to match the pull request title, or add another commit.`
+                `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.com/community/community/discussions/16271 ). Amend the commit message to match the pull request title, or add another commit.`
               );
             }
 
