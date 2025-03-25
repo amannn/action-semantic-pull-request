@@ -6,7 +6,6 @@ on:
       - edited
       - synchronize
 
-
 jobs:
   main:
     runs-on: ubuntu-latest
