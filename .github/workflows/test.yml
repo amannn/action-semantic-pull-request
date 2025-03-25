@@ -6,12 +6,11 @@ on:
       - reopened
       - synchronize
 
-permissions:
-  contents: read
-
 jobs:
   main:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -22,13 +21,15 @@ jobs:
 
   dist:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v3
         with: 
           fetch-depth: 0
       - name: Check if `dist/` has been modified.
         run: |
-          set -eux
+          set -euxo pipefail
 
           if [ $(git diff origin/main --name-only -- 'dist/**' | wc -l) -gt 0 ]
           then
