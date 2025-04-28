@@ -33,13 +33,17 @@ module.exports = async function validatePrTitle(
   core.setOutput('scope', result.scope);
   core.setOutput('subject', result.subject);
 
+  function removeCapitalLetter(text) {
+    return text.charAt(0).toLowerCase() + text.substring(1);
+  }
+
   function printAvailableTypes() {
     return `Available types:\n${types
       .map((type) => {
         let bullet = ` - ${type}`;
 
         if (types === defaultTypes) {
-          bullet += `: ${conventionalCommitTypes.types[type].description}`;
+          bullet += `: ${removeCapitalLetter(conventionalCommitTypes.types[type].description)}`;
         }
 
         return bullet;

@@ -2,11 +2,11 @@ const validatePrTitle = require('./validatePrTitle');
 
 it('allows valid PR titles that use the default types', async () => {
   const inputs = [
-    'fix: Fix bug',
-    'fix!: Fix bug',
-    'feat: Add feature',
-    'feat!: Add feature',
-    'refactor: Internal cleanup'
+    'fix: fix bug',
+    'fix!: fix bug',
+    'feat: add feature',
+    'feat!: add feature',
+    'refactor: internal cleanup'
   ];
 
   for (let index = 0; index < inputs.length; index++) {
@@ -40,7 +40,7 @@ it('throws for PR titles with an unknown type', async () => {
 
 describe('defined scopes', () => {
   it('allows a missing scope by default', async () => {
-    await validatePrTitle('fix: Bar');
+    await validatePrTitle('fix: bar');
   });
 
   it('allows all scopes by default', async () => {
@@ -48,7 +48,7 @@ describe('defined scopes', () => {
   });
 
   it('allows a missing scope when custom scopes are defined', async () => {
-    await validatePrTitle('fix: Bar', {scopes: ['foo']});
+    await validatePrTitle('fix: bar', {scopes: ['foo']});
   });
 
   it('allows a matching scope', async () => {
@@ -132,12 +132,12 @@ describe('defined scopes', () => {
 
       it('throws when a scope is missing', async () => {
         await expect(
-          validatePrTitle('fix: Bar', {
+          validatePrTitle('fix: bar', {
             scopes: ['foo', 'bar'],
             requireScope: true
           })
         ).rejects.toThrow(
-          'No scope found in pull request title "fix: Bar". Scope must match one of: foo, bar.'
+          'No scope found in pull request title "fix: bar". Scope must match one of: foo, bar.'
         );
       });
     });
@@ -253,12 +253,12 @@ describe('defined scopes', () => {
 
       it('throws when a scope is missing', async () => {
         await expect(
-          validatePrTitle('fix: Bar', {
+          validatePrTitle('fix: bar', {
             requireScope: true
           })
         ).rejects.toThrow(
           // Should make no mention of any available scope
-          /^No scope found in pull request title "fix: Bar".$/
+          /^No scope found in pull request title "fix: bar".$/
         );
       });
     });
@@ -277,9 +277,9 @@ describe('custom types', () => {
 
   it('throws for PR titles with an unknown type', async () => {
     await expect(
-      validatePrTitle('fix: Foobar', {types: ['foo', 'bar']})
+      validatePrTitle('fix: foobar', {types: ['foo', 'bar']})
     ).rejects.toThrow(
-      'Unknown release type "fix" found in pull request title "fix: Foobar".'
+      'Unknown release type "fix" found in pull request title "fix: foobar".'
     );
   });
 });
@@ -332,11 +332,11 @@ describe('description validation', () => {
 
   it('throws for only partial matches', async () => {
     await expect(
-      validatePrTitle('fix: Foobar', {
-        subjectPattern: 'Foo'
+      validatePrTitle('fix: foobar', {
+        subjectPattern: 'foo'
       })
     ).rejects.toThrow(
-      'The subject "Foobar" found in pull request title "fix: Foobar" isn\'t an exact match for the configured pattern "Foo". Please provide a subject that matches the whole pattern exactly.'
+      'The subject "foobar" found in pull request title "fix: foobar" isn\'t an exact match for the configured pattern "foo". Please provide a subject that matches the whole pattern exactly.'
     );
   });
 
