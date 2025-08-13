@@ -19,7 +19,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: 'pnpm'
       - run: pnpm install
       - run: pnpm lint && pnpm test
 
