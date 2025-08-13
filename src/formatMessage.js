@@ -1,4 +1,4 @@
-module.exports = function formatMessage(message, values) {
+export default function formatMessage(message, values) {
   let formatted = message;
   if (values) {
     Object.entries(values).forEach(([key, value]) => {
@@ -6,4 +6,4 @@ module.exports = function formatMessage(message, values) {
     });
   }
   return formatted;
-};
+}

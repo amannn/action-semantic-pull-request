@@ -1,4 +1,4 @@
-name: "Lint PR title preview (current branch)"
+name: 'Lint PR title preview (current branch)'
 on:
   pull_request:
     types:
@@ -13,11 +13,14 @@ jobs:
       pull-requests: read
     steps:
       - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: yarn install
-      - run: yarn build
+          node-version: 24
+      - run: pnpm install
+      - run: pnpm build
       - uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,9 +1,9 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const parseConfig = require('./parseConfig');
-const validatePrTitle = require('./validatePrTitle');
+import core from '@actions/core';
+import github from '@actions/github';
+import parseConfig from './parseConfig.js';
+import validatePrTitle from './validatePrTitle.js';
 
-module.exports = async function run() {
+export default async function run() {
   try {
     const {
       types,
@@ -116,6 +116,7 @@ module.exports = async function run() {
                 headerPattern,
                 headerPatternCorrespondence
               });
+              // eslint-disable-next-line unicorn/prefer-optional-catch-binding, no-unused-vars -- Legacy syntax for compatibility
             } catch (error) {
               throw new Error(
                 `Pull request has only one commit and it's not semantic; this may lead to a non-semantic commit in the base branch (see https://github.com/community/community/discussions/16271 ). Amend the commit message to match the pull request title, or add another commit.`
@@ -155,8 +156,8 @@ module.exports = async function run() {
         description: isWip
           ? 'This PR is marked with "[WIP]".'
           : validationError
-          ? 'PR title validation failed'
-          : 'Ready for review & merge.',
+            ? 'PR title validation failed'
+            : 'Ready for review & merge.',
         context: 'action-semantic-pull-request'
       });
     }
@@ -167,4 +168,4 @@ module.exports = async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
-};
+}

@@ -1,12 +1,14 @@
-const core = require('@actions/core');
-const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
-const conventionalCommitTypes = require('conventional-commit-types');
-const parser = require('conventional-commits-parser').sync;
-const formatMessage = require('./formatMessage');
+import core from '@actions/core';
+// eslint-disable-next-line import/no-unresolved -- False positive
+import conventionalCommitsConfig from 'conventional-changelog-conventionalcommits';
+import conventionalCommitTypes from 'conventional-commit-types';
+// eslint-disable-next-line import/no-unresolved -- False positive
+import {CommitParser} from 'conventional-commits-parser';
+import formatMessage from './formatMessage.js';
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
-module.exports = async function validatePrTitle(
+export default async function validatePrTitle(
   prTitle,
   {
     types,
@@ -21,14 +23,15 @@ module.exports = async function validatePrTitle(
 ) {
   if (!types) types = defaultTypes;
 
-  const {parserOpts} = await conventionalCommitsConfig();
+  const {parser: parserOpts} = await conventionalCommitsConfig();
   if (headerPattern) {
     parserOpts.headerPattern = headerPattern;
   }
   if (headerPatternCorrespondence) {
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
   }
-  const result = parser(prTitle, parserOpts);
+  const result = new CommitParser(parserOpts).parse(prTitle);
+
   core.setOutput('type', result.type);
   core.setOutput('scope', result.scope);
   core.setOutput('subject', result.subject);
@@ -144,4 +147,4 @@ module.exports = async function validatePrTitle(
 
     throw new Error(message);
   }
-};
+}

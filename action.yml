@@ -2,7 +2,7 @@ name: semantic-pull-request
 author: Jan Amann <jan@amann.work>
 description: Ensure your PR title matches the Conventional Commits spec (https://www.conventionalcommits.org/).
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
 branding:
   icon: 'shield'
@@ -12,10 +12,10 @@ inputs:
     description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org."
     required: false
   scopes:
-    description: "Configure which scopes are allowed (newline delimited). These are regex patterns auto-wrapped in `^ $`."
+    description: 'Configure which scopes are allowed (newline delimited). These are regex patterns auto-wrapped in `^ $`.'
     required: false
   requireScope:
-    description: "Configure that a scope must always be provided."
+    description: 'Configure that a scope must always be provided.'
     required: false
   disallowScopes:
     description: 'Configure which scopes are disallowed in PR titles (newline delimited). These are regex patterns auto-wrapped in ` ^$`.'
@@ -27,23 +27,23 @@ inputs:
     description: "If `subjectPattern` is configured, you can use this property to override the default error message that is shown when the pattern doesn't match. The variables `subject` and `title` can be used within the message."
     required: false
   validateSingleCommit:
-    description: "When using \"Squash and merge\" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit, and it's easy to commit this by mistake. Enable this option to also validate the commit message for one commit PRs." 
+    description: 'When using "Squash and merge" on a PR with only one commit, GitHub will suggest using that commit message instead of the PR title for the merge commit, and it''s easy to commit this by mistake. Enable this option to also validate the commit message for one commit PRs.'
     required: false
   validateSingleCommitMatchesPrTitle:
-    description: "Related to `validateSingleCommit` you can opt-in to validate that the PR title matches a single commit to avoid confusion."
+    description: 'Related to `validateSingleCommit` you can opt-in to validate that the PR title matches a single commit to avoid confusion.'
     required: false
   githubBaseUrl:
-    description: "The GitHub base URL will be automatically set to the correct value from the GitHub context variable. If you want to override this, you can do so here (not recommended)."
+    description: 'The GitHub base URL will be automatically set to the correct value from the GitHub context variable. If you want to override this, you can do so here (not recommended).'
     required: false
     default: '${{ github.api_url }}'
   ignoreLabels:
-    description: "If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow."
+    description: 'If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow.'
     required: false
   headerPattern:
     description: "If you're using a format for the PR title that differs from the traditional Conventional Commits spec, you can use this to customize the parsing of the type, scope and subject. The `headerPattern` should contain a regex where the capturing groups in parentheses correspond to the parts listed in `headerPatternCorrespondence`. For more details see: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern"
     required: false
   headerPatternCorrespondence:
-    description: "If `headerPattern` is configured, you can use this to define which capturing groups correspond to the type, scope and subject."
+    description: 'If `headerPattern` is configured, you can use this to define which capturing groups correspond to the type, scope and subject.'
     required: false
   wip:
     description: "For work-in-progress PRs you can typically use draft pull requests from Github. However, private repositories on the free plan don't have this option and therefore this action allows you to opt-in to using the special '[WIP]' prefix to indicate this state. This will avoid the validation of the PR title and the pull request checks remain pending. Note that a second check will be reported if this is enabled."

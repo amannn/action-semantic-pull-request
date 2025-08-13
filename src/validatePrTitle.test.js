@@ -1,4 +1,5 @@
-const validatePrTitle = require('./validatePrTitle');
+import {describe, expect, it} from 'vitest';
+import validatePrTitle from './validatePrTitle.js';
 
 it('allows valid PR titles that use the default types', async () => {
   const inputs = [
@@ -79,7 +80,7 @@ describe('defined scopes', () => {
     );
   });
 
-  it('throws when an unknown scope is detected within multiple scopes', async () => {
+  it('throws when an unknown scope is detected within multiple scopes and a regex', async () => {
     await expect(
       validatePrTitle('fix(CORE,e2e,foo,bar): Bar', {
         scopes: ['foo', '[A-Z]+']
@@ -227,7 +228,7 @@ describe('defined scopes', () => {
         ).rejects.toThrow('Disallowed scope was found: release');
       });
 
-      it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items ', async () => {
+      it('throws when multiple scopes are provided and one of them is present in disallowScopes with multiple items and a regex', async () => {
         await expect(
           validatePrTitle('fix(RELEASE,e2e): Bar', {
             disallowScopes: ['[A-Z]+', 'test']

@@ -1,4 +1,5 @@
-const ConfigParser = require('./ConfigParser');
+import {describe, expect, it} from 'vitest';
+import ConfigParser from './ConfigParser.js';
 
 describe('parseEnum', () => {
   it('parses newline-delimited lists, trimming whitespace', () => {

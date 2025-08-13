@@ -1,6 +1,6 @@
-const ConfigParser = require('./ConfigParser');
+import ConfigParser from './ConfigParser.js';
 
-module.exports = function parseConfig() {
+export default function parseConfig() {
   let types;
   if (process.env.INPUT_TYPES) {
     types = ConfigParser.parseEnum(process.env.INPUT_TYPES);
@@ -89,4 +89,4 @@ module.exports = function parseConfig() {
     githubBaseUrl,
     ignoreLabels
   };
-};
+}
