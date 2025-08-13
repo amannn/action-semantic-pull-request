@@ -7,7 +7,7 @@
   "scripts": {
     "lint": "eslint src && prettier --check src",
     "test": "vitest src",
-    "build": "rm -rf dist && rollup -c"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
