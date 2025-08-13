@@ -1,4 +1,5 @@
-const formatMessage = require('./formatMessage');
+import {expect, it} from 'vitest';
+import formatMessage from './formatMessage.js';
 
 it('handles a string without variables', () => {
   const message = 'this is test';

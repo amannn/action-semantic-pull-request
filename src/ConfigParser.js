@@ -1,6 +1,6 @@
 const ENUM_SPLIT_REGEX = /\n/;
 
-module.exports = {
+export default {
   parseEnum(input) {
     return input
       .split(ENUM_SPLIT_REGEX)
