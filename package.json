@@ -4,7 +4,7 @@
   "description": "Ensure your PR title matches the Conventional Commits spec.",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint src && prettier --check src",
     "test": "jest src",
     "build": "rm -rf dist && ncc build"
   },
@@ -38,11 +38,14 @@
     "@vercel/ncc": "^0.38.3",
     "eslint": "9.33.0",
     "eslint-config-molindo": "8.0.0",
+    "globals": "^16.3.0",
     "jest": "30.0.5",
+    "prettier": "^3.6.2",
     "semantic-release": "^24.2.7",
     "semantic-release-major-tag": "0.3.2"
   },
   "engines": {
-    "node": "^20.0.0"
-  }
+    "node": "^24.0.0"
+  },
+  "prettier": "eslint-config-molindo/.prettierrc.json"
 }

@@ -6,14 +6,20 @@
     "@semantic-release/release-notes-generator",
     ["@semantic-release/changelog", {"changelogTitle": "# Changelog"}],
     "semantic-release-major-tag",
-    ["@semantic-release/github", {
-      "failComment": false,
-      "failTitle": false,
-      "releasedLabels": false
-    }],
-    ["@semantic-release/git", {
-      "assets": ["dist", "CHANGELOG.md"],
-      "message": "chore: Release ${nextRelease.version} [skip ci]"
-    }]
+    [
+      "@semantic-release/github",
+      {
+        "failComment": false,
+        "failTitle": false,
+        "releasedLabels": false
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["dist", "CHANGELOG.md"],
+        "message": "chore: Release ${nextRelease.version} [skip ci]"
+      }
+    ]
   ]
 }

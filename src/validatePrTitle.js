@@ -1,6 +1,8 @@
 const core = require('@actions/core');
+// eslint-disable-next-line import/no-unresolved -- False positive
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
 const conventionalCommitTypes = require('conventional-commit-types');
+// eslint-disable-next-line import/no-unresolved -- False positive
 const parser = require('conventional-commits-parser').sync;
 const formatMessage = require('./formatMessage');
 
