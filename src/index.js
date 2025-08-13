@@ -3,7 +3,7 @@ import github from '@actions/github';
 import parseConfig from './parseConfig.js';
 import validatePrTitle from './validatePrTitle.js';
 
-export default async function run() {
+async function run() {
   try {
     const {
       types,
@@ -169,3 +169,5 @@ export default async function run() {
     core.setFailed(error.message);
   }
 }
+
+await run();
