@@ -32787,5 +32787,5 @@ async function run() {
   }
 }
 
-export { run as default };
+await run();
 //# sourceMappingURL=index.js.map
