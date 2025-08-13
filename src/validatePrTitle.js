@@ -1,14 +1,14 @@
-const core = require('@actions/core');
+import core from '@actions/core';
 // eslint-disable-next-line import/no-unresolved -- False positive
-const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
-const conventionalCommitTypes = require('conventional-commit-types');
+import conventionalCommitsConfig from 'conventional-changelog-conventionalcommits';
+import conventionalCommitTypes from 'conventional-commit-types';
 // eslint-disable-next-line import/no-unresolved -- False positive
-const {CommitParser} = require('conventional-commits-parser');
-const formatMessage = require('./formatMessage');
+import {CommitParser} from 'conventional-commits-parser';
+import formatMessage from './formatMessage.js';
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
 
-module.exports = async function validatePrTitle(
+export default async function validatePrTitle(
   prTitle,
   {
     types,
@@ -147,4 +147,4 @@ module.exports = async function validatePrTitle(
 
     throw new Error(message);
   }
-};
+}

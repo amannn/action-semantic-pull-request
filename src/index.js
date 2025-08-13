@@ -1,9 +1,9 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-const parseConfig = require('./parseConfig');
-const validatePrTitle = require('./validatePrTitle');
+import core from '@actions/core';
+import github from '@actions/github';
+import parseConfig from './parseConfig.js';
+import validatePrTitle from './validatePrTitle.js';
 
-module.exports = async function run() {
+export default async function run() {
   try {
     const {
       types,
@@ -168,4 +168,4 @@ module.exports = async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
-};
+}

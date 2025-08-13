@@ -1,4 +1,5 @@
-const validatePrTitle = require('./validatePrTitle');
+import {describe, expect, it} from 'vitest';
+import validatePrTitle from './validatePrTitle.js';
 
 it('allows valid PR titles that use the default types', async () => {
   const inputs = [

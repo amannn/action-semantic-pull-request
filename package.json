@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "description": "Ensure your PR title matches the Conventional Commits spec.",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "lint": "eslint src && prettier --check src",
-    "test": "jest src",
-    "build": "rm -rf dist && ncc build"
+    "test": "vitest src",
+    "build": "rm -rf dist && ncc build src/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,8 @@
     "@actions/github": "^6.0.1",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "conventional-commit-types": "^3.0.0",
-    "conventional-commits-parser": "^6.2.0"
+    "conventional-commits-parser": "^6.2.0",
+    "vitest": "^3.2.4"
   },
   "devDependencies": {
     "@semantic-release/changelog": "6.0.3",
@@ -39,7 +41,6 @@
     "eslint": "9.33.0",
     "eslint-config-molindo": "8.0.0",
     "globals": "^16.3.0",
-    "jest": "30.0.5",
     "prettier": "^3.6.2",
     "semantic-release": "^24.2.7",
     "semantic-release-major-tag": "0.3.2"

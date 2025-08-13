@@ -1,11 +1,11 @@
-import globals from 'globals';
 import {getPresets} from 'eslint-config-molindo';
+import globals from 'globals';
 
 export default [
-  ...(await getPresets('javascript', 'jest')),
+  ...(await getPresets('javascript', 'vitest')),
   {
     languageOptions: {
-      globals: {...globals.node, ...globals.jest}
+      globals: globals.node
     }
   }
 ];
