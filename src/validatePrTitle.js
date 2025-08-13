@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const conventionalCommitsConfig = require('conventional-changelog-conventionalcommits');
 const conventionalCommitTypes = require('conventional-commit-types');
 // eslint-disable-next-line import/no-unresolved -- False positive
-const parser = require('conventional-commits-parser').sync;
+const {CommitParser} = require('conventional-commits-parser');
 const formatMessage = require('./formatMessage');
 
 const defaultTypes = Object.keys(conventionalCommitTypes.types);
@@ -23,14 +23,15 @@ module.exports = async function validatePrTitle(
 ) {
   if (!types) types = defaultTypes;
 
-  const {parserOpts} = await conventionalCommitsConfig();
+  const {parser: parserOpts} = await conventionalCommitsConfig();
   if (headerPattern) {
     parserOpts.headerPattern = headerPattern;
   }
   if (headerPatternCorrespondence) {
     parserOpts.headerCorrespondence = headerPatternCorrespondence;
   }
-  const result = parser(prTitle, parserOpts);
+  const result = new CommitParser(parserOpts).parse(prTitle);
+
   core.setOutput('type', result.type);
   core.setOutput('scope', result.scope);
   core.setOutput('subject', result.subject);
