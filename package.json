@@ -28,8 +28,7 @@
     "@actions/github": "^6.0.1",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "conventional-commit-types": "^3.0.0",
-    "conventional-commits-parser": "^6.2.0",
-    "vitest": "^3.2.4"
+    "conventional-commits-parser": "^6.2.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
@@ -46,7 +45,8 @@
     "prettier": "^3.6.2",
     "rollup": "^4.46.2",
     "semantic-release": "^24.2.7",
-    "semantic-release-major-tag": "0.3.2"
+    "semantic-release-major-tag": "0.3.2",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": "^24.0.0"
