@@ -39,6 +39,86 @@ it('throws for PR titles with an unknown type', async () => {
   );
 });
 
+describe('regex types', () => {
+  const headerPattern = /^([\w-]*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$/;
+
+  it('allows a regex matching type', async () => {
+    await validatePrTitle('JIRA-123: Bar', {
+      types: ['JIRA-\\d+'],
+      headerPattern
+    });
+  });
+
+  it('can be used for dynamic Jira keys', async () => {
+    const inputs = ['JIRA-123', 'P-123', 'INT-31', 'CONF-0'];
+
+    for (let index = 0; index < inputs.length; index++) {
+      await validatePrTitle(`${inputs[index]}: did the thing`, {
+        types: ['[A-Z]+-\\d+'],
+        headerPattern
+      });
+    }
+  });
+
+  it('throws for PR titles without a type', async () => {
+    await expect(
+      validatePrTitle('Fix JIRA-123 bug', {
+        types: ['JIRA-\\d+'],
+        headerPattern
+      })
+    ).rejects.toThrow(
+      'No release type found in pull request title "Fix JIRA-123 bug".'
+    );
+  });
+
+  it('throws for PR titles with only a type', async () => {
+    await expect(
+      validatePrTitle('JIRA-123:', {
+        types: ['JIRA-\\d+'],
+        headerPattern
+      })
+    ).rejects.toThrow(
+      'No release type found in pull request title "JIRA-123:".'
+    );
+  });
+
+  it('throws for PR titles without a subject', async () => {
+    await expect(
+      validatePrTitle('JIRA-123: ', {
+        types: ['JIRA-\\d+'],
+        headerPattern
+      })
+    ).rejects.toThrow('No subject found in pull request title "JIRA-123: ".');
+  });
+
+  it('throws for PR titles that do not match the regex', async () => {
+    await expect(
+      validatePrTitle('CONF-123: ', {
+        types: ['JIRA-\\d+'],
+        headerPattern
+      })
+    ).rejects.toThrow('No subject found in pull request title "CONF-123: ".');
+  });
+
+  it('throws when an unknown type is detected for auto-wrapping regex', async () => {
+    await expect(
+      validatePrTitle('JIRA-123A: Bar', {
+        types: ['JIRA-\\d+'],
+        headerPattern
+      })
+    ).rejects.toThrow(
+      'Unknown release type "JIRA-123A" found in pull request title "JIRA-123A: Bar". \n\nAvailable types:\n - JIRA-\\d+'
+    );
+  });
+
+  it('allows scopes when using a regex for the type', async () => {
+    await validatePrTitle('JIRA-123(core): Bar', {
+      types: ['JIRA-\\d+'],
+      headerPattern
+    });
+  });
+});
+
 describe('defined scopes', () => {
   it('allows a missing scope by default', async () => {
     await validatePrTitle('fix: Bar');

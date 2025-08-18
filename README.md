@@ -63,10 +63,12 @@ feat(ui): Add `Button` component
 ```yml
         with:
           # Configure which types are allowed (newline-delimited).
+          # These are regex patterns auto-wrapped in `^ $`.
           # Default: https://github.com/commitizen/conventional-commit-types
           types: |
             fix
             feat
+            JIRA-\d+
           # Configure which scopes are allowed (newline-delimited).
           # These are regex patterns auto-wrapped in `^ $`.
           scopes: |
