@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v6.0.1...v6.1.0) (2025-08-19)
+
+### Features
+
+* Support providing regexps for types ([#292](https://github.com/amannn/action-semantic-pull-request/issues/292)) ([a30288b](https://github.com/amannn/action-semantic-pull-request/commit/a30288bf13b78cca17c3abdc144db5977476fc8b))
+
+### Bug Fixes
+
+* Remove trailing whitespace from "unknown release type" error message ([#291](https://github.com/amannn/action-semantic-pull-request/issues/291)) ([afa4edb](https://github.com/amannn/action-semantic-pull-request/commit/afa4edb1c465fb22230da8ff4776a163ab5facdf))
+
 ## [6.0.1](https://github.com/amannn/action-semantic-pull-request/compare/v6.0.0...v6.0.1) (2025-08-13)
 
 ### Bug Fixes

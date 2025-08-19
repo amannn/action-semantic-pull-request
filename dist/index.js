@@ -32542,11 +32542,11 @@ async function validatePrTitle(
     raiseError(`No subject found in pull request title "${prTitle}".`);
   }
 
-  if (!types.includes(result.type)) {
+  if (!types.some((type) => new RegExp(`^${type}$`).test(result.type))) {
     raiseError(
       `Unknown release type "${
         result.type
-      }" found in pull request title "${prTitle}". \n\n${printAvailableTypes()}`
+      }" found in pull request title "${prTitle}".\n\n${printAvailableTypes()}`
     );
   }
 
