@@ -1,8 +1,11 @@
-name: 'Publish major version'
+name: 'Tag release for latest major version'
 
 on:
   release:
     types: [published, edited]
+
+permissions:
+  contents: write
 
 jobs:
   actions-tagger:
