@@ -9,7 +9,7 @@ branding:
   color: 'green'
 inputs:
   types:
-    description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org."
+    description: "Provide custom types (newline delimited) if you don't want the default ones from https://www.conventionalcommits.org. These are regex patterns auto-wrapped in `^ $`."
     required: false
   scopes:
     description: 'Configure which scopes are allowed (newline delimited). These are regex patterns auto-wrapped in `^ $`.'
