@@ -107,7 +107,7 @@ describe('regex types', () => {
         headerPattern
       })
     ).rejects.toThrow(
-      'Unknown release type "JIRA-123A" found in pull request title "JIRA-123A: Bar". \n\nAvailable types:\n - JIRA-\\d+'
+      'Unknown release type "JIRA-123A" found in pull request title "JIRA-123A: Bar".\n\nAvailable types:\n - JIRA-\\d+'
     );
   });
 
