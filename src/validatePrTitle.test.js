@@ -45,7 +45,27 @@ describe('regex types', () => {
   it('works with the suggested header pattern and correspondence', async () => {
     await validatePrTitle('fix(deps): delay for tagging lambda', {
       headerPattern: '^(\\w*)(?:\\(([\\w$.\\-*/ ]*)\\))?: (.*)$',
-      headerPatternCorrespondence: ['type', 'scope', 'subject']
+      headerPatternCorrespondence: ['type', 'scope', 'subject'],
+      types: [
+        'feat',
+        'fix',
+        'docs',
+        'style',
+        'refactor',
+        'perf',
+        'test',
+        'build',
+        'ci',
+        'chore',
+        'revert',
+        'release'
+      ],
+      scopes: ['main', 'deps', 'except', 'scp'],
+      requireScope: false,
+      subjectPattern: '^(?![A-Z]).+$',
+      subjectPatternError:
+        'The subject "{subject}" found in the pull request title "{title}"\ndidn\'t match the configured pattern. Please ensure that the subject\ndoesn\'t start with an uppercase character.',
+      ignoreLabels: ['bot', 'ignore-semantic-pull-request']
     });
   });
 
