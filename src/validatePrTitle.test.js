@@ -69,6 +69,29 @@ describe('regex types', () => {
     });
   });
 
+  it('works with the suggested header pattern and correspondence 2', async () => {
+    await validatePrTitle('feat(webapp): location distance in profile', {
+      scopes: [
+        'backend',
+        'webapp',
+        'frontend',
+        'maintenance',
+        'database',
+        'docu',
+        'docker',
+        'release',
+        'workflow',
+        'other'
+      ],
+      requireScope: true,
+      subjectPattern: '^(?![A-Z]).+$',
+      subjectPatternError:
+        'The subject "{subject}" found in the pull request title "{title}"\ndidn\'t match the configured pattern. Please ensure that the subject\ndoesn\'t start with an uppercase character.',
+      headerPattern: '^(\\w*)(?:\\(([\\w$.\\-*/ ]*)\\))?: (.*)$',
+      headerPatternCorrespondence: ['type', 'scope', 'subject']
+    });
+  });
+
   it('allows a regex matching type', async () => {
     await validatePrTitle('JIRA-123: Bar', {
       types: ['JIRA-\\d+'],
