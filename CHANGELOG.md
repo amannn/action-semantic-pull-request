@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.1](https://github.com/amannn/action-semantic-pull-request/compare/v6.1.0...v6.1.1) (2025-08-22)
+
+### Bug Fixes
+
+* Parse `headerPatternCorrespondence` properly ([#295](https://github.com/amannn/action-semantic-pull-request/issues/295)) ([800da4c](https://github.com/amannn/action-semantic-pull-request/commit/800da4c97f618e44f972ff9bc21ab5daecc97773))
+
 ## [6.1.0](https://github.com/amannn/action-semantic-pull-request/compare/v6.0.1...v6.1.0) (2025-08-19)
 
 ### Features
