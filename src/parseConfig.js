@@ -40,9 +40,11 @@ export default function parseConfig() {
 
   let headerPatternCorrespondence;
   if (process.env.INPUT_HEADERPATTERNCORRESPONDENCE) {
-    headerPatternCorrespondence = ConfigParser.parseString(
-      process.env.INPUT_HEADERPATTERNCORRESPONDENCE
-    );
+    // todo: this should be migrated to an enum w/ ConfigParser.parseEnum
+    headerPatternCorrespondence =
+      process.env.INPUT_HEADERPATTERNCORRESPONDENCE.split(',')
+        .map((part) => part.trim())
+        .filter((part) => part.length > 0);
   }
 
   let wip;
