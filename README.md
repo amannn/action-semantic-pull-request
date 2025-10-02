@@ -28,9 +28,14 @@ name: 'Lint PR'
 on:
   pull_request_target:
     types:
+      # Defaults
+      # https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request_target
       - opened
-      - edited
       - reopened
+      - synchronize
+      # Tracks editing PR title or description, or base branch changes
+      # https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=edited#pull_request
+      - edited
 
 jobs:
   main:
