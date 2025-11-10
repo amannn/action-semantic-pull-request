@@ -31,7 +31,7 @@ on:
       - opened
       - reopened
       - edited
-      # - synchronize # if you use required Actions
+      # - synchronize (if you use required Actions)
 
 jobs:
   main:
@@ -171,7 +171,7 @@ There are two events that can be used as triggers for this action, each with dif
 2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the GitHub token environment parameter is not available. This option is viable if all contributors have write access to the repository.
 
 > [!TIP]
-> If the workflow is required for merging, you need to ensure that the you add a trigger type [`synchronize`](https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=synchronize#pull_request).
+> If the workflow is required for merging, you need to ensure that the you add a trigger type for [`synchronize`](https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=synchronize#pull_request).
 > This will ensure that the check is ran on each new push as required workflows need to run on the lastest change.
 
 ## Outputs
