@@ -4,9 +4,6 @@ updates:
     directory: '/'
     schedule:
       interval: 'quarterly'
-    commit-message:
-      prefix: "chore"
-      include: "none"
     groups:
       npm-packages:
         patterns: ['*']
@@ -15,9 +12,6 @@ updates:
     directory: '/'
     schedule:
       interval: 'quarterly'
-    commit-message:
-      prefix: "chore"
-      include: "none"
     groups:
       github-action-workflows:
         patterns: ['*']
