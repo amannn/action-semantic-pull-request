@@ -200,8 +200,6 @@ jobs:
   main:
     name: Validate PR title
     runs-on: ubuntu-slim
-    permissions:
-      pull-requests: read
     steps:
       - uses: amannn/action-semantic-pull-request@v6
         id: lint_pr_title
