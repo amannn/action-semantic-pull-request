@@ -1,4 +1,4 @@
-import core from '@actions/core';
+import * as core from '@actions/core';
 // eslint-disable-next-line import/no-unresolved -- False positive
 import conventionalCommitsConfig from 'conventional-changelog-conventionalcommits';
 import conventionalCommitTypes from 'conventional-commit-types';
