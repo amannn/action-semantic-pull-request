@@ -24,29 +24,29 @@
   },
   "homepage": "https://github.com/amannn/action-semantic-pull-request#readme",
   "dependencies": {
-    "@actions/core": "^3.0.0",
-    "@actions/github": "^9.0.0",
-    "conventional-changelog-conventionalcommits": "9.3.1",
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "conventional-changelog-conventionalcommits": "10.2.0",
     "conventional-commit-types": "^3.0.0",
-    "conventional-commits-parser": "^6.4.0"
+    "conventional-commits-parser": "^7.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.2",
+    "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/commit-analyzer": "13.0.1",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "12.0.6",
-    "@semantic-release/release-notes-generator": "14.1.0",
-    "eslint": "^9.39.2",
+    "@semantic-release/github": "12.0.8",
+    "@semantic-release/release-notes-generator": "14.1.1",
+    "eslint": "^10.6.0",
     "eslint-config-molindo": "8.0.0",
-    "globals": "^17.4.0",
-    "prettier": "^3.8.1",
-    "rollup": "^4.60.1",
-    "semantic-release": "^25.0.3",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.4",
+    "rollup": "^4.62.2",
+    "semantic-release": "^25.0.5",
     "semantic-release-major-tag": "0.3.2",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.9"
   },
   "engines": {
     "node": "^24.0.0"
