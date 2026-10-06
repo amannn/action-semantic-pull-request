@@ -58,13 +58,14 @@ async function run() {
       }
     }
 
+    const prTitle = pullRequest.title.trim()
     // Pull requests that start with "[WIP] " are excluded from the check.
-    const isWip = wip && /^\[WIP\]\s/.test(pullRequest.title);
+    const isWip = wip && /^\[WIP\]\s/.test(prTitle);
 
     let validationError;
     if (!isWip) {
       try {
-        await validatePrTitle(pullRequest.title, {
+        await validatePrTitle(prTitle, {
           types,
           scopes,
           requireScope,
@@ -126,9 +127,9 @@ async function run() {
             if (validateSingleCommitMatchesPrTitle) {
               const commitTitle =
                 nonMergeCommits[0].commit.message.split('\n')[0];
-              if (commitTitle !== pullRequest.title) {
+              if (commitTitle !== prTitle) {
                 throw new Error(
-                  `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${pullRequest.title}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.`
+                  `The pull request has only one (non-merge) commit and in this case Github will use it as the default commit message when merging. The pull request title doesn't match the commit though ("${prTitle}" vs. "${commitTitle}"). Please update the pull request title accordingly to avoid surprises.`
                 );
               }
             }
