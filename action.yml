@@ -39,6 +39,9 @@ inputs:
   ignoreLabels:
     description: 'If the PR contains one of these labels (newline delimited), the validation is skipped. If you want to rerun the validation when labels change, you might want to use the `labeled` and `unlabeled` event triggers in your workflow.'
     required: false
+  pullRequestNumber:
+    description: 'Number of the pull request to validate. Use this when the workflow is triggered by an event without a `pull_request` payload, e.g. `workflow_dispatch`. Takes precedence over the pull request from the event payload.'
+    required: false
   headerPattern:
     description: "If you're using a format for the PR title that differs from the traditional Conventional Commits spec, you can use this to customize the parsing of the type, scope and subject. The `headerPattern` should contain a regex where the capturing groups in parentheses correspond to the parts listed in `headerPatternCorrespondence`. For more details see: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern"
     required: false

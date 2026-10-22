@@ -18,7 +18,8 @@ async function run() {
       validateSingleCommit,
       validateSingleCommitMatchesPrTitle,
       githubBaseUrl,
-      ignoreLabels
+      ignoreLabels,
+      pullRequestNumber: pullRequestNumberInput
     } = parseConfig();
 
     const client = github.getOctokit(process.env.GITHUB_TOKEN, {
@@ -26,14 +27,22 @@ async function run() {
     });
 
     const contextPullRequest = github.context.payload.pull_request;
-    if (!contextPullRequest) {
+    const pullRequestNumber =
+      pullRequestNumberInput ?? contextPullRequest?.number;
+    if (!pullRequestNumber) {
       throw new Error(
-        "This action can only be invoked in `pull_request_target` or `pull_request` events. Otherwise the pull request can't be inferred."
+        "This action can only be invoked in `pull_request_target` or `pull_request` events, or with the `pullRequestNumber` input. Otherwise the pull request can't be inferred."
       );
     }
 
-    const owner = contextPullRequest.base.user.login;
-    const repo = contextPullRequest.base.repo.name;
+    // Without a pull request payload (e.g. `workflow_dispatch`), the
+    // pull request belongs to the repository the workflow runs in.
+    const {owner, repo} = contextPullRequest
+      ? {
+          owner: contextPullRequest.base.user.login,
+          repo: contextPullRequest.base.repo.name
+        }
+      : github.context.repo;
 
     // The pull request info on the context isn't up to date. When
     // the user updates the title and re-runs the workflow, it would
@@ -42,7 +51,7 @@ async function run() {
     const {data: pullRequest} = await client.rest.pulls.get({
       owner,
       repo,
-      pull_number: contextPullRequest.number
+      pull_number: pullRequestNumber
     });
 
     // Ignore errors if specified labels are added.
@@ -84,7 +93,7 @@ async function run() {
             {
               owner,
               repo,
-              pull_number: contextPullRequest.number
+              pull_number: pullRequestNumber
             }
           )) {
             commits.push(...response.data);

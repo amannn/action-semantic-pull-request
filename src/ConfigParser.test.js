@@ -16,3 +16,16 @@ describe('parseEnum', () => {
     ).toEqual(['one', 'two', '^[A-Z]+\\n$', 'four']);
   });
 });
+
+describe('parseNumber', () => {
+  it('parses a positive integer, trimming whitespace', () => {
+    expect(ConfigParser.parseNumber(' 42 ')).toBe(42);
+  });
+  it('rejects values that are not positive integers', () => {
+    for (const input of ['', 'abc', '0', '-1', '1.5']) {
+      expect(() => ConfigParser.parseNumber(input)).toThrow(
+        'Expected a positive integer'
+      );
+    }
+  });
+});

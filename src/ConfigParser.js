@@ -14,5 +14,13 @@ export default {
 
   parseString(input) {
     return input;
+  },
+
+  parseNumber(input) {
+    const number = Number(input.trim());
+    if (!Number.isInteger(number) || number <= 0) {
+      throw new Error(`Expected a positive integer, got "${input}".`);
+    }
+    return number;
   }
 };
