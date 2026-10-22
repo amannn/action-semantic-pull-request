@@ -112,6 +112,9 @@ feat(ui): Add `Button` component
           # See: https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-commits-parser#headerpattern
           headerPattern: '^(\w*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$'
           headerPatternCorrespondence: type, scope, subject
+          # Number of the pull request to validate. Only needed for events without a
+          # `pull_request` payload, e.g. `workflow_dispatch` (see "Event triggers" below).
+          pullRequestNumber: ${{ inputs.pr_number }}
 ```
 
 ### Work-in-progress pull requests
@@ -169,6 +172,29 @@ There are two events that can be used as triggers for this action, each with dif
 
 1. [`pull_request_target`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change the configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
 2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the GitHub token environment parameter is not available. This option is viable if all contributors have write access to the repository.
+
+For any other event (e.g. `workflow_dispatch`, to validate a pull request on demand), pass the number of the pull request via the `pullRequestNumber` input:
+
+```yml
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        required: true
+
+permissions:
+  pull-requests: read
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          pullRequestNumber: ${{ inputs.pr_number }}
+```
 
 > [!TIP]
 > If the workflow is required for merging, you need to ensure that the you add a trigger type for [`synchronize`](https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=synchronize#pull_request).

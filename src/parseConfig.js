@@ -76,6 +76,13 @@ export default function parseConfig() {
     ignoreLabels = ConfigParser.parseEnum(process.env.INPUT_IGNORELABELS);
   }
 
+  let pullRequestNumber;
+  if (process.env.INPUT_PULLREQUESTNUMBER) {
+    pullRequestNumber = ConfigParser.parseNumber(
+      process.env.INPUT_PULLREQUESTNUMBER
+    );
+  }
+
   return {
     types,
     scopes,
@@ -89,6 +96,7 @@ export default function parseConfig() {
     validateSingleCommit,
     validateSingleCommitMatchesPrTitle,
     githubBaseUrl,
-    ignoreLabels
+    ignoreLabels,
+    pullRequestNumber
   };
 }
