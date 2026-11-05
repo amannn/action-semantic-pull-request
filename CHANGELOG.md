@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.2](https://github.com/amannn/action-semantic-pull-request/compare/v6.1.1...v6.1.2) (2026-11-05)
+
+### Bug Fixes
+
+* Release accumulated dependency updates (closes [#321](https://github.com/amannn/action-semantic-pull-request/issues/321)) ([fc7da0c](https://github.com/amannn/action-semantic-pull-request/commit/fc7da0cece3e8512e50240b0619a03bdd946db1c))
+
 ## [6.1.1](https://github.com/amannn/action-semantic-pull-request/compare/v6.1.0...v6.1.1) (2025-08-22)
 
 ### Bug Fixes
