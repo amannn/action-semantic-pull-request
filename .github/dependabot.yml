@@ -7,6 +7,11 @@ updates:
     groups:
       npm-packages:
         patterns: ['*']
+    ignore:
+      # v10 requires conventional-changelog-writer@9, which the stable
+      # @semantic-release/release-notes-generator doesn't support yet.
+      - dependency-name: 'conventional-changelog-conventionalcommits'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: 'github-actions'
     directory: '/'
