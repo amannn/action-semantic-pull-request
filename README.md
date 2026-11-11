@@ -26,7 +26,7 @@ See [Conventional Commits](https://www.conventionalcommits.org/) for more exampl
 name: 'Lint PR'
 
 on:
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - reopened
@@ -45,7 +45,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-See the [event triggers documentation](#event-triggers) below to learn more about what `pull_request_target` means.
+This works for pull requests from forks too. See the [event triggers documentation](#event-triggers) below for when you'd need `pull_request_target` instead.
+
+> [!TIP]
+> To protect your workflows against a tag being moved to malicious code, you can pin the action to a full commit SHA, e.g. `amannn/action-semantic-pull-request@<sha> # v6.x.x`. Dependabot and Renovate keep such pins up to date.
 
 ## Configuration
 
@@ -126,13 +129,10 @@ For work-in-progress PRs you can typically use [draft pull requests from GitHub]
 
 This will prevent the PR title from being validated, and pull request checks will remain pending.
 
-**Attention**: If you want to use the this feature, you need to grant the `pull-requests: write` permission to the GitHub Action. This is because the action will update the status of the PR to remain in a pending state while `[WIP]` is present in the PR title.
+**Attention**: If you want to use this feature, you need to grant the `statuses: write` permission to the GitHub Action. This is because the action will set a commit status on the PR to keep it in a pending state while `[WIP]` is present in the PR title. Since pull requests from forks only receive a read-only token, this requires the [`pull_request_target`](#event-triggers) trigger if you accept pull requests from forks.
 
 ```yml
 name: 'Lint PR'
-
-permissions:
-  pull-requests: write
 
 jobs:
   main:
@@ -140,6 +140,7 @@ jobs:
     runs-on: ubuntu-slim
     permissions:
       pull-requests: read
+      statuses: write
     steps:
       - uses: amannn/action-semantic-pull-request@v6
         env:
@@ -167,8 +168,8 @@ However, [GitHub has introduced an option to streamline this behaviour](https://
 
 There are two events that can be used as triggers for this action, each with different characteristics:
 
-1. [`pull_request_target`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target): This allows the action to be used in a fork-based workflow, where e.g. you want to accept pull requests in a public repository. In this case, the configuration from the main branch of your repository will be used for the check. This means that you need to have this configuration in the main branch for the action to run at all (e.g. it won't run within a PR that adds the action initially). Also if you change the configuration in a PR, the changes will not be reflected for the current PR – only subsequent ones after the changes are in the main branch.
-2. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request): This configuration uses the latest configuration that is available in the current branch. It will only work if the branch is based in the repository itself. If this configuration is used and a pull request from a fork is opened, you'll encounter an error as the GitHub token environment parameter is not available. This option is viable if all contributors have write access to the repository.
+1. [`pull_request`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request) (recommended): The workflow and its configuration are taken from the pull request's branch, so changes to them apply to the same PR. Pull requests from forks are supported too: they receive a `GITHUB_TOKEN` with read-only permissions, which is all the action needs to validate the title. Depending on your repository settings, runs for pull requests from first-time contributors need to be approved by a maintainer. Since the workflow file comes from the pull request, a contributor could change it to skip the check for their own PR, so treat it as a helper rather than a guarantee and check the title when merging.
+2. [`pull_request_target`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#pull_request_target): The workflow and its configuration are taken from the default branch, and the token can have write permissions even for pull requests from forks. This is only needed for features that write to the pull request, like the [`wip`](#work-in-progress-pull-requests) status or [commenting the error message](#outputs). Since this trigger runs with elevated permissions, never check out or run code from the pull request in such a workflow. Also note that GitHub [blocks `pull_request_target` by default in public repositories](https://github.blog/changelog/2026-11-02-pull_request_target-blocked-by-default-december-2/) starting December 2, 2026, unless an Actions policy for your repository allows it.
 
 > [!TIP]
 > If the workflow is required for merging, you need to ensure that the you add a trigger type for [`synchronize`](https://docs.github.com/en/webhooks/webhook-events-and-payloads?actionType=synchronize#pull_request).
