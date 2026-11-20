@@ -34388,13 +34388,15 @@ async function validatePrTitle(
   }
 
   function isUnknownScope(s) {
-    return scopes && !scopes.some((scope) => new RegExp(`^${scope}$`).test(s));
+    return (
+      scopes && !scopes.some((scope) => new RegExp(`^(?:${scope})$`).test(s))
+    );
   }
 
   function isDisallowedScope(s) {
     return (
       disallowScopes &&
-      disallowScopes.some((scope) => new RegExp(`^${scope}$`).test(s))
+      disallowScopes.some((scope) => new RegExp(`^(?:${scope})$`).test(s))
     );
   }
 
@@ -34408,7 +34410,7 @@ async function validatePrTitle(
     raiseError(`No subject found in pull request title "${prTitle}".`);
   }
 
-  if (!types.some((type) => new RegExp(`^${type}$`).test(result.type))) {
+  if (!types.some((type) => new RegExp(`^(?:${type})$`).test(result.type))) {
     raiseError(
       `Unknown release type "${
         result.type
