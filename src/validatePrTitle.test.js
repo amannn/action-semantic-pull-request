@@ -46,6 +46,7 @@ it('matches patterns with alternatives as a whole', async () => {
   await expect(
     validatePrTitle('fix(cores): Bar', {scopes: ['core|ui']})
   ).rejects.toThrow('Unknown scope "cores"');
+  await validatePrTitle('fix(ui): Bar', {scopes: ['core|ui']});
   await validatePrTitle('fix(releases): Bar', {
     disallowScopes: ['release|test']
   });
