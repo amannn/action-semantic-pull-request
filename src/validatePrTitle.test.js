@@ -39,6 +39,19 @@ it('throws for PR titles with an unknown type', async () => {
   );
 });
 
+it('matches patterns with alternatives as a whole', async () => {
+  await expect(
+    validatePrTitle('feature: Bar', {types: ['feat|fix']})
+  ).rejects.toThrow('Unknown release type "feature"');
+  await expect(
+    validatePrTitle('fix(cores): Bar', {scopes: ['core|ui']})
+  ).rejects.toThrow('Unknown scope "cores"');
+  await validatePrTitle('fix(ui): Bar', {scopes: ['core|ui']});
+  await validatePrTitle('fix(releases): Bar', {
+    disallowScopes: ['release|test']
+  });
+});
+
 describe('regex types', () => {
   const headerPattern = /^([\w-]*)(?:\(([\w$.\-*/ ]*)\))?: (.*)$/;
 
