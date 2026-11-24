@@ -64,17 +64,17 @@ export default async function validatePrTitle(
   }
 
   if (!result.type) {
-    raiseError(
+    throw new Error(
       `No release type found in pull request title "${prTitle}". Add a prefix to indicate what kind of release this pull request corresponds to. For reference, see https://www.conventionalcommits.org/\n\n${printAvailableTypes()}`
     );
   }
 
   if (!result.subject) {
-    raiseError(`No subject found in pull request title "${prTitle}".`);
+    throw new Error(`No subject found in pull request title "${prTitle}".`);
   }
 
   if (!types.some((type) => new RegExp(`^(?:${type})$`).test(result.type))) {
-    raiseError(
+    throw new Error(
       `Unknown release type "${
         result.type
       }" found in pull request title "${prTitle}".\n\n${printAvailableTypes()}`
@@ -86,7 +86,7 @@ export default async function validatePrTitle(
     if (scopes) {
       message += ` Scope must match one of: ${scopes.join(', ')}.`;
     }
-    raiseError(message);
+    throw new Error(message);
   }
 
   const givenScopes = result.scope
@@ -95,7 +95,7 @@ export default async function validatePrTitle(
 
   const unknownScopes = givenScopes ? givenScopes.filter(isUnknownScope) : [];
   if (scopes && unknownScopes.length > 0) {
-    raiseError(
+    throw new Error(
       `Unknown ${
         unknownScopes.length > 1 ? 'scopes' : 'scope'
       } "${unknownScopes.join(
@@ -110,7 +110,7 @@ export default async function validatePrTitle(
     ? givenScopes.filter(isDisallowedScope)
     : [];
   if (disallowScopes && disallowedScopes.length > 0) {
-    raiseError(
+    throw new Error(
       `Disallowed ${
         disallowedScopes.length === 1 ? 'scope was' : 'scopes were'
       } found: ${disallowedScopes.join(', ')}`
@@ -124,7 +124,7 @@ export default async function validatePrTitle(
         title: prTitle
       });
     }
-    raiseError(message);
+    throw new Error(message);
   }
 
   if (subjectPattern) {
@@ -142,11 +142,5 @@ export default async function validatePrTitle(
         `The subject "${result.subject}" found in pull request title "${prTitle}" isn't an exact match for the configured pattern "${subjectPattern}". Please provide a subject that matches the whole pattern exactly.`
       );
     }
-  }
-
-  function raiseError(message) {
-    core.setOutput('error_message', message);
-
-    throw new Error(message);
   }
 }
