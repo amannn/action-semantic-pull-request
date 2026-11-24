@@ -3,6 +3,20 @@ import * as github from '@actions/github';
 import parseConfig from './parseConfig.js';
 import validatePrTitle from './validatePrTitle.js';
 
+// Guarantees a readable reason for ANY thrown value (Error, string, plain
+// object, null, etc.). This is what prevents the "sometimes the stage fails
+// but shows no error" behavior: `core.setFailed(error.message)` is blank
+// whenever the thrown value has no usable `.message`.
+function toFailureMessage(error) {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+  if (typeof error === 'string' && error.length > 0) {
+    return error;
+  }
+  return`Semantic check failed: ${JSON.stringify(error)}`;
+}
+
 async function run() {
   try {
     const {
@@ -166,7 +180,11 @@ async function run() {
       throw validationError;
     }
   } catch (error) {
-    core.setFailed(error.message);
+    const message = toFailureMessage(error);
+    const type = error instanceof Error ? error.name : 'Error';
+    core.setOutput('error_message', message);
+    core.setOutput('error_type', type);
+    core.setFailed(message);
   }
 }
 
