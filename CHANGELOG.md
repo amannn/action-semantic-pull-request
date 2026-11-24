@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.1.4](https://github.com/amannn/action-semantic-pull-request/compare/v6.1.3...v6.1.4) (2026-11-24)
+
+### Bug Fixes
+
+* populate `error_message` output for all failures ([#329](https://github.com/amannn/action-semantic-pull-request/issues/329)) ([9cfbcc4](https://github.com/amannn/action-semantic-pull-request/commit/9cfbcc4b892a031870d25405d265c94cf480136c))
+
 ## [6.1.3](https://github.com/amannn/action-semantic-pull-request/compare/v6.1.2...v6.1.3) (2026-11-20)
 
 ### Bug Fixes
