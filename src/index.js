@@ -166,6 +166,7 @@ async function run() {
       throw validationError;
     }
   } catch (error) {
+    core.setOutput('error_message', error.message);
     core.setFailed(error.message);
   }
 }

@@ -145,8 +145,6 @@ export default async function validatePrTitle(
   }
 
   function raiseError(message) {
-    core.setOutput('error_message', message);
-
     throw new Error(message);
   }
 }
